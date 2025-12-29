@@ -11,6 +11,8 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<header id="site-header">
-  <p><?php bloginfo( 'name' ); ?></p>
+<header id="site-header" class="site-header">
+  <div class="site-header__inner">
+    <p class="site-logo"><?php bloginfo( 'name' ); ?></p>
+  </div>
 </header>

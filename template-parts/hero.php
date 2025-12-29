@@ -3,9 +3,9 @@
  * Hero section template part.
  */
 ?>
-<section>
-  <h1><?php bloginfo( 'name' ); ?></h1>
+<section class="hero">
+  <h1 class="hero__title"><?php bloginfo( 'name' ); ?></h1>
   <?php if ( get_bloginfo( 'description' ) ) : ?>
-    <p><?php bloginfo( 'description' ); ?></p>
+    <p class="hero__subtitle"><?php bloginfo( 'description' ); ?></p>
   <?php endif; ?>
 </section>
