@@ -16,7 +16,13 @@ No project-specific style rules are currently documented. If you introduce PHP/J
 There are no tests or testing frameworks configured yet. If tests are added, document the framework (e.g., PHPUnit, Jest), naming conventions (e.g., `*Test.php`), and any coverage expectations.
 
 ## Design & Layout Requirements
-The visual target is the `design.png` mockup. Content should come from WordPress admin fields; do not hardcode card content. Layout must be responsive from portrait mobile to widescreen desktop. The main content container should not exceed 1200px width, while background and navigation span the full browser width. No styling has been applied yet; keep future styles aligned with the mockup’s card-based layout.
+The visual target is the `design.png` mockup. Content should come from WordPress admin fields; do not hardcode card content. Layout must be responsive from portrait mobile to widescreen desktop. The main content container should not exceed 1200px width, while background and navigation span the full browser width. The official GreenZeta green used in the top nav is `#7bb951`. No styling has been applied yet; keep future styles aligned with the mockup’s card-based layout.
+
+## QA Checklist
+- Verify layout at 360, 768, 1024, 1200, and 1440+ widths.
+- Confirm the main content stays at 1200px max width while header/footer backgrounds remain full width.
+- Ensure card grids wrap cleanly and featured images render with the `greenzeta-card` size.
+- Check keyboard navigation (skip link, menu items, card links) for visible focus states.
 
 ## Commit & Pull Request Guidelines
 Use commit messages in this format: one sentence describing the change, followed by a concise bullet list of high-level changes. Example:
