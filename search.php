@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for displaying archive pages.
+ * Template for displaying search results.
  */
 
 get_header();
@@ -8,8 +8,7 @@ get_header();
 
 <main id="site-content">
   <header>
-    <h1><?php the_archive_title(); ?></h1>
-    <?php the_archive_description( '<div>', '</div>' ); ?>
+    <h1>Search results for: <?php echo esc_html( get_search_query() ); ?></h1>
   </header>
 
   <?php if ( have_posts() ) : ?>
@@ -24,7 +23,8 @@ get_header();
 
     <?php the_posts_navigation(); ?>
   <?php else : ?>
-    <p>No posts found.</p>
+    <p>No results found.</p>
+    <?php get_search_form(); ?>
   <?php endif; ?>
 </main>
 
