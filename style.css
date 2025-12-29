@@ -50,6 +50,29 @@ a {
   text-decoration: none;
 }
 
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-120%);
+  background: #0d2b10;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 0 0 12px 0;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-nav__menu a:focus-visible,
+.site-social__menu a:focus-visible,
+.card__title a:focus-visible {
+  outline: 3px solid #0d2b10;
+  outline-offset: 3px;
+}
+
 .site-header {
   background: var(--brand-green);
   color: #0d2b10;
