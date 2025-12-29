@@ -35,3 +35,8 @@ function greenzeta_2026_register_image_sizes() {
   add_image_size( 'greenzeta-card', 720, 480, true );
 }
 add_action( 'after_setup_theme', 'greenzeta_2026_register_image_sizes' );
+
+function greenzeta_2026_enqueue_assets() {
+  wp_enqueue_style( 'greenzeta-2026-style', get_stylesheet_uri(), array(), '1.0.0' );
+}
+add_action( 'wp_enqueue_scripts', 'greenzeta_2026_enqueue_assets' );

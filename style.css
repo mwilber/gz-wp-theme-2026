@@ -13,3 +13,210 @@ Text Domain: greenzeta-2026
 /*
 No styles yet. This file exists to register the theme.
 */
+
+:root {
+  --brand-green: #71b44a;
+  --ink: #101318;
+  --paper: #ffffff;
+  --muted: #6f7480;
+  --card-shadow: 0 16px 32px rgba(16, 19, 24, 0.12);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --max-width: 1200px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Sora", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  background: linear-gradient(180deg, #eef4ea 0%, #ffffff 60%);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header {
+  background: var(--brand-green);
+  color: #0d2b10;
+  padding: 16px 0;
+}
+
+.site-header__inner,
+.site-footer__inner,
+.site-content__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+}
+
+.site-logo {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.site-nav__menu,
+.site-social__menu {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav__menu a,
+.site-social__menu a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.site-content {
+  padding: 32px 0 56px;
+}
+
+.hero {
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 28px;
+}
+
+.hero__title {
+  margin: 0 0 8px;
+  font-size: clamp(1.8rem, 2.4vw, 2.8rem);
+  font-family: "Fraunces", "Georgia", serif;
+}
+
+.hero__subtitle {
+  margin: 0;
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+.card {
+  background: var(--paper);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  padding: 18px 20px 22px;
+}
+
+.card__media {
+  display: block;
+  margin: -18px -20px 16px;
+}
+
+.card__media img {
+  width: 100%;
+  height: auto;
+}
+
+.card__title {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+
+.card__excerpt {
+  color: var(--muted);
+}
+
+.archive-header {
+  margin-bottom: 20px;
+}
+
+.archive-header h1 {
+  margin: 0 0 6px;
+  font-family: "Fraunces", "Georgia", serif;
+}
+
+.site-footer {
+  background: #f2f4f7;
+  padding: 24px 0 32px;
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.entry__title {
+  font-family: "Fraunces", "Georgia", serif;
+}
+
+.no-results {
+  background: var(--paper);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+}
+
+.no-results h2 {
+  margin-top: 0;
+}
+
+@media (min-width: 720px) {
+  .site-content {
+    padding: 48px 0 72px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-footer__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-content__inner {
+    padding: 0 24px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
