@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.5/theme.json",
+  "version": 2,
+  "settings": {
+    "layout": {
+      "contentSize": "1200px",
+      "wideSize": "1400px"
+    },
+    "spacing": {
+      "units": [
+        "px",
+        "rem",
+        "vw"
+      ]
+    },
+    "color": {
+      "palette": [
+        {
+          "slug": "brand-green",
+          "color": "#71b44a",
+          "name": "Brand Green"
+        },
+        {
+          "slug": "ink",
+          "color": "#101318",
+          "name": "Ink"
+        },
+        {
+          "slug": "paper",
+          "color": "#ffffff",
+          "name": "Paper"
+        }
+      ]
+    },
+    "typography": {
+      "fluid": true,
+      "fontSizes": [
+        {
+          "slug": "small",
+          "size": "0.9rem",
+          "name": "Small"
+        },
+        {
+          "slug": "base",
+          "size": "1rem",
+          "name": "Base"
+        },
+        {
+          "slug": "large",
+          "size": "1.35rem",
+          "name": "Large"
+        },
+        {
+          "slug": "xl",
+          "size": "2.2rem",
+          "name": "XL"
+        }
+      ]
+    }
+  }
+}
