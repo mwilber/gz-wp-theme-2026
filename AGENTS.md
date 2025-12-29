@@ -16,7 +16,10 @@ No project-specific style rules are currently documented. If you introduce PHP/J
 There are no tests or testing frameworks configured yet. If tests are added, document the framework (e.g., PHPUnit, Jest), naming conventions (e.g., `*Test.php`), and any coverage expectations.
 
 ## Commit & Pull Request Guidelines
-Git history only shows a single “first commit,” so no commit message convention is established. If you introduce one, document it here (for example, `type(scope): summary`).
+Use commit messages in this format: one sentence describing the change, followed by a concise bullet list of high-level changes. Example:
+`Add theme scaffold and guidelines`
+`- add core templates`
+`- document contributor rules`
 For pull requests, include:
 - A short description of the change and its intent.
 - Links to related issues or tickets (if any).
