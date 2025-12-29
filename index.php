@@ -8,9 +8,27 @@
 get_header();
 ?>
 
-<main id="site-content">
-  <h1>GreenZeta 2026</h1>
-  <p>This is the default theme template. Add templates to customize output.</p>
+<main id="site-content" class="site-content">
+  <div class="site-content__inner">
+    <header class="archive-header">
+      <h1><?php bloginfo( 'name' ); ?></h1>
+      <?php if ( get_bloginfo( 'description' ) ) : ?>
+        <p><?php bloginfo( 'description' ); ?></p>
+      <?php endif; ?>
+    </header>
+
+    <?php if ( have_posts() ) : ?>
+      <section class="card-grid">
+        <?php while ( have_posts() ) : the_post(); ?>
+          <?php get_template_part( 'template-parts/card', null, array( 'post_id' => get_the_ID() ) ); ?>
+        <?php endwhile; ?>
+      </section>
+
+      <?php the_posts_navigation(); ?>
+    <?php else : ?>
+      <?php get_template_part( 'template-parts/content', 'none' ); ?>
+    <?php endif; ?>
+  </div>
 </main>
 
 <?php

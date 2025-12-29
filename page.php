@@ -6,17 +6,16 @@
 get_header();
 ?>
 
-<main id="site-content">
-  <?php if ( have_posts() ) : ?>
-    <?php while ( have_posts() ) : the_post(); ?>
-      <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-        <h1><?php the_title(); ?></h1>
-        <div>
-          <?php the_content(); ?>
-        </div>
-      </article>
-    <?php endwhile; ?>
-  <?php endif; ?>
+<main id="site-content" class="site-content">
+  <div class="site-content__inner">
+    <?php if ( have_posts() ) : ?>
+      <?php while ( have_posts() ) : the_post(); ?>
+        <?php get_template_part( 'template-parts/content', 'page' ); ?>
+      <?php endwhile; ?>
+    <?php else : ?>
+      <?php get_template_part( 'template-parts/content', 'none' ); ?>
+    <?php endif; ?>
+  </div>
 </main>
 
 <?php

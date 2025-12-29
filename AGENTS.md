@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-This repository is the “GreenZeta 2026” custom WordPress theme folder located under `wp-content/themes/greenzetatwentysix`. Theme files live at the repo root. Current templates include `front-page.php`, `home.php`, `index.php`, `page.php`, `single.php`, `archive.php`, `search.php`, and `404.php`, with `functions.php` for setup. Reusable pieces live in `template-parts/`, and static assets should go under `assets/` (for example: `assets/css/`, `assets/js/`, `assets/images/`). Update this guide as the structure evolves.
+This repository is the “GreenZeta 2026” custom WordPress theme folder located under `wp-content/themes/greenzetatwentysix`. Theme files live at the repo root. Current templates include `front-page.php`, `home.php`, `index.php`, `page.php`, `single.php`, `archive.php`, `search.php`, and `404.php`, with `functions.php` for setup. Reusable pieces live in `template-parts/` (for example: `hero.php`, `card.php`, `content-page.php`, `content-single.php`, `content-none.php`), and static assets should go under `assets/` (for example: `assets/css/`, `assets/js/`, `assets/images/`). Update this guide as the structure evolves.
 
 ## Build, Test, and Development Commands
 No build, lint, or test commands are defined in this repository yet. If you add tooling, document the exact commands here. Example format:
