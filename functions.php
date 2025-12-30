@@ -69,7 +69,7 @@ function greenzeta_2026_enqueue_admin_assets( $hook ) {
   }
 
   $screen = get_current_screen();
-  if ( ! $screen || ! in_array( $screen->post_type, array( 'post', 'portfolio', 'update' ), true ) ) {
+  if ( ! $screen || ! in_array( $screen->post_type, array( 'post', 'portfolio', 'update', 'project' ), true ) ) {
     return;
   }
 
@@ -91,47 +91,8 @@ function greenzeta_2026_enqueue_admin_assets( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'greenzeta_2026_enqueue_admin_assets' );
 
-function greenzeta_2026_register_project_taxonomy() {
-  $labels = array(
-    'name' => _x( 'Projects', 'Taxonomy General Name', 'greenzeta-2026' ),
-    'singular_name' => _x( 'Project', 'Taxonomy Singular Name', 'greenzeta-2026' ),
-    'menu_name' => __( 'Projects', 'greenzeta-2026' ),
-    'all_items' => __( 'All Items', 'greenzeta-2026' ),
-    'parent_item' => __( 'Parent Item', 'greenzeta-2026' ),
-    'parent_item_colon' => __( 'Parent Item:', 'greenzeta-2026' ),
-    'new_item_name' => __( 'New Item Name', 'greenzeta-2026' ),
-    'add_new_item' => __( 'Add New Item', 'greenzeta-2026' ),
-    'edit_item' => __( 'Edit Item', 'greenzeta-2026' ),
-    'update_item' => __( 'Update Item', 'greenzeta-2026' ),
-    'view_item' => __( 'View Item', 'greenzeta-2026' ),
-    'separate_items_with_commas' => __( 'Separate items with commas', 'greenzeta-2026' ),
-    'add_or_remove_items' => __( 'Add or remove items', 'greenzeta-2026' ),
-    'choose_from_most_used' => __( 'Choose from the most used', 'greenzeta-2026' ),
-    'popular_items' => __( 'Popular Items', 'greenzeta-2026' ),
-    'search_items' => __( 'Search Items', 'greenzeta-2026' ),
-    'not_found' => __( 'Not Found', 'greenzeta-2026' ),
-    'no_terms' => __( 'No items', 'greenzeta-2026' ),
-    'items_list' => __( 'Items list', 'greenzeta-2026' ),
-    'items_list_navigation' => __( 'Items list navigation', 'greenzeta-2026' ),
-  );
-
-  $args = array(
-    'labels' => $labels,
-    'hierarchical' => false,
-    'public' => true,
-    'show_ui' => true,
-    'show_admin_column' => true,
-    'show_in_nav_menus' => true,
-    'show_tagcloud' => true,
-    'show_in_rest' => true,
-  );
-
-  register_taxonomy( 'project', array( 'post', 'portfolio', 'update' ), $args );
-}
-add_action( 'init', 'greenzeta_2026_register_project_taxonomy', 0 );
-
 function greenzeta_2026_register_custom_post_types() {
-  $taxonomies = array( 'category', 'post_tag', 'project' );
+  $taxonomies = array( 'category', 'post_tag' );
 
   $labels = array(
     'name' => __( 'Updates', 'greenzeta-2026' ),
@@ -196,6 +157,57 @@ function greenzeta_2026_register_custom_post_types() {
   $portfolio_args['taxonomies'] = array( 'post_tag' );
 
   register_post_type( 'portfolio', $portfolio_args );
+
+  $project_labels = array(
+    'name' => __( 'Projects', 'greenzeta-2026' ),
+    'singular_name' => __( 'Project', 'greenzeta-2026' ),
+    'menu_name' => __( 'Projects', 'greenzeta-2026' ),
+    'name_admin_bar' => __( 'Project', 'greenzeta-2026' ),
+    'archives' => __( 'Project Archives', 'greenzeta-2026' ),
+    'attributes' => __( 'Project Attributes', 'greenzeta-2026' ),
+    'parent_item_colon' => __( 'Parent Project:', 'greenzeta-2026' ),
+    'all_items' => __( 'All Projects', 'greenzeta-2026' ),
+    'add_new_item' => __( 'Add New Project', 'greenzeta-2026' ),
+    'add_new' => __( 'Add New', 'greenzeta-2026' ),
+    'new_item' => __( 'New Project', 'greenzeta-2026' ),
+    'edit_item' => __( 'Edit Project', 'greenzeta-2026' ),
+    'update_item' => __( 'Update Project', 'greenzeta-2026' ),
+    'view_item' => __( 'View Project', 'greenzeta-2026' ),
+    'view_items' => __( 'View Projects', 'greenzeta-2026' ),
+    'search_items' => __( 'Search Projects', 'greenzeta-2026' ),
+    'not_found' => __( 'Not found', 'greenzeta-2026' ),
+    'not_found_in_trash' => __( 'Not found in Trash', 'greenzeta-2026' ),
+    'featured_image' => __( 'Featured Image', 'greenzeta-2026' ),
+    'set_featured_image' => __( 'Set featured image', 'greenzeta-2026' ),
+    'remove_featured_image' => __( 'Remove featured image', 'greenzeta-2026' ),
+    'use_featured_image' => __( 'Use as featured image', 'greenzeta-2026' ),
+    'insert_into_item' => __( 'Insert into item', 'greenzeta-2026' ),
+    'uploaded_to_this_item' => __( 'Uploaded to this item', 'greenzeta-2026' ),
+    'items_list' => __( 'Items list', 'greenzeta-2026' ),
+    'items_list_navigation' => __( 'Items list navigation', 'greenzeta-2026' ),
+    'filter_items_list' => __( 'Filter items list', 'greenzeta-2026' ),
+  );
+
+  $project_args = array(
+    'label' => __( 'Project', 'greenzeta-2026' ),
+    'description' => __( 'Project entries', 'greenzeta-2026' ),
+    'labels' => $project_labels,
+    'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'excerpt' ),
+    'hierarchical' => false,
+    'public' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'menu_position' => 6,
+    'show_in_admin_bar' => true,
+    'show_in_nav_menus' => true,
+    'can_export' => true,
+    'has_archive' => true,
+    'exclude_from_search' => false,
+    'publicly_queryable' => true,
+    'show_in_rest' => true,
+  );
+
+  register_post_type( 'project', $project_args );
 }
 add_action( 'init', 'greenzeta_2026_register_custom_post_types', 0 );
 
@@ -236,21 +248,25 @@ function greenzeta_2026_register_hero_meta() {
 add_action( 'init', 'greenzeta_2026_register_hero_meta' );
 
 function greenzeta_2026_register_client_meta() {
-  register_post_meta(
-    'portfolio',
-    '_client',
-    array(
-      'type' => 'string',
-      'single' => true,
-      'sanitize_callback' => 'sanitize_text_field',
-      'show_in_rest' => false,
-    )
-  );
+  $post_types = array( 'portfolio', 'project' );
+
+  foreach ( $post_types as $post_type ) {
+    register_post_meta(
+      $post_type,
+      'client',
+      array(
+        'type' => 'string',
+        'single' => true,
+        'sanitize_callback' => 'sanitize_text_field',
+        'show_in_rest' => false,
+      )
+    );
+  }
 }
 add_action( 'init', 'greenzeta_2026_register_client_meta' );
 
 function greenzeta_2026_register_banner_meta() {
-  $post_types = array( 'post', 'portfolio', 'update' );
+  $post_types = array( 'post', 'portfolio', 'update', 'project' );
 
   foreach ( $post_types as $post_type ) {
     register_post_meta(
@@ -268,57 +284,87 @@ function greenzeta_2026_register_banner_meta() {
 add_action( 'init', 'greenzeta_2026_register_banner_meta' );
 
 function greenzeta_2026_register_gallery_meta() {
-  register_post_meta(
-    'portfolio',
-    'screen_shots',
-    array(
-      'type' => 'array',
-      'single' => true,
-      'sanitize_callback' => 'wp_parse_id_list',
-      'show_in_rest' => false,
-    )
-  );
+  $post_types = array( 'portfolio', 'project' );
+
+  foreach ( $post_types as $post_type ) {
+    register_post_meta(
+      $post_type,
+      'screen_shots',
+      array(
+        'type' => 'array',
+        'single' => true,
+        'sanitize_callback' => 'wp_parse_id_list',
+        'show_in_rest' => false,
+      )
+    );
+  }
 }
 add_action( 'init', 'greenzeta_2026_register_gallery_meta' );
 
 function greenzeta_2026_register_case_media_meta() {
-  register_post_meta(
-    'portfolio',
-    'case_video',
-    array(
-      'type' => 'string',
-      'single' => true,
-      'sanitize_callback' => 'esc_url_raw',
-      'show_in_rest' => false,
-    )
-  );
+  $post_types = array( 'portfolio', 'project' );
 
-  register_post_meta(
-    'portfolio',
-    'case_poster',
-    array(
-      'type' => 'string',
-      'single' => true,
-      'sanitize_callback' => 'esc_url_raw',
-      'show_in_rest' => false,
-    )
-  );
+  foreach ( $post_types as $post_type ) {
+    register_post_meta(
+      $post_type,
+      'case_video',
+      array(
+        'type' => 'string',
+        'single' => true,
+        'sanitize_callback' => 'esc_url_raw',
+        'show_in_rest' => false,
+      )
+    );
+
+    register_post_meta(
+      $post_type,
+      'case_poster',
+      array(
+        'type' => 'string',
+        'single' => true,
+        'sanitize_callback' => 'esc_url_raw',
+        'show_in_rest' => false,
+      )
+    );
+  }
 }
 add_action( 'init', 'greenzeta_2026_register_case_media_meta' );
 
 function greenzeta_2026_register_live_site_meta() {
-  register_post_meta(
-    'portfolio',
-    'live_site',
-    array(
-      'type' => 'string',
-      'single' => true,
-      'sanitize_callback' => 'esc_url_raw',
-      'show_in_rest' => false,
-    )
-  );
+  $post_types = array( 'portfolio', 'project' );
+
+  foreach ( $post_types as $post_type ) {
+    register_post_meta(
+      $post_type,
+      'live_site',
+      array(
+        'type' => 'string',
+        'single' => true,
+        'sanitize_callback' => 'esc_url_raw',
+        'show_in_rest' => false,
+      )
+    );
+  }
 }
 add_action( 'init', 'greenzeta_2026_register_live_site_meta' );
+
+function greenzeta_2026_register_project_link_meta() {
+  $post_types = array( 'post', 'update' );
+
+  foreach ( $post_types as $post_type ) {
+    register_post_meta(
+      $post_type,
+      'project_id',
+      array(
+        'type' => 'integer',
+        'single' => true,
+        'sanitize_callback' => 'absint',
+        'show_in_rest' => false,
+      )
+    );
+  }
+}
+add_action( 'init', 'greenzeta_2026_register_project_link_meta' );
 
 function greenzeta_2026_add_hero_meta_box( $post_type, $post ) {
   if ( 'page' !== $post_type ) {
@@ -342,7 +388,7 @@ function greenzeta_2026_add_hero_meta_box( $post_type, $post ) {
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_hero_meta_box', 10, 2 );
 
 function greenzeta_2026_add_banner_meta_box( $post_type, $post ) {
-  $allowed_post_types = array( 'post', 'portfolio', 'update' );
+  $allowed_post_types = array( 'post', 'portfolio', 'update', 'project' );
   if ( ! in_array( $post_type, $allowed_post_types, true ) ) {
     return;
   }
@@ -359,7 +405,7 @@ function greenzeta_2026_add_banner_meta_box( $post_type, $post ) {
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_banner_meta_box', 10, 2 );
 
 function greenzeta_2026_add_gallery_meta_box( $post_type, $post ) {
-  if ( 'portfolio' !== $post_type ) {
+  if ( ! in_array( $post_type, array( 'portfolio', 'project' ), true ) ) {
     return;
   }
 
@@ -367,7 +413,7 @@ function greenzeta_2026_add_gallery_meta_box( $post_type, $post ) {
     'greenzeta-gallery-meta',
     __( 'Screenshots', 'greenzeta-2026' ),
     'greenzeta_2026_render_gallery_meta_box',
-    'portfolio',
+    $post_type,
     'normal',
     'high'
   );
@@ -375,7 +421,7 @@ function greenzeta_2026_add_gallery_meta_box( $post_type, $post ) {
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_gallery_meta_box', 10, 2 );
 
 function greenzeta_2026_add_case_media_meta_box( $post_type, $post ) {
-  if ( 'portfolio' !== $post_type ) {
+  if ( ! in_array( $post_type, array( 'portfolio', 'project' ), true ) ) {
     return;
   }
 
@@ -383,7 +429,7 @@ function greenzeta_2026_add_case_media_meta_box( $post_type, $post ) {
     'greenzeta-case-media',
     __( 'Case Video', 'greenzeta-2026' ),
     'greenzeta_2026_render_case_media_meta_box',
-    'portfolio',
+    $post_type,
     'normal',
     'default'
   );
@@ -391,7 +437,7 @@ function greenzeta_2026_add_case_media_meta_box( $post_type, $post ) {
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_case_media_meta_box', 10, 2 );
 
 function greenzeta_2026_add_live_site_meta_box( $post_type, $post ) {
-  if ( 'portfolio' !== $post_type ) {
+  if ( ! in_array( $post_type, array( 'portfolio', 'project' ), true ) ) {
     return;
   }
 
@@ -399,12 +445,28 @@ function greenzeta_2026_add_live_site_meta_box( $post_type, $post ) {
     'greenzeta-live-site',
     __( 'Live Site', 'greenzeta-2026' ),
     'greenzeta_2026_render_live_site_meta_box',
-    'portfolio',
+    $post_type,
     'side',
     'default'
   );
 }
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_live_site_meta_box', 10, 2 );
+
+function greenzeta_2026_add_project_link_meta_box( $post_type, $post ) {
+  if ( ! in_array( $post_type, array( 'post', 'update' ), true ) ) {
+    return;
+  }
+
+  add_meta_box(
+    'greenzeta-project-link',
+    __( 'Linked Project', 'greenzeta-2026' ),
+    'greenzeta_2026_render_project_link_meta_box',
+    $post_type,
+    'side',
+    'default'
+  );
+}
+add_action( 'add_meta_boxes', 'greenzeta_2026_add_project_link_meta_box', 10, 2 );
 
 function greenzeta_2026_render_banner_meta_box( $post ) {
   $banner_id = (int) get_post_meta( $post->ID, 'banner', true );
@@ -510,6 +572,7 @@ function greenzeta_2026_save_gallery_meta( $post_id ) {
   }
 }
 add_action( 'save_post_portfolio', 'greenzeta_2026_save_gallery_meta' );
+add_action( 'save_post_project', 'greenzeta_2026_save_gallery_meta' );
 
 function greenzeta_2026_render_case_media_meta_box( $post ) {
   $video = get_post_meta( $post->ID, 'case_video', true );
@@ -568,6 +631,7 @@ function greenzeta_2026_save_case_media_meta( $post_id ) {
   }
 }
 add_action( 'save_post_portfolio', 'greenzeta_2026_save_case_media_meta' );
+add_action( 'save_post_project', 'greenzeta_2026_save_case_media_meta' );
 
 function greenzeta_2026_render_live_site_meta_box( $post ) {
   $live_site = get_post_meta( $post->ID, 'live_site', true );
@@ -610,9 +674,62 @@ function greenzeta_2026_save_live_site_meta( $post_id ) {
   }
 }
 add_action( 'save_post_portfolio', 'greenzeta_2026_save_live_site_meta' );
+add_action( 'save_post_project', 'greenzeta_2026_save_live_site_meta' );
+
+function greenzeta_2026_render_project_link_meta_box( $post ) {
+  $selected_id = (int) get_post_meta( $post->ID, 'project_id', true );
+  $projects = get_posts(
+    array(
+      'post_type' => 'project',
+      'posts_per_page' => -1,
+      'orderby' => 'title',
+      'order' => 'ASC',
+      'post_status' => 'publish',
+    )
+  );
+
+  wp_nonce_field( 'greenzeta_project_link_meta', 'greenzeta_project_link_meta_nonce' );
+  ?>
+  <p>
+    <label for="greenzeta-project-link-select"><strong><?php esc_html_e( 'Project', 'greenzeta-2026' ); ?></strong></label>
+    <select id="greenzeta-project-link-select" name="greenzeta_project_id" class="widefat">
+      <option value=""><?php esc_html_e( 'None', 'greenzeta-2026' ); ?></option>
+      <?php foreach ( $projects as $project ) : ?>
+        <option value="<?php echo esc_attr( $project->ID ); ?>" <?php selected( $selected_id, $project->ID ); ?>>
+          <?php echo esc_html( $project->post_title ); ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
+  </p>
+  <?php
+}
+
+function greenzeta_2026_save_project_link_meta( $post_id ) {
+  if ( ! isset( $_POST['greenzeta_project_link_meta_nonce'] ) ) {
+    return;
+  }
+
+  if ( ! wp_verify_nonce( $_POST['greenzeta_project_link_meta_nonce'], 'greenzeta_project_link_meta' ) ) {
+    return;
+  }
+
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_post', $post_id ) ) {
+    return;
+  }
+
+  if ( isset( $_POST['greenzeta_project_id'] ) ) {
+    update_post_meta( $post_id, 'project_id', absint( wp_unslash( $_POST['greenzeta_project_id'] ) ) );
+  }
+}
+add_action( 'save_post_post', 'greenzeta_2026_save_project_link_meta' );
+add_action( 'save_post_update', 'greenzeta_2026_save_project_link_meta' );
 
 function greenzeta_2026_add_client_meta_box( $post_type, $post ) {
-  if ( 'portfolio' !== $post_type ) {
+  if ( ! in_array( $post_type, array( 'portfolio', 'project' ), true ) ) {
     return;
   }
 
@@ -620,7 +737,7 @@ function greenzeta_2026_add_client_meta_box( $post_type, $post ) {
     'greenzeta-client-meta',
     __( 'Client', 'greenzeta-2026' ),
     'greenzeta_2026_render_client_meta_box',
-    'portfolio',
+    $post_type,
     'side',
     'high'
   );
@@ -667,6 +784,7 @@ function greenzeta_2026_save_client_meta( $post_id ) {
   }
 }
 add_action( 'save_post_portfolio', 'greenzeta_2026_save_client_meta' );
+add_action( 'save_post_project', 'greenzeta_2026_save_client_meta' );
 
 function greenzeta_2026_render_hero_meta_box( $post ) {
   $headline = get_post_meta( $post->ID, 'greenzeta_hero_headline', true );

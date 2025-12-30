@@ -29,6 +29,7 @@ The visual target is the `design.png` mockup. Content should come from WordPress
 - Featured images are used in cards with the `greenzeta-card` size.
 - Theme settings live in `theme.json` (content size is 1200px).
 - The README includes current admin setup steps for content population.
+- Potential migrations from production (see `functions-production-reference.php`, remove before shipping): slug-based body class, ACF global options page, custom taxonomy ordering, and a `pre_get_posts` hook to include CPTs in category/tag archives if needed.
 
 ## QA Checklist
 - Verify layout at 360, 768, 1024, 1200, and 1440+ widths.
