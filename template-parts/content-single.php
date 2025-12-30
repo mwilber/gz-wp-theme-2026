@@ -62,6 +62,20 @@ if ( 'portfolio' === $post_type ) {
   </p>
 </section>
 
+<?php
+$linked_project_id = (int) get_post_meta( get_the_ID(), 'project_id', true );
+if ( $linked_project_id ) :
+  ?>
+  <section class="related-project card">
+    <p class="related-project__label"><?php esc_html_e( 'Related Project', 'greenzeta-2026' ); ?></p>
+    <h2 class="related-project__title">
+      <a href="<?php echo esc_url( get_permalink( $linked_project_id ) ); ?>">
+        <?php echo esc_html( get_the_title( $linked_project_id ) ); ?>
+      </a>
+    </h2>
+  </section>
+<?php endif; ?>
+
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'entry entry--single card' ); ?>>
   <?php
   $live_site = get_post_meta( get_the_ID(), 'live_site', true );

@@ -614,6 +614,29 @@ a {
   margin-top: 24px;
 }
 
+.related-project {
+  margin-bottom: 24px;
+  padding: 20px 24px;
+}
+
+.related-project__label {
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.related-project__title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.related-project__title a:focus-visible {
+  outline: 3px solid #0d2b10;
+  outline-offset: 3px;
+}
+
 .screenshot-carousel {
   margin-top: 48px;
 }
