@@ -597,6 +597,10 @@ a {
     margin-bottom: 12px;
   }
 
+  .entry__live-site + .entry__content {
+    margin-top: 10px;
+  }
+
   .post-hero .card__media--overlay {
     aspect-ratio: 2 / 1;
   }
