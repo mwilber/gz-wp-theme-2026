@@ -520,6 +520,10 @@ a {
 .entry--single .entry__content > :first-child {
   margin-top: 0;
 }
+
+.related-posts {
+  margin-top: 24px;
+}
 .card__excerpt {
   color: var(--muted);
 }
