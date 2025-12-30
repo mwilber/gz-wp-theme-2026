@@ -15,6 +15,13 @@ $post_type_object = get_post_type_object( $post_type );
 $label = 'post' === $post_type
   ? __( 'Article', 'greenzeta-2026' )
   : ( $post_type_object ? $post_type_object->labels->singular_name : __( 'Post', 'greenzeta-2026' ) );
+
+if ( 'portfolio' === $post_type ) {
+  $client = get_post_meta( $post_id, 'client', true );
+  if ( $client ) {
+    $label = $client;
+  }
+}
 ?>
 <article id="post-<?php echo esc_attr( $post_id ); ?>" <?php post_class( $is_front ? 'card card--hero' : 'card', $post_id ); ?>>
   <?php if ( $is_front ) : ?>

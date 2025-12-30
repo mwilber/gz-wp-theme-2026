@@ -200,6 +200,20 @@ function greenzeta_2026_register_hero_meta() {
 }
 add_action( 'init', 'greenzeta_2026_register_hero_meta' );
 
+function greenzeta_2026_register_client_meta() {
+  register_post_meta(
+    'portfolio',
+    '_client',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'sanitize_callback' => 'sanitize_text_field',
+      'show_in_rest' => false,
+    )
+  );
+}
+add_action( 'init', 'greenzeta_2026_register_client_meta' );
+
 function greenzeta_2026_add_hero_meta_box( $post_type, $post ) {
   if ( 'page' !== $post_type ) {
     return;
@@ -220,6 +234,63 @@ function greenzeta_2026_add_hero_meta_box( $post_type, $post ) {
   );
 }
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_hero_meta_box', 10, 2 );
+
+function greenzeta_2026_add_client_meta_box( $post_type, $post ) {
+  if ( 'portfolio' !== $post_type ) {
+    return;
+  }
+
+  add_meta_box(
+    'greenzeta-client-meta',
+    __( 'Client', 'greenzeta-2026' ),
+    'greenzeta_2026_render_client_meta_box',
+    'portfolio',
+    'side',
+    'high'
+  );
+}
+add_action( 'add_meta_boxes', 'greenzeta_2026_add_client_meta_box', 10, 2 );
+
+function greenzeta_2026_render_client_meta_box( $post ) {
+  $client = get_post_meta( $post->ID, 'client', true );
+
+  wp_nonce_field( 'greenzeta_client_meta', 'greenzeta_client_meta_nonce' );
+  ?>
+  <p>
+    <label for="greenzeta-client"><strong><?php esc_html_e( 'Client name', 'greenzeta-2026' ); ?></strong></label>
+    <input
+      type="text"
+      id="greenzeta-client"
+      name="greenzeta_client"
+      value="<?php echo esc_attr( $client ); ?>"
+      class="widefat"
+    />
+  </p>
+  <?php
+}
+
+function greenzeta_2026_save_client_meta( $post_id ) {
+  if ( ! isset( $_POST['greenzeta_client_meta_nonce'] ) ) {
+    return;
+  }
+
+  if ( ! wp_verify_nonce( $_POST['greenzeta_client_meta_nonce'], 'greenzeta_client_meta' ) ) {
+    return;
+  }
+
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_post', $post_id ) ) {
+    return;
+  }
+
+  if ( isset( $_POST['greenzeta_client'] ) ) {
+    update_post_meta( $post_id, 'client', sanitize_text_field( wp_unslash( $_POST['greenzeta_client'] ) ) );
+  }
+}
+add_action( 'save_post_portfolio', 'greenzeta_2026_save_client_meta' );
 
 function greenzeta_2026_render_hero_meta_box( $post ) {
   $headline = get_post_meta( $post->ID, 'greenzeta_hero_headline', true );
