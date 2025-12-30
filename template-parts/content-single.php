@@ -56,32 +56,50 @@ if ( 'portfolio' === $post_type && has_post_thumbnail() ) {
   <div class="entry__content">
     <?php the_content(); ?>
   </div>
+  <?php
+  $screenshots = get_post_meta( get_the_ID(), 'screen_shots', true );
+  $screenshot_ids = array();
+  $case_video = get_post_meta( get_the_ID(), 'case_video', true );
+  $case_poster = get_post_meta( get_the_ID(), 'case_poster', true );
+
+  if ( is_array( $screenshots ) ) {
+    $screenshot_ids = array_filter( array_map( 'absint', $screenshots ) );
+  } elseif ( is_string( $screenshots ) && '' !== $screenshots ) {
+    $screenshot_ids = wp_parse_id_list( $screenshots );
+  }
+
+  $has_case_video = $case_video && $case_poster;
+
+  if ( $screenshot_ids || $has_case_video ) :
+    ?>
+    <section class="screenshot-carousel" aria-label="<?php esc_attr_e( 'Project screenshots', 'greenzeta-2026' ); ?>">
+      <div class="screenshot-carousel__track">
+        <?php if ( $has_case_video ) : ?>
+          <div class="screenshot-carousel__slide">
+            <button
+              class="screenshot-carousel__button screenshot-carousel__button--video"
+              type="button"
+              data-video="<?php echo esc_url( $case_video ); ?>"
+            >
+              <img src="<?php echo esc_url( $case_poster ); ?>" alt="" />
+              <span class="screenshot-carousel__play" aria-hidden="true"></span>
+            </button>
+          </div>
+        <?php endif; ?>
+        <?php foreach ( $screenshot_ids as $screenshot_id ) : ?>
+          <?php $full_src = wp_get_attachment_image_url( $screenshot_id, 'full' ); ?>
+          <div class="screenshot-carousel__slide">
+            <button class="screenshot-carousel__button" type="button" data-full="<?php echo esc_url( $full_src ); ?>">
+              <?php echo wp_get_attachment_image( $screenshot_id, 'large' ); ?>
+            </button>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </section>
+  <?php endif; ?>
 </article>
 
-<?php
-$screenshots = get_post_meta( get_the_ID(), 'screen_shots', true );
-$screenshot_ids = array();
-
-if ( is_array( $screenshots ) ) {
-  $screenshot_ids = array_filter( array_map( 'absint', $screenshots ) );
-} elseif ( is_string( $screenshots ) && '' !== $screenshots ) {
-  $screenshot_ids = wp_parse_id_list( $screenshots );
-}
-
-if ( $screenshot_ids ) :
-  ?>
-  <section class="screenshot-carousel" aria-label="<?php esc_attr_e( 'Project screenshots', 'greenzeta-2026' ); ?>">
-    <div class="screenshot-carousel__track">
-      <?php foreach ( $screenshot_ids as $screenshot_id ) : ?>
-        <?php $full_src = wp_get_attachment_image_url( $screenshot_id, 'full' ); ?>
-        <div class="screenshot-carousel__slide">
-          <button class="screenshot-carousel__button" type="button" data-full="<?php echo esc_url( $full_src ); ?>">
-            <?php echo wp_get_attachment_image( $screenshot_id, 'large' ); ?>
-          </button>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </section>
+<?php if ( ! empty( $screenshot_ids ) || $has_case_video ) : ?>
   <div class="screenshot-lightbox" aria-hidden="true">
     <div class="screenshot-lightbox__backdrop" data-lightbox-close></div>
     <div class="screenshot-lightbox__content" role="dialog" aria-modal="true">
@@ -89,6 +107,7 @@ if ( $screenshot_ids ) :
         &times;
       </button>
       <img class="screenshot-lightbox__image" src="" alt="" />
+      <video class="screenshot-lightbox__video" controls playsinline></video>
     </div>
   </div>
 <?php endif; ?>

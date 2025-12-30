@@ -281,6 +281,31 @@ function greenzeta_2026_register_gallery_meta() {
 }
 add_action( 'init', 'greenzeta_2026_register_gallery_meta' );
 
+function greenzeta_2026_register_case_media_meta() {
+  register_post_meta(
+    'portfolio',
+    'case_video',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'sanitize_callback' => 'esc_url_raw',
+      'show_in_rest' => false,
+    )
+  );
+
+  register_post_meta(
+    'portfolio',
+    'case_poster',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'sanitize_callback' => 'esc_url_raw',
+      'show_in_rest' => false,
+    )
+  );
+}
+add_action( 'init', 'greenzeta_2026_register_case_media_meta' );
+
 function greenzeta_2026_add_hero_meta_box( $post_type, $post ) {
   if ( 'page' !== $post_type ) {
     return;
@@ -334,6 +359,22 @@ function greenzeta_2026_add_gallery_meta_box( $post_type, $post ) {
   );
 }
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_gallery_meta_box', 10, 2 );
+
+function greenzeta_2026_add_case_media_meta_box( $post_type, $post ) {
+  if ( 'portfolio' !== $post_type ) {
+    return;
+  }
+
+  add_meta_box(
+    'greenzeta-case-media',
+    __( 'Case Video', 'greenzeta-2026' ),
+    'greenzeta_2026_render_case_media_meta_box',
+    'portfolio',
+    'normal',
+    'default'
+  );
+}
+add_action( 'add_meta_boxes', 'greenzeta_2026_add_case_media_meta_box', 10, 2 );
 
 function greenzeta_2026_render_banner_meta_box( $post ) {
   $banner_id = (int) get_post_meta( $post->ID, 'banner', true );
@@ -439,6 +480,64 @@ function greenzeta_2026_save_gallery_meta( $post_id ) {
   }
 }
 add_action( 'save_post_portfolio', 'greenzeta_2026_save_gallery_meta' );
+
+function greenzeta_2026_render_case_media_meta_box( $post ) {
+  $video = get_post_meta( $post->ID, 'case_video', true );
+  $poster = get_post_meta( $post->ID, 'case_poster', true );
+
+  wp_nonce_field( 'greenzeta_case_media_meta', 'greenzeta_case_media_meta_nonce' );
+  ?>
+  <p>
+    <label for="greenzeta-case-video"><strong><?php esc_html_e( 'Video URL', 'greenzeta-2026' ); ?></strong></label>
+    <input
+      type="url"
+      id="greenzeta-case-video"
+      name="greenzeta_case_video"
+      value="<?php echo esc_attr( $video ); ?>"
+      class="widefat"
+      placeholder="https://"
+    />
+  </p>
+  <p>
+    <label for="greenzeta-case-poster"><strong><?php esc_html_e( 'Poster URL', 'greenzeta-2026' ); ?></strong></label>
+    <input
+      type="url"
+      id="greenzeta-case-poster"
+      name="greenzeta_case_poster"
+      value="<?php echo esc_attr( $poster ); ?>"
+      class="widefat"
+      placeholder="https://"
+    />
+  </p>
+  <?php
+}
+
+function greenzeta_2026_save_case_media_meta( $post_id ) {
+  if ( ! isset( $_POST['greenzeta_case_media_meta_nonce'] ) ) {
+    return;
+  }
+
+  if ( ! wp_verify_nonce( $_POST['greenzeta_case_media_meta_nonce'], 'greenzeta_case_media_meta' ) ) {
+    return;
+  }
+
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_post', $post_id ) ) {
+    return;
+  }
+
+  if ( isset( $_POST['greenzeta_case_video'] ) ) {
+    update_post_meta( $post_id, 'case_video', esc_url_raw( wp_unslash( $_POST['greenzeta_case_video'] ) ) );
+  }
+
+  if ( isset( $_POST['greenzeta_case_poster'] ) ) {
+    update_post_meta( $post_id, 'case_poster', esc_url_raw( wp_unslash( $_POST['greenzeta_case_poster'] ) ) );
+  }
+}
+add_action( 'save_post_portfolio', 'greenzeta_2026_save_case_media_meta' );
 
 function greenzeta_2026_add_client_meta_box( $post_type, $post ) {
   if ( 'portfolio' !== $post_type ) {
