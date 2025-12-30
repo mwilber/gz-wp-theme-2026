@@ -471,6 +471,26 @@ a {
   color: #ffffff;
 }
 
+.card__badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 0;
+  padding: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  z-index: 2;
+}
+
+.card__badge-image {
+  max-height: 40px;
+  width: auto;
+  height: auto;
+}
+
 .card__overlay-content .card__label {
   color: rgba(255, 255, 255, 0.78);
   margin-bottom: 6px;
@@ -489,6 +509,16 @@ a {
 
 .post-hero .card__title--overlay {
   font-size: 1.95rem;
+}
+
+.card__badge--hero {
+  top: 18px;
+  right: 18px;
+  padding: 3px;
+}
+
+.card__badge--hero .card__badge-image {
+  max-height: 50px;
 }
 
 .post-hero .card__media--overlay {

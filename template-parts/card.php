@@ -28,6 +28,19 @@ $banner_id = (int) get_post_meta( $post_id, 'banner', true );
 $card_image = $banner_id
   ? wp_get_attachment_image( $banner_id, 'greenzeta-card' )
   : get_the_post_thumbnail( $post_id, 'greenzeta-card' );
+
+$logo_image = '';
+if ( $is_portfolio && has_post_thumbnail( $post_id ) ) {
+  $logo_alt = sprintf( __( '%s logo', 'greenzeta-2026' ), get_the_title( $post_id ) );
+  $logo_image = get_the_post_thumbnail(
+    $post_id,
+    'thumbnail',
+    array(
+      'class' => 'card__badge-image',
+      'alt' => $logo_alt,
+    )
+  );
+}
 ?>
 <article id="post-<?php echo esc_attr( $post_id ); ?>" <?php post_class( $is_front ? 'card card--hero' : 'card', $post_id ); ?>>
   <?php if ( $is_front ) : ?>
@@ -47,6 +60,9 @@ $card_image = $banner_id
     <?php if ( $card_image ) : ?>
       <a class="card__media card__media--overlay" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
         <?php echo $card_image; ?>
+        <?php if ( $logo_image ) : ?>
+          <span class="card__badge"><?php echo $logo_image; ?></span>
+        <?php endif; ?>
         <div class="card__overlay-content">
           <span class="card__label"><?php echo esc_html( $label ); ?></span>
           <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>

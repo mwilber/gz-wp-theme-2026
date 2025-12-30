@@ -4,15 +4,31 @@
  */
 ?>
 <?php
+$post_type = get_post_type();
 $banner_id = (int) get_post_meta( get_the_ID(), 'banner', true );
 $banner_image = $banner_id
   ? wp_get_attachment_image( $banner_id, 'greenzeta-card' )
   : get_the_post_thumbnail( get_the_ID(), 'greenzeta-card' );
+$logo_image = '';
+if ( 'portfolio' === $post_type && has_post_thumbnail() ) {
+  $logo_alt = sprintf( __( '%s logo', 'greenzeta-2026' ), get_the_title() );
+  $logo_image = get_the_post_thumbnail(
+    get_the_ID(),
+    'thumbnail',
+    array(
+      'class' => 'card__badge-image',
+      'alt' => $logo_alt,
+    )
+  );
+}
 ?>
 <?php if ( $banner_image ) : ?>
   <section class="post-hero card card--hero">
     <div class="card__media card__media--overlay">
       <?php echo $banner_image; ?>
+      <?php if ( $logo_image ) : ?>
+        <span class="card__badge card__badge--hero"><?php echo $logo_image; ?></span>
+      <?php endif; ?>
       <div class="card__overlay-content">
         <h1 class="card__title card__title--overlay"><?php the_title(); ?></h1>
       </div>
