@@ -585,6 +585,21 @@ a {
   margin-top: 56px;
 }
 
+.entry__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.entry__stack--project .entry__live-site {
+  position: static;
+  align-self: flex-end;
+}
+
+.entry__stack--project .entry__live-site + .entry__content {
+  margin-top: 0;
+}
+
 .entry__project-links {
   display: flex;
   gap: 8px;
@@ -592,16 +607,10 @@ a {
   justify-content: flex-end;
 }
 
-.project-meta .entry__live-site {
-  position: static;
-  margin: 0;
-}
-
 .entry__tech-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 16px;
 }
 
 .entry__tech-pill {

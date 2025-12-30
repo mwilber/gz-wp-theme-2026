@@ -50,17 +50,19 @@ if ( 'portfolio' === $post_type ) {
   </header>
 <?php endif; ?>
 
-<section class="post-meta-card card">
-  <p class="post-meta-card__text">
-    <?php
-    printf(
-      '%s %s',
-      esc_html__( 'Published on:', 'greenzeta-2026' ),
-      esc_html( get_the_date() )
-    );
-    ?>
-  </p>
-</section>
+<?php if ( ! in_array( $post_type, array( 'portfolio', 'project' ), true ) ) : ?>
+  <section class="post-meta-card card">
+    <p class="post-meta-card__text">
+      <?php
+      printf(
+        '%s %s',
+        esc_html__( 'Published on:', 'greenzeta-2026' ),
+        esc_html( get_the_date() )
+      );
+      ?>
+    </p>
+  </section>
+<?php endif; ?>
 
 <?php
 $linked_project_id = (int) get_post_meta( get_the_ID(), 'project_id', true );
@@ -82,32 +84,6 @@ if ( $linked_project_id ) :
   </section>
 <?php endif; ?>
 
-<?php if ( 'project' === $post_type && ( $tech_list || $production_url || $repo_url ) ) : ?>
-  <section class="project-meta card">
-    <?php if ( $tech_list ) : ?>
-      <div class="entry__tech-list" aria-label="<?php esc_attr_e( 'Technologies', 'greenzeta-2026' ); ?>">
-        <?php foreach ( $tech_list as $tech ) : ?>
-          <span class="entry__tech-pill"><?php echo esc_html( $tech ); ?></span>
-        <?php endforeach; ?>
-      </div>
-    <?php endif; ?>
-    <?php if ( $production_url || $repo_url ) : ?>
-      <div class="entry__project-links">
-        <?php if ( $production_url ) : ?>
-          <a class="entry__live-site" href="<?php echo $production_url; ?>" target="_blank" rel="noopener noreferrer">
-            <?php esc_html_e( 'Production', 'greenzeta-2026' ); ?>
-          </a>
-        <?php endif; ?>
-        <?php if ( $repo_url ) : ?>
-          <a class="entry__live-site" href="<?php echo $repo_url; ?>" target="_blank" rel="noopener noreferrer">
-            <?php esc_html_e( 'Repo', 'greenzeta-2026' ); ?>
-          </a>
-        <?php endif; ?>
-      </div>
-    <?php endif; ?>
-  </section>
-<?php endif; ?>
-
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'entry entry--single card' ); ?>>
   <?php
   $live_site = get_post_meta( get_the_ID(), 'live_site', true );
@@ -119,13 +95,35 @@ if ( $linked_project_id ) :
   $technologies = get_post_meta( get_the_ID(), 'technologies', true );
   $tech_list = $technologies ? array_filter( array_map( 'trim', explode( ',', $technologies ) ) ) : array();
   ?>
-  <?php if ( $live_site_url ) : ?>
-    <a class="entry__live-site" href="<?php echo $live_site_url; ?>" target="_blank" rel="noopener noreferrer">
-      <?php esc_html_e( 'Visit live site', 'greenzeta-2026' ); ?>
-    </a>
-  <?php endif; ?>
-  <div class="entry__content">
-    <?php the_content(); ?>
+  <div class="entry__stack<?php echo 'project' === $post_type ? ' entry__stack--project' : ''; ?>">
+    <?php if ( 'project' === $post_type && ( $production_url || $repo_url ) ) : ?>
+      <div class="entry__project-links">
+        <?php if ( $production_url ) : ?>
+          <a class="entry__live-site" href="<?php echo $production_url; ?>" target="_blank" rel="noopener noreferrer">
+            <?php esc_html_e( 'Website', 'greenzeta-2026' ); ?>
+          </a>
+        <?php endif; ?>
+        <?php if ( $repo_url ) : ?>
+          <a class="entry__live-site" href="<?php echo $repo_url; ?>" target="_blank" rel="noopener noreferrer">
+            <?php esc_html_e( 'Repo', 'greenzeta-2026' ); ?>
+          </a>
+        <?php endif; ?>
+      </div>
+    <?php elseif ( $live_site_url ) : ?>
+      <a class="entry__live-site" href="<?php echo $live_site_url; ?>" target="_blank" rel="noopener noreferrer">
+        <?php esc_html_e( 'Visit live site', 'greenzeta-2026' ); ?>
+      </a>
+    <?php endif; ?>
+    <div class="entry__content">
+      <?php the_content(); ?>
+    </div>
+    <?php if ( 'project' === $post_type && $tech_list ) : ?>
+      <div class="entry__tech-list" aria-label="<?php esc_attr_e( 'Technologies', 'greenzeta-2026' ); ?>">
+        <?php foreach ( $tech_list as $tech ) : ?>
+          <span class="entry__tech-pill"><?php echo esc_html( $tech ); ?></span>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
   </div>
   <?php
   $screenshots = get_post_meta( get_the_ID(), 'screen_shots', true );
