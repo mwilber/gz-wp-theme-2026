@@ -585,6 +585,34 @@ a {
   margin-top: 56px;
 }
 
+.entry__project-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.project-meta .entry__live-site {
+  position: static;
+  margin: 0;
+}
+
+.entry__tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.entry__tech-pill {
+  background: #eff2f5;
+  color: #2d3138;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .entry__live-site:focus-visible {
   outline: 3px solid #0d2b10;
   outline-offset: 3px;
@@ -599,6 +627,10 @@ a {
 
   .entry__live-site + .entry__content {
     margin-top: 10px;
+  }
+
+  .entry__project-links {
+    margin-bottom: 12px;
   }
 
   .post-hero .card__media--overlay {
@@ -617,6 +649,10 @@ a {
 .related-project {
   margin-bottom: 24px;
   padding: 20px 24px;
+}
+
+.project-meta {
+  margin-bottom: 24px;
 }
 
 .related-project__label {

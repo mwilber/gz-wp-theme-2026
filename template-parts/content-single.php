@@ -64,6 +64,12 @@ if ( 'portfolio' === $post_type ) {
 
 <?php
 $linked_project_id = (int) get_post_meta( get_the_ID(), 'project_id', true );
+$production_link = get_post_meta( get_the_ID(), 'production_link', true );
+$production_url = $production_link ? esc_url( $production_link ) : '';
+$repo_link = get_post_meta( get_the_ID(), 'repo_link', true );
+$repo_url = $repo_link ? esc_url( $repo_link ) : '';
+$technologies = get_post_meta( get_the_ID(), 'technologies', true );
+$tech_list = $technologies ? array_filter( array_map( 'trim', explode( ',', $technologies ) ) ) : array();
 if ( $linked_project_id ) :
   ?>
   <section class="related-project card">
@@ -76,10 +82,42 @@ if ( $linked_project_id ) :
   </section>
 <?php endif; ?>
 
+<?php if ( 'project' === $post_type && ( $tech_list || $production_url || $repo_url ) ) : ?>
+  <section class="project-meta card">
+    <?php if ( $tech_list ) : ?>
+      <div class="entry__tech-list" aria-label="<?php esc_attr_e( 'Technologies', 'greenzeta-2026' ); ?>">
+        <?php foreach ( $tech_list as $tech ) : ?>
+          <span class="entry__tech-pill"><?php echo esc_html( $tech ); ?></span>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+    <?php if ( $production_url || $repo_url ) : ?>
+      <div class="entry__project-links">
+        <?php if ( $production_url ) : ?>
+          <a class="entry__live-site" href="<?php echo $production_url; ?>" target="_blank" rel="noopener noreferrer">
+            <?php esc_html_e( 'Production', 'greenzeta-2026' ); ?>
+          </a>
+        <?php endif; ?>
+        <?php if ( $repo_url ) : ?>
+          <a class="entry__live-site" href="<?php echo $repo_url; ?>" target="_blank" rel="noopener noreferrer">
+            <?php esc_html_e( 'Repo', 'greenzeta-2026' ); ?>
+          </a>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
+  </section>
+<?php endif; ?>
+
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'entry entry--single card' ); ?>>
   <?php
   $live_site = get_post_meta( get_the_ID(), 'live_site', true );
   $live_site_url = $live_site ? esc_url( $live_site ) : '';
+  $production_link = get_post_meta( get_the_ID(), 'production_link', true );
+  $production_url = $production_link ? esc_url( $production_link ) : '';
+  $repo_link = get_post_meta( get_the_ID(), 'repo_link', true );
+  $repo_url = $repo_link ? esc_url( $repo_link ) : '';
+  $technologies = get_post_meta( get_the_ID(), 'technologies', true );
+  $tech_list = $technologies ? array_filter( array_map( 'trim', explode( ',', $technologies ) ) ) : array();
   ?>
   <?php if ( $live_site_url ) : ?>
     <a class="entry__live-site" href="<?php echo $live_site_url; ?>" target="_blank" rel="noopener noreferrer">
