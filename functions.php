@@ -53,6 +53,13 @@ function greenzeta_2026_enqueue_assets() {
     '1.0.0',
     true
   );
+  wp_enqueue_script(
+    'greenzeta-2026-screenshot-lightbox',
+    get_template_directory_uri() . '/assets/js/screenshot-lightbox.js',
+    array(),
+    '1.0.0',
+    true
+  );
 }
 add_action( 'wp_enqueue_scripts', 'greenzeta_2026_enqueue_assets' );
 

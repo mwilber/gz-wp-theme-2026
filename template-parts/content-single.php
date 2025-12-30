@@ -59,6 +59,41 @@ if ( 'portfolio' === $post_type && has_post_thumbnail() ) {
 </article>
 
 <?php
+$screenshots = get_post_meta( get_the_ID(), 'screen_shots', true );
+$screenshot_ids = array();
+
+if ( is_array( $screenshots ) ) {
+  $screenshot_ids = array_filter( array_map( 'absint', $screenshots ) );
+} elseif ( is_string( $screenshots ) && '' !== $screenshots ) {
+  $screenshot_ids = wp_parse_id_list( $screenshots );
+}
+
+if ( $screenshot_ids ) :
+  ?>
+  <section class="screenshot-carousel" aria-label="<?php esc_attr_e( 'Project screenshots', 'greenzeta-2026' ); ?>">
+    <div class="screenshot-carousel__track">
+      <?php foreach ( $screenshot_ids as $screenshot_id ) : ?>
+        <?php $full_src = wp_get_attachment_image_url( $screenshot_id, 'full' ); ?>
+        <div class="screenshot-carousel__slide">
+          <button class="screenshot-carousel__button" type="button" data-full="<?php echo esc_url( $full_src ); ?>">
+            <?php echo wp_get_attachment_image( $screenshot_id, 'large' ); ?>
+          </button>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </section>
+  <div class="screenshot-lightbox" aria-hidden="true">
+    <div class="screenshot-lightbox__backdrop" data-lightbox-close></div>
+    <div class="screenshot-lightbox__content" role="dialog" aria-modal="true">
+      <button class="screenshot-lightbox__close" type="button" data-lightbox-close aria-label="<?php esc_attr_e( 'Close', 'greenzeta-2026' ); ?>">
+        &times;
+      </button>
+      <img class="screenshot-lightbox__image" src="" alt="" />
+    </div>
+  </div>
+<?php endif; ?>
+
+<?php
 $current_id = get_the_ID();
 $category_ids = wp_get_post_terms( $current_id, 'category', array( 'fields' => 'ids' ) );
 $tag_ids = wp_get_post_terms( $current_id, 'post_tag', array( 'fields' => 'ids' ) );
