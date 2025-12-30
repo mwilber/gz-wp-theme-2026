@@ -25,6 +25,7 @@ The visual target is the `design.png` mockup. Content should come from WordPress
 - Social links open in a new tab and set `aria-label` and `title` attributes from menu item titles.
 - Hero content is editable via a Front Page meta box (headline, subhead, comma-separated skills) stored on the page.
 - Header height is capped at 40px, logo is centered, and custom logo images are constrained in height.
+- Comments are disabled site-wide via theme hooks in `functions.php`, and comment templates are omitted from `single.php`.
 - Featured images are used in cards with the `greenzeta-card` size.
 - Theme settings live in `theme.json` (content size is 1200px).
 - The README includes current admin setup steps for content population.

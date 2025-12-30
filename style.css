@@ -402,10 +402,11 @@ a {
   overflow: hidden;
 }
 
-.card__media--overlay img {
+.card__media.card__media--overlay img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 50%;
 }
 
 .card {
@@ -478,10 +479,47 @@ a {
 .card__title--overlay {
   margin: 0;
   color: #ffffff;
-  font-size: 1.3rem;
+  font-size: 1.95rem;
   line-height: 1.2;
 }
 
+.post-hero {
+  margin-bottom: 22px;
+}
+
+.post-hero .card__media--overlay {
+  aspect-ratio: 4 / 1;
+  overflow: hidden;
+}
+
+.post-hero--no-image {
+  background: var(--paper);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  padding: 24px;
+}
+
+.post-meta-card {
+  background: transparent;
+  box-shadow: none;
+  padding: 0 0 12px;
+  text-align: right;
+  border-radius: 0;
+}
+
+.post-meta-card__text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.entry--single.card {
+  padding: 24px;
+}
+
+.entry--single .entry__content > :first-child {
+  margin-top: 0;
+}
 .card__excerpt {
   color: var(--muted);
 }

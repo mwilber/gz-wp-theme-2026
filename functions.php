@@ -226,3 +226,38 @@ function greenzeta_2026_social_menu_link_attributes( $atts, $item, $args ) {
   return $atts;
 }
 add_filter( 'nav_menu_link_attributes', 'greenzeta_2026_social_menu_link_attributes', 10, 3 );
+
+function greenzeta_2026_disable_comments_post_types_support() {
+  $post_types = get_post_types( array(), 'names' );
+
+  foreach ( $post_types as $post_type ) {
+    if ( post_type_supports( $post_type, 'comments' ) ) {
+      remove_post_type_support( $post_type, 'comments' );
+      remove_post_type_support( $post_type, 'trackbacks' );
+    }
+  }
+}
+add_action( 'admin_init', 'greenzeta_2026_disable_comments_post_types_support' );
+
+function greenzeta_2026_disable_comments_status() {
+  return false;
+}
+add_filter( 'comments_open', 'greenzeta_2026_disable_comments_status', 20, 2 );
+add_filter( 'pings_open', 'greenzeta_2026_disable_comments_status', 20, 2 );
+
+function greenzeta_2026_hide_existing_comments( $comments ) {
+  return array();
+}
+add_filter( 'comments_array', 'greenzeta_2026_hide_existing_comments', 10, 2 );
+
+function greenzeta_2026_remove_comments_menu_page() {
+  remove_menu_page( 'edit-comments.php' );
+}
+add_action( 'admin_menu', 'greenzeta_2026_remove_comments_menu_page' );
+
+function greenzeta_2026_remove_comments_admin_bar() {
+  if ( is_admin_bar_showing() ) {
+    remove_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );
+  }
+}
+add_action( 'init', 'greenzeta_2026_remove_comments_admin_bar' );
