@@ -145,76 +145,78 @@ if ( $linked_project_id ) :
   </div>
 <?php endif; ?>
 
-<?php
-$current_id = get_the_ID();
-$category_ids = wp_get_post_terms( $current_id, 'category', array( 'fields' => 'ids' ) );
-$tag_ids = wp_get_post_terms( $current_id, 'post_tag', array( 'fields' => 'ids' ) );
-
-$related_args = array(
-  'post_type' => 'post',
-  'posts_per_page' => 3,
-  'post__not_in' => array( $current_id ),
-  'ignore_sticky_posts' => true,
-);
-
-if ( $category_ids || $tag_ids ) {
-  $tax_query = array( 'relation' => 'OR' );
-
-  if ( $category_ids ) {
-    $tax_query[] = array(
-      'taxonomy' => 'category',
-      'field' => 'term_id',
-      'terms' => $category_ids,
-    );
-  }
-
-  if ( $tag_ids ) {
-    $tax_query[] = array(
-      'taxonomy' => 'post_tag',
-      'field' => 'term_id',
-      'terms' => $tag_ids,
-    );
-  }
-
-  $related_args['tax_query'] = $tax_query;
-}
-
-$related_query = new WP_Query( $related_args );
-
-if ( $related_query->have_posts() ) :
-  ?>
-  <section class="related-posts">
-    <div class="card-grid card-grid--related">
-      <?php while ( $related_query->have_posts() ) : $related_query->the_post(); ?>
-        <?php get_template_part( 'template-parts/card', null, array( 'post_id' => get_the_ID() ) ); ?>
-      <?php endwhile; ?>
-    </div>
-  </section>
+<?php if ( 'post' === get_post_type() ) : ?>
   <?php
-elseif ( ! empty( $related_args['tax_query'] ) ) :
-  $fallback_query = new WP_Query(
-    array(
-      'post_type' => 'post',
-      'posts_per_page' => 3,
-      'post__not_in' => array( $current_id ),
-      'ignore_sticky_posts' => true,
-      'orderby' => 'date',
-      'order' => 'DESC',
-    )
+  $current_id = get_the_ID();
+  $category_ids = wp_get_post_terms( $current_id, 'category', array( 'fields' => 'ids' ) );
+  $tag_ids = wp_get_post_terms( $current_id, 'post_tag', array( 'fields' => 'ids' ) );
+
+  $related_args = array(
+    'post_type' => 'post',
+    'posts_per_page' => 3,
+    'post__not_in' => array( $current_id ),
+    'ignore_sticky_posts' => true,
   );
-  if ( $fallback_query->have_posts() ) :
+
+  if ( $category_ids || $tag_ids ) {
+    $tax_query = array( 'relation' => 'OR' );
+
+    if ( $category_ids ) {
+      $tax_query[] = array(
+        'taxonomy' => 'category',
+        'field' => 'term_id',
+        'terms' => $category_ids,
+      );
+    }
+
+    if ( $tag_ids ) {
+      $tax_query[] = array(
+        'taxonomy' => 'post_tag',
+        'field' => 'term_id',
+        'terms' => $tag_ids,
+      );
+    }
+
+    $related_args['tax_query'] = $tax_query;
+  }
+
+  $related_query = new WP_Query( $related_args );
+
+  if ( $related_query->have_posts() ) :
     ?>
     <section class="related-posts">
       <div class="card-grid card-grid--related">
-        <?php while ( $fallback_query->have_posts() ) : $fallback_query->the_post(); ?>
+        <?php while ( $related_query->have_posts() ) : $related_query->the_post(); ?>
           <?php get_template_part( 'template-parts/card', null, array( 'post_id' => get_the_ID() ) ); ?>
         <?php endwhile; ?>
       </div>
     </section>
     <?php
+  elseif ( ! empty( $related_args['tax_query'] ) ) :
+    $fallback_query = new WP_Query(
+      array(
+        'post_type' => 'post',
+        'posts_per_page' => 3,
+        'post__not_in' => array( $current_id ),
+        'ignore_sticky_posts' => true,
+        'orderby' => 'date',
+        'order' => 'DESC',
+      )
+    );
+    if ( $fallback_query->have_posts() ) :
+      ?>
+      <section class="related-posts">
+        <div class="card-grid card-grid--related">
+          <?php while ( $fallback_query->have_posts() ) : $fallback_query->the_post(); ?>
+            <?php get_template_part( 'template-parts/card', null, array( 'post_id' => get_the_ID() ) ); ?>
+          <?php endwhile; ?>
+        </div>
+      </section>
+      <?php
+    endif;
+    wp_reset_postdata();
   endif;
-  wp_reset_postdata();
-endif;
 
-wp_reset_postdata();
-?>
+  wp_reset_postdata();
+  ?>
+<?php endif; ?>

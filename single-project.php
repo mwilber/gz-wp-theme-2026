@@ -13,9 +13,9 @@ get_header();
         <?php get_template_part( 'template-parts/content', 'single' ); ?>
 
         <?php
-        $updates_query = new WP_Query(
+        $linked_query = new WP_Query(
           array(
-            'post_type' => 'update',
+            'post_type' => array( 'post', 'update' ),
             'posts_per_page' => -1,
             'meta_key' => 'project_id',
             'meta_value' => get_the_ID(),
@@ -25,11 +25,11 @@ get_header();
         );
         ?>
 
-        <?php if ( $updates_query->have_posts() ) : ?>
-          <section class="updates-list">
-            <h2><?php esc_html_e( 'Updates', 'greenzeta-2026' ); ?></h2>
+        <?php if ( $linked_query->have_posts() ) : ?>
+          <section class="linked-content">
+            <h2><?php esc_html_e( 'Related Articles & Updates', 'greenzeta-2026' ); ?></h2>
             <div class="card-grid">
-              <?php while ( $updates_query->have_posts() ) : $updates_query->the_post(); ?>
+              <?php while ( $linked_query->have_posts() ) : $linked_query->the_post(); ?>
                 <?php get_template_part( 'template-parts/card', null, array( 'post_id' => get_the_ID() ) ); ?>
               <?php endwhile; ?>
             </div>
