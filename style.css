@@ -415,6 +415,56 @@ a {
   font-size: 1.2rem;
 }
 
+.card__label {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.card--hero {
+  padding: 0;
+}
+
+.card--hero .card__media {
+  margin: 0;
+}
+
+.card__media--overlay {
+  position: relative;
+}
+
+.card__media--overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+.card__overlay-content {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+  z-index: 1;
+  color: #ffffff;
+}
+
+.card__overlay-content .card__label {
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 6px;
+}
+
+.card__title--overlay {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
 .card__excerpt {
   color: var(--muted);
 }
