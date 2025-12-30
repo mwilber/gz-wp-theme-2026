@@ -209,6 +209,9 @@ function greenzeta_2026_social_menu_link_attributes( $atts, $item, $args ) {
     $atts['title'] = $item->title;
   }
 
+  $atts['target'] = '_blank';
+  $atts['rel'] = 'noopener noreferrer';
+
   return $atts;
 }
 add_filter( 'nav_menu_link_attributes', 'greenzeta_2026_social_menu_link_attributes', 10, 3 );
