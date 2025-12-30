@@ -56,6 +56,27 @@ function greenzeta_2026_enqueue_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'greenzeta_2026_enqueue_assets' );
 
+function greenzeta_2026_enqueue_admin_assets( $hook ) {
+  if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
+    return;
+  }
+
+  $screen = get_current_screen();
+  if ( ! $screen || ! in_array( $screen->post_type, array( 'post', 'portfolio', 'update' ), true ) ) {
+    return;
+  }
+
+  wp_enqueue_media();
+  wp_enqueue_script(
+    'greenzeta-2026-banner-meta',
+    get_template_directory_uri() . '/assets/js/banner-meta.js',
+    array( 'jquery' ),
+    '1.0.0',
+    true
+  );
+}
+add_action( 'admin_enqueue_scripts', 'greenzeta_2026_enqueue_admin_assets' );
+
 function greenzeta_2026_register_project_taxonomy() {
   $labels = array(
     'name' => _x( 'Projects', 'Taxonomy General Name', 'greenzeta-2026' ),
@@ -214,6 +235,24 @@ function greenzeta_2026_register_client_meta() {
 }
 add_action( 'init', 'greenzeta_2026_register_client_meta' );
 
+function greenzeta_2026_register_banner_meta() {
+  $post_types = array( 'post', 'portfolio', 'update' );
+
+  foreach ( $post_types as $post_type ) {
+    register_post_meta(
+      $post_type,
+      'banner',
+      array(
+        'type' => 'integer',
+        'single' => true,
+        'sanitize_callback' => 'absint',
+        'show_in_rest' => false,
+      )
+    );
+  }
+}
+add_action( 'init', 'greenzeta_2026_register_banner_meta' );
+
 function greenzeta_2026_add_hero_meta_box( $post_type, $post ) {
   if ( 'page' !== $post_type ) {
     return;
@@ -234,6 +273,69 @@ function greenzeta_2026_add_hero_meta_box( $post_type, $post ) {
   );
 }
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_hero_meta_box', 10, 2 );
+
+function greenzeta_2026_add_banner_meta_box( $post_type, $post ) {
+  $allowed_post_types = array( 'post', 'portfolio', 'update' );
+  if ( ! in_array( $post_type, $allowed_post_types, true ) ) {
+    return;
+  }
+
+  add_meta_box(
+    'greenzeta-banner-meta',
+    __( 'Banner Image', 'greenzeta-2026' ),
+    'greenzeta_2026_render_banner_meta_box',
+    $post_type,
+    'side',
+    'high'
+  );
+}
+add_action( 'add_meta_boxes', 'greenzeta_2026_add_banner_meta_box', 10, 2 );
+
+function greenzeta_2026_render_banner_meta_box( $post ) {
+  $banner_id = (int) get_post_meta( $post->ID, 'banner', true );
+  $banner_src = $banner_id ? wp_get_attachment_image_url( $banner_id, 'medium' ) : '';
+
+  wp_nonce_field( 'greenzeta_banner_meta', 'greenzeta_banner_meta_nonce' );
+  ?>
+  <div class="greenzeta-banner-meta" data-banner-id="<?php echo esc_attr( $banner_id ); ?>">
+    <div class="greenzeta-banner-meta__preview" style="margin-bottom: 12px;">
+      <?php if ( $banner_src ) : ?>
+        <img src="<?php echo esc_url( $banner_src ); ?>" alt="" style="max-width: 100%; height: auto;" />
+      <?php else : ?>
+        <em><?php esc_html_e( 'No banner selected.', 'greenzeta-2026' ); ?></em>
+      <?php endif; ?>
+    </div>
+    <input type="hidden" name="greenzeta_banner_id" value="<?php echo esc_attr( $banner_id ); ?>" />
+    <button type="button" class="button greenzeta-banner-meta__select"><?php esc_html_e( 'Select banner', 'greenzeta-2026' ); ?></button>
+    <button type="button" class="button-link greenzeta-banner-meta__remove" <?php echo $banner_id ? '' : 'style="display:none;"'; ?>>
+      <?php esc_html_e( 'Remove banner', 'greenzeta-2026' ); ?>
+    </button>
+  </div>
+  <?php
+}
+
+function greenzeta_2026_save_banner_meta( $post_id ) {
+  if ( ! isset( $_POST['greenzeta_banner_meta_nonce'] ) ) {
+    return;
+  }
+
+  if ( ! wp_verify_nonce( $_POST['greenzeta_banner_meta_nonce'], 'greenzeta_banner_meta' ) ) {
+    return;
+  }
+
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_post', $post_id ) ) {
+    return;
+  }
+
+  if ( isset( $_POST['greenzeta_banner_id'] ) ) {
+    update_post_meta( $post_id, 'banner', absint( wp_unslash( $_POST['greenzeta_banner_id'] ) ) );
+  }
+}
+add_action( 'save_post', 'greenzeta_2026_save_banner_meta' );
 
 function greenzeta_2026_add_client_meta_box( $post_type, $post ) {
   if ( 'portfolio' !== $post_type ) {

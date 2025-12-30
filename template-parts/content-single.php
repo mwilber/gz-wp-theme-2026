@@ -3,10 +3,16 @@
  * Template part for displaying single post content.
  */
 ?>
-<?php if ( has_post_thumbnail() ) : ?>
+<?php
+$banner_id = (int) get_post_meta( get_the_ID(), 'banner', true );
+$banner_image = $banner_id
+  ? wp_get_attachment_image( $banner_id, 'greenzeta-card' )
+  : get_the_post_thumbnail( get_the_ID(), 'greenzeta-card' );
+?>
+<?php if ( $banner_image ) : ?>
   <section class="post-hero card card--hero">
     <div class="card__media card__media--overlay">
-      <?php the_post_thumbnail( 'greenzeta-card' ); ?>
+      <?php echo $banner_image; ?>
       <div class="card__overlay-content">
         <h1 class="card__title card__title--overlay"><?php the_title(); ?></h1>
       </div>

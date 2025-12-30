@@ -23,12 +23,17 @@ if ( 'portfolio' === $post_type ) {
     $label = $client;
   }
 }
+
+$banner_id = (int) get_post_meta( $post_id, 'banner', true );
+$card_image = $banner_id
+  ? wp_get_attachment_image( $banner_id, 'greenzeta-card' )
+  : get_the_post_thumbnail( $post_id, 'greenzeta-card' );
 ?>
 <article id="post-<?php echo esc_attr( $post_id ); ?>" <?php post_class( $is_front ? 'card card--hero' : 'card', $post_id ); ?>>
   <?php if ( $is_front ) : ?>
-    <?php if ( has_post_thumbnail( $post_id ) ) : ?>
+    <?php if ( $card_image ) : ?>
       <a class="card__media card__media--overlay" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
-        <?php echo get_the_post_thumbnail( $post_id, 'greenzeta-card' ); ?>
+        <?php echo $card_image; ?>
         <div class="card__overlay-content">
           <span class="card__label"><?php echo esc_html( $label ); ?></span>
           <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
@@ -39,9 +44,9 @@ if ( 'portfolio' === $post_type ) {
       <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
     <?php endif; ?>
   <?php elseif ( $is_portfolio ) : ?>
-    <?php if ( has_post_thumbnail( $post_id ) ) : ?>
+    <?php if ( $card_image ) : ?>
       <a class="card__media card__media--overlay" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
-        <?php echo get_the_post_thumbnail( $post_id, 'greenzeta-card' ); ?>
+        <?php echo $card_image; ?>
         <div class="card__overlay-content">
           <span class="card__label"><?php echo esc_html( $label ); ?></span>
           <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
@@ -55,9 +60,9 @@ if ( 'portfolio' === $post_type ) {
       <?php echo wp_kses_post( get_the_excerpt( $post_id ) ); ?>
     </div>
   <?php else : ?>
-    <?php if ( has_post_thumbnail( $post_id ) ) : ?>
+    <?php if ( $card_image ) : ?>
       <a class="card__media" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
-        <?php echo get_the_post_thumbnail( $post_id, 'greenzeta-card' ); ?>
+        <?php echo $card_image; ?>
       </a>
     <?php endif; ?>
     <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
