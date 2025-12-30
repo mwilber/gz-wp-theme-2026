@@ -21,7 +21,7 @@ get_header();
     );
     ?>
     <?php if ( $cards_query->have_posts() ) : ?>
-      <section class="card-grid">
+      <section class="card-grid card-grid--front">
         <?php while ( $cards_query->have_posts() ) : $cards_query->the_post(); ?>
           <?php get_template_part( 'template-parts/card', null, array( 'post_id' => get_the_ID() ) ); ?>
         <?php endwhile; ?>
