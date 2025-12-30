@@ -21,6 +21,13 @@ if ( 'portfolio' === $post_type && has_post_thumbnail() ) {
     )
   );
 }
+$client_label = '';
+if ( 'portfolio' === $post_type ) {
+  $client_value = get_post_meta( get_the_ID(), 'client', true );
+  if ( $client_value ) {
+    $client_label = $client_value;
+  }
+}
 ?>
 <?php if ( $banner_image ) : ?>
   <section class="post-hero card card--hero">
@@ -30,6 +37,9 @@ if ( 'portfolio' === $post_type && has_post_thumbnail() ) {
         <span class="card__badge card__badge--hero"><?php echo $logo_image; ?></span>
       <?php endif; ?>
       <div class="card__overlay-content">
+        <?php if ( $client_label ) : ?>
+          <span class="card__label"><?php echo esc_html( $client_label ); ?></span>
+        <?php endif; ?>
         <h1 class="card__title card__title--overlay"><?php the_title(); ?></h1>
       </div>
     </div>
