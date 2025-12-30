@@ -479,12 +479,16 @@ a {
 .card__title--overlay {
   margin: 0;
   color: #ffffff;
-  font-size: 1.95rem;
+  font-size: 1.3rem;
   line-height: 1.2;
 }
 
 .post-hero {
   margin-bottom: 22px;
+}
+
+.post-hero .card__title--overlay {
+  font-size: 1.95rem;
 }
 
 .post-hero .card__media--overlay {
