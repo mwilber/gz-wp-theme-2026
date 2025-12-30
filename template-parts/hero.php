@@ -2,10 +2,44 @@
 /**
  * Hero section template part.
  */
+$hero_id = is_front_page() ? get_queried_object_id() : 0;
+$headline = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_headline', true ) : '';
+$subhead = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_subhead', true ) : '';
+$skills_raw = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_skills', true ) : '';
+$skills = $skills_raw ? array_filter( array_map( 'trim', explode( ',', $skills_raw ) ) ) : array();
 ?>
 <section class="hero">
-  <h1 class="hero__title"><?php bloginfo( 'name' ); ?></h1>
-  <?php if ( get_bloginfo( 'description' ) ) : ?>
-    <p class="hero__subtitle"><?php bloginfo( 'description' ); ?></p>
-  <?php endif; ?>
+  <div class="hero__content">
+    <div class="hero__copy">
+      <?php if ( $headline ) : ?>
+        <h1 class="hero__title"><?php echo esc_html( $headline ); ?></h1>
+      <?php endif; ?>
+      <?php if ( $subhead ) : ?>
+        <p class="hero__subtitle"><?php echo esc_html( $subhead ); ?></p>
+      <?php endif; ?>
+    </div>
+
+    <?php if ( $skills ) : ?>
+      <div class="hero__skills" aria-label="<?php esc_attr_e( 'Skills', 'greenzeta-2026' ); ?>">
+        <?php foreach ( $skills as $skill ) : ?>
+          <span class="hero__skill"><?php echo esc_html( $skill ); ?></span>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+  </div>
+
+  <div class="hero__social">
+    <?php
+    if ( has_nav_menu( 'social' ) ) {
+      wp_nav_menu(
+        array(
+          'theme_location' => 'social',
+          'container' => false,
+          'menu_class' => 'hero__social-menu',
+          'depth' => 1,
+        )
+      );
+    }
+    ?>
+  </div>
 </section>
