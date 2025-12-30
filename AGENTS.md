@@ -19,7 +19,14 @@ There are no tests or testing frameworks configured yet. If tests are added, doc
 The visual target is the `design.png` mockup. Content should come from WordPress admin fields; do not hardcode card content. Layout must be responsive from portrait mobile to widescreen desktop. The main content container should not exceed 1200px width, while background and navigation span the full browser width. The official GreenZeta green used in the top nav is `#7bb951`. No styling has been applied yet; keep future styles aligned with the mockup’s card-based layout.
 
 ## Current Implementation Notes
-- Styles live in `style.css` and are enqueued in `functions.php` via `greenzeta_2026_enqueue_assets()`.\n- Menus: `primary` renders in `header.php`, `social` renders in `footer.php`.\n- Featured images are used in cards with the `greenzeta-card` size.\n- Theme settings live in `theme.json` (content size is 1200px).\n- The README includes current admin setup steps for content population.
+- Styles live in `style.css` and are enqueued in `functions.php` via `greenzeta_2026_enqueue_assets()`, alongside the Roboto Google Font and `assets/js/navigation.js`.
+- Menus: `primary` renders as a hamburger toggle in `header.php`; `social` renders as icon badges in the hero and in `footer.php` (URL host mapping drives the icon).
+- Social links open in a new tab and set `aria-label` and `title` attributes from menu item titles.
+- Hero content is editable via a Front Page meta box (headline, subhead, comma-separated skills) stored on the page.
+- Header height is capped at 40px, logo is centered, and custom logo images are constrained in height.
+- Featured images are used in cards with the `greenzeta-card` size.
+- Theme settings live in `theme.json` (content size is 1200px).
+- The README includes current admin setup steps for content population.
 
 ## QA Checklist
 - Verify layout at 360, 768, 1024, 1200, and 1440+ widths.
