@@ -10,6 +10,7 @@ if ( ! $post_id ) {
 }
 
 $is_front = is_front_page();
+$is_portfolio = ( 'portfolio' === $post_type );
 $post_type = get_post_type( $post_id );
 $post_type_object = get_post_type_object( $post_type );
 $label = 'post' === $post_type
@@ -37,6 +38,22 @@ if ( 'portfolio' === $post_type ) {
       <span class="card__label"><?php echo esc_html( $label ); ?></span>
       <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
     <?php endif; ?>
+  <?php elseif ( $is_portfolio ) : ?>
+    <?php if ( has_post_thumbnail( $post_id ) ) : ?>
+      <a class="card__media card__media--overlay" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+        <?php echo get_the_post_thumbnail( $post_id, 'greenzeta-card' ); ?>
+        <div class="card__overlay-content">
+          <span class="card__label"><?php echo esc_html( $label ); ?></span>
+          <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
+        </div>
+      </a>
+    <?php else : ?>
+      <span class="card__label"><?php echo esc_html( $label ); ?></span>
+      <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
+    <?php endif; ?>
+    <div class="card__excerpt">
+      <?php echo wp_kses_post( get_the_excerpt( $post_id ) ); ?>
+    </div>
   <?php else : ?>
     <?php if ( has_post_thumbnail( $post_id ) ) : ?>
       <a class="card__media" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
