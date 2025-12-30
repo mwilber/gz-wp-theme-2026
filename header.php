@@ -23,6 +23,12 @@
     </div>
 
     <nav class="site-nav" aria-label="<?php esc_attr_e( 'Primary', 'greenzeta-2026' ); ?>">
+      <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="primary-menu-panel">
+        <span class="site-nav__toggle-icon" aria-hidden="true"></span>
+        <span class="screen-reader-text"><?php esc_html_e( 'Open menu', 'greenzeta-2026' ); ?></span>
+      </button>
+
+      <div class="site-nav__panel" id="primary-menu-panel" aria-hidden="true">
       <?php
       wp_nav_menu(
         array(
@@ -33,6 +39,7 @@
         )
       );
       ?>
+      </div>
     </nav>
   </div>
 </header>

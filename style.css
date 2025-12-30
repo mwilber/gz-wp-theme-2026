@@ -31,6 +31,17 @@ No styles yet. This file exists to register the theme.
   box-sizing: border-box;
 }
 
+.screen-reader-text {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 body {
   margin: 0;
   color: var(--ink);
@@ -77,7 +88,7 @@ a {
 .site-header {
   background: var(--brand-green);
   color: #0d2b10;
-  padding: 16px 0;
+  height: 40px;
 }
 
 .site-header__inner,
@@ -91,13 +102,30 @@ a {
 .site-header__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
+  height: 40px;
+  position: relative;
 }
 
 .site-brand {
   display: flex;
   align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.custom-logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.custom-logo-link img {
+  max-height: 28px;
+  width: auto;
+  height: auto;
+  display: block;
 }
 
 .site-logo {
@@ -125,6 +153,106 @@ a {
   background: rgba(255, 255, 255, 0.25);
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.site-nav {
+  position: relative;
+}
+
+.site-nav__toggle {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  padding: 0;
+  border-radius: 8px;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.site-nav__toggle:focus-visible {
+  outline: 3px solid #0d2b10;
+  outline-offset: 3px;
+}
+
+.site-nav__toggle-icon {
+  width: 20px;
+  height: 2px;
+  background: #0d2b10;
+  display: block;
+  position: relative;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.site-nav__toggle-icon::before,
+.site-nav__toggle-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: #0d2b10;
+  transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
+}
+
+.site-nav__toggle-icon::before {
+  top: -6px;
+}
+
+.site-nav__toggle-icon::after {
+  top: 6px;
+}
+
+.site-nav--open .site-nav__toggle-icon {
+  background: transparent;
+}
+
+.site-nav--open .site-nav__toggle-icon::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.site-nav--open .site-nav__toggle-icon::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+.site-nav__panel {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 0;
+  background: var(--brand-green);
+  border-bottom: 1px solid rgba(13, 43, 16, 0.25);
+  padding: 16px 20px 20px;
+  box-shadow: 0 12px 24px rgba(16, 19, 24, 0.16);
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+.site-nav--open .site-nav__panel {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.site-nav__panel .site-nav__menu {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  text-align: right;
+}
+
+.site-nav__panel .site-nav__menu a {
+  background: transparent;
+  padding: 6px 0;
+  font-size: 1rem;
+  color: #0d2b10;
 }
 
 .site-content {
@@ -348,6 +476,18 @@ a {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-nav__panel {
+    position: absolute;
+    top: 100%;
+    left: auto;
+    right: 0;
+    width: 280px;
+    border-radius: 0;
+    border: 1px solid rgba(13, 43, 16, 0.2);
   }
 }
 

@@ -44,6 +44,13 @@ function greenzeta_2026_enqueue_assets() {
     null
   );
   wp_enqueue_style( 'greenzeta-2026-style', get_stylesheet_uri(), array( 'greenzeta-2026-fonts' ), '1.0.0' );
+  wp_enqueue_script(
+    'greenzeta-2026-navigation',
+    get_template_directory_uri() . '/assets/js/navigation.js',
+    array(),
+    '1.0.0',
+    true
+  );
 }
 add_action( 'wp_enqueue_scripts', 'greenzeta_2026_enqueue_assets' );
 
