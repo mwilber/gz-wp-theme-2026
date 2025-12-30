@@ -11,6 +11,7 @@ No build, lint, or test commands are defined in this repository yet. If you add 
 
 ## Coding Style & Naming Conventions
 No project-specific style rules are currently documented. If you introduce PHP/JS/CSS, add a formatter or linter and note its configuration (for example, a `.editorconfig`, ESLint, or Prettier). Use WordPress-friendly naming and file patterns. Example: `template-parts/header-site.php` for template parts, and `assets/css/theme.css` for compiled styles.
+When making front-end changes, also update the block editor experience as needed (editor styles, layout, and content widths) so the editing UX stays aligned with the front end.
 
 ## Testing Guidelines
 There are no tests or testing frameworks configured yet. If tests are added, document the framework (e.g., PHPUnit, Jest), naming conventions (e.g., `*Test.php`), and any coverage expectations.

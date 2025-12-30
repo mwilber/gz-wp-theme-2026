@@ -9,6 +9,8 @@ function greenzeta_2026_setup() {
   add_theme_support( 'title-tag' );
   add_theme_support( 'custom-logo' );
   add_theme_support( 'post-thumbnails' );
+  add_theme_support( 'editor-styles' );
+  add_editor_style( 'assets/css/editor.css' );
   add_theme_support(
     'html5',
     array(
@@ -90,7 +92,16 @@ function greenzeta_2026_register_hero_meta() {
 }
 add_action( 'init', 'greenzeta_2026_register_hero_meta' );
 
-function greenzeta_2026_add_hero_meta_box() {
+function greenzeta_2026_add_hero_meta_box( $post_type, $post ) {
+  if ( 'page' !== $post_type ) {
+    return;
+  }
+
+  $front_page_id = (int) get_option( 'page_on_front' );
+  if ( ! $front_page_id || (int) $post->ID !== $front_page_id ) {
+    return;
+  }
+
   add_meta_box(
     'greenzeta-hero-meta',
     __( 'Hero Content', 'greenzeta-2026' ),
@@ -100,22 +111,15 @@ function greenzeta_2026_add_hero_meta_box() {
     'high'
   );
 }
-add_action( 'add_meta_boxes', 'greenzeta_2026_add_hero_meta_box' );
+add_action( 'add_meta_boxes', 'greenzeta_2026_add_hero_meta_box', 10, 2 );
 
 function greenzeta_2026_render_hero_meta_box( $post ) {
   $headline = get_post_meta( $post->ID, 'greenzeta_hero_headline', true );
   $subhead = get_post_meta( $post->ID, 'greenzeta_hero_subhead', true );
   $skills = get_post_meta( $post->ID, 'greenzeta_hero_skills', true );
-  $front_page_id = (int) get_option( 'page_on_front' );
-
   wp_nonce_field( 'greenzeta_hero_meta', 'greenzeta_hero_meta_nonce' );
   ?>
-  <p>
-    <?php esc_html_e( 'Used on the front page hero section.', 'greenzeta-2026' ); ?>
-    <?php if ( $front_page_id && $front_page_id !== (int) $post->ID ) : ?>
-      <?php esc_html_e( 'This page is not currently set as the front page.', 'greenzeta-2026' ); ?>
-    <?php endif; ?>
-  </p>
+  <p><?php esc_html_e( 'Used on the front page hero section.', 'greenzeta-2026' ); ?></p>
   <p>
     <label for="greenzeta-hero-headline"><strong><?php esc_html_e( 'Headline', 'greenzeta-2026' ); ?></strong></label>
     <input
