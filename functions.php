@@ -56,6 +56,114 @@ function greenzeta_2026_enqueue_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'greenzeta_2026_enqueue_assets' );
 
+function greenzeta_2026_register_project_taxonomy() {
+  $labels = array(
+    'name' => _x( 'Projects', 'Taxonomy General Name', 'greenzeta-2026' ),
+    'singular_name' => _x( 'Project', 'Taxonomy Singular Name', 'greenzeta-2026' ),
+    'menu_name' => __( 'Projects', 'greenzeta-2026' ),
+    'all_items' => __( 'All Items', 'greenzeta-2026' ),
+    'parent_item' => __( 'Parent Item', 'greenzeta-2026' ),
+    'parent_item_colon' => __( 'Parent Item:', 'greenzeta-2026' ),
+    'new_item_name' => __( 'New Item Name', 'greenzeta-2026' ),
+    'add_new_item' => __( 'Add New Item', 'greenzeta-2026' ),
+    'edit_item' => __( 'Edit Item', 'greenzeta-2026' ),
+    'update_item' => __( 'Update Item', 'greenzeta-2026' ),
+    'view_item' => __( 'View Item', 'greenzeta-2026' ),
+    'separate_items_with_commas' => __( 'Separate items with commas', 'greenzeta-2026' ),
+    'add_or_remove_items' => __( 'Add or remove items', 'greenzeta-2026' ),
+    'choose_from_most_used' => __( 'Choose from the most used', 'greenzeta-2026' ),
+    'popular_items' => __( 'Popular Items', 'greenzeta-2026' ),
+    'search_items' => __( 'Search Items', 'greenzeta-2026' ),
+    'not_found' => __( 'Not Found', 'greenzeta-2026' ),
+    'no_terms' => __( 'No items', 'greenzeta-2026' ),
+    'items_list' => __( 'Items list', 'greenzeta-2026' ),
+    'items_list_navigation' => __( 'Items list navigation', 'greenzeta-2026' ),
+  );
+
+  $args = array(
+    'labels' => $labels,
+    'hierarchical' => false,
+    'public' => true,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'show_in_nav_menus' => true,
+    'show_tagcloud' => true,
+    'show_in_rest' => true,
+  );
+
+  register_taxonomy( 'project', array( 'post', 'portfolio', 'update' ), $args );
+}
+add_action( 'init', 'greenzeta_2026_register_project_taxonomy', 0 );
+
+function greenzeta_2026_register_custom_post_types() {
+  $taxonomies = array( 'category', 'post_tag', 'project' );
+
+  $labels = array(
+    'name' => __( 'Updates', 'greenzeta-2026' ),
+    'singular_name' => __( 'Update', 'greenzeta-2026' ),
+    'menu_name' => __( 'Updates', 'greenzeta-2026' ),
+    'name_admin_bar' => __( 'Update', 'greenzeta-2026' ),
+    'archives' => __( 'Item Archives', 'greenzeta-2026' ),
+    'attributes' => __( 'Item Attributes', 'greenzeta-2026' ),
+    'parent_item_colon' => __( 'Parent Item:', 'greenzeta-2026' ),
+    'all_items' => __( 'All Items', 'greenzeta-2026' ),
+    'add_new_item' => __( 'Add New Item', 'greenzeta-2026' ),
+    'add_new' => __( 'Add New', 'greenzeta-2026' ),
+    'new_item' => __( 'New Item', 'greenzeta-2026' ),
+    'edit_item' => __( 'Edit Item', 'greenzeta-2026' ),
+    'update_item' => __( 'Update Item', 'greenzeta-2026' ),
+    'view_item' => __( 'View Item', 'greenzeta-2026' ),
+    'view_items' => __( 'View Items', 'greenzeta-2026' ),
+    'search_items' => __( 'Search Item', 'greenzeta-2026' ),
+    'not_found' => __( 'Not found', 'greenzeta-2026' ),
+    'not_found_in_trash' => __( 'Not found in Trash', 'greenzeta-2026' ),
+    'featured_image' => __( 'Featured Image', 'greenzeta-2026' ),
+    'set_featured_image' => __( 'Set featured image', 'greenzeta-2026' ),
+    'remove_featured_image' => __( 'Remove featured image', 'greenzeta-2026' ),
+    'use_featured_image' => __( 'Use as featured image', 'greenzeta-2026' ),
+    'insert_into_item' => __( 'Insert into item', 'greenzeta-2026' ),
+    'uploaded_to_this_item' => __( 'Uploaded to this item', 'greenzeta-2026' ),
+    'items_list' => __( 'Items list', 'greenzeta-2026' ),
+    'items_list_navigation' => __( 'Items list navigation', 'greenzeta-2026' ),
+    'filter_items_list' => __( 'Filter items list', 'greenzeta-2026' ),
+  );
+
+  $args = array(
+    'label' => __( 'Update', 'greenzeta-2026' ),
+    'description' => __( 'Personal Project Updates', 'greenzeta-2026' ),
+    'labels' => $labels,
+    'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'excerpt' ),
+    'taxonomies' => $taxonomies,
+    'hierarchical' => false,
+    'public' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'menu_position' => 5,
+    'show_in_admin_bar' => true,
+    'show_in_nav_menus' => true,
+    'can_export' => true,
+    'has_archive' => true,
+    'exclude_from_search' => false,
+    'publicly_queryable' => true,
+    'capability_type' => 'page',
+    'show_in_rest' => true,
+  );
+
+  register_post_type( 'update', $args );
+
+  $portfolio_args = $args;
+  $portfolio_args['label'] = __( 'Portfolio', 'greenzeta-2026' );
+  $portfolio_args['description'] = __( 'Professional Work', 'greenzeta-2026' );
+  $portfolio_args['labels']['name'] = __( 'Portfolio', 'greenzeta-2026' );
+  $portfolio_args['labels']['singular_name'] = __( 'Portfolio', 'greenzeta-2026' );
+  $portfolio_args['labels']['menu_name'] = __( 'Portfolio', 'greenzeta-2026' );
+  $portfolio_args['labels']['name_admin_bar'] = __( 'Portfolio', 'greenzeta-2026' );
+  $portfolio_args['taxonomies'] = array( 'post_tag' );
+
+  register_post_type( 'portfolio', $portfolio_args );
+}
+add_action( 'init', 'greenzeta_2026_register_custom_post_types', 0 );
+
 function greenzeta_2026_register_hero_meta() {
   register_post_meta(
     'page',
