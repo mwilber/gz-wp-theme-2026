@@ -549,10 +549,37 @@ a {
 
 .entry--single.card {
   padding: 24px;
+  position: relative;
 }
 
 .entry--single .entry__content > :first-child {
   margin-top: 0;
+}
+
+.entry__live-site {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #0d2b10;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 12px 24px rgba(13, 43, 16, 0.24);
+}
+
+.entry__live-site:focus-visible {
+  outline: 3px solid #0d2b10;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .entry__live-site {
+    position: static;
+    display: inline-flex;
+    margin-bottom: 12px;
+  }
 }
 
 .related-posts {
@@ -560,7 +587,7 @@ a {
 }
 
 .screenshot-carousel {
-  margin-top: 24px;
+  margin-top: 48px;
 }
 
 .screenshot-carousel__track {

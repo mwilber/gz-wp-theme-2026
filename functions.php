@@ -306,6 +306,20 @@ function greenzeta_2026_register_case_media_meta() {
 }
 add_action( 'init', 'greenzeta_2026_register_case_media_meta' );
 
+function greenzeta_2026_register_live_site_meta() {
+  register_post_meta(
+    'portfolio',
+    'live_site',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'sanitize_callback' => 'esc_url_raw',
+      'show_in_rest' => false,
+    )
+  );
+}
+add_action( 'init', 'greenzeta_2026_register_live_site_meta' );
+
 function greenzeta_2026_add_hero_meta_box( $post_type, $post ) {
   if ( 'page' !== $post_type ) {
     return;
@@ -375,6 +389,22 @@ function greenzeta_2026_add_case_media_meta_box( $post_type, $post ) {
   );
 }
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_case_media_meta_box', 10, 2 );
+
+function greenzeta_2026_add_live_site_meta_box( $post_type, $post ) {
+  if ( 'portfolio' !== $post_type ) {
+    return;
+  }
+
+  add_meta_box(
+    'greenzeta-live-site',
+    __( 'Live Site', 'greenzeta-2026' ),
+    'greenzeta_2026_render_live_site_meta_box',
+    'portfolio',
+    'side',
+    'default'
+  );
+}
+add_action( 'add_meta_boxes', 'greenzeta_2026_add_live_site_meta_box', 10, 2 );
 
 function greenzeta_2026_render_banner_meta_box( $post ) {
   $banner_id = (int) get_post_meta( $post->ID, 'banner', true );
@@ -538,6 +568,48 @@ function greenzeta_2026_save_case_media_meta( $post_id ) {
   }
 }
 add_action( 'save_post_portfolio', 'greenzeta_2026_save_case_media_meta' );
+
+function greenzeta_2026_render_live_site_meta_box( $post ) {
+  $live_site = get_post_meta( $post->ID, 'live_site', true );
+
+  wp_nonce_field( 'greenzeta_live_site_meta', 'greenzeta_live_site_meta_nonce' );
+  ?>
+  <p>
+    <label for="greenzeta-live-site"><strong><?php esc_html_e( 'Live site URL', 'greenzeta-2026' ); ?></strong></label>
+    <input
+      type="url"
+      id="greenzeta-live-site"
+      name="greenzeta_live_site"
+      value="<?php echo esc_attr( $live_site ); ?>"
+      class="widefat"
+      placeholder="https://"
+    />
+  </p>
+  <?php
+}
+
+function greenzeta_2026_save_live_site_meta( $post_id ) {
+  if ( ! isset( $_POST['greenzeta_live_site_meta_nonce'] ) ) {
+    return;
+  }
+
+  if ( ! wp_verify_nonce( $_POST['greenzeta_live_site_meta_nonce'], 'greenzeta_live_site_meta' ) ) {
+    return;
+  }
+
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_post', $post_id ) ) {
+    return;
+  }
+
+  if ( isset( $_POST['greenzeta_live_site'] ) ) {
+    update_post_meta( $post_id, 'live_site', esc_url_raw( wp_unslash( $_POST['greenzeta_live_site'] ) ) );
+  }
+}
+add_action( 'save_post_portfolio', 'greenzeta_2026_save_live_site_meta' );
 
 function greenzeta_2026_add_client_meta_box( $post_type, $post ) {
   if ( 'portfolio' !== $post_type ) {

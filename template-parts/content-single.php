@@ -53,6 +53,15 @@ if ( 'portfolio' === $post_type && has_post_thumbnail() ) {
 </section>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'entry entry--single card' ); ?>>
+  <?php
+  $live_site = get_post_meta( get_the_ID(), 'live_site', true );
+  $live_site_url = $live_site ? esc_url( $live_site ) : '';
+  ?>
+  <?php if ( $live_site_url ) : ?>
+    <a class="entry__live-site" href="<?php echo $live_site_url; ?>" target="_blank" rel="noopener noreferrer">
+      <?php esc_html_e( 'Visit live site', 'greenzeta-2026' ); ?>
+    </a>
+  <?php endif; ?>
   <div class="entry__content">
     <?php the_content(); ?>
   </div>
