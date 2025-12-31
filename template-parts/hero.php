@@ -3,7 +3,7 @@
  * Hero section template part.
  */
 $hero_id = is_front_page() ? get_queried_object_id() : 0;
-$headline = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_headline', true ) : '';
+$headline = get_bloginfo( 'description' );
 $subhead = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_subhead', true ) : '';
 $skills_raw = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_skills', true ) : '';
 $skills = $skills_raw ? array_filter( array_map( 'trim', explode( ',', $skills_raw ) ) ) : array();

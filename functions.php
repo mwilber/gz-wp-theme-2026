@@ -215,17 +215,6 @@ add_action( 'init', 'greenzeta_2026_register_custom_post_types', 0 );
 function greenzeta_2026_register_hero_meta() {
   register_post_meta(
     'page',
-    'greenzeta_hero_headline',
-    array(
-      'type' => 'string',
-      'single' => true,
-      'sanitize_callback' => 'sanitize_text_field',
-      'show_in_rest' => false,
-    )
-  );
-
-  register_post_meta(
-    'page',
     'greenzeta_hero_subhead',
     array(
       'type' => 'string',
@@ -983,22 +972,11 @@ add_action( 'save_post_portfolio', 'greenzeta_2026_save_client_meta' );
 add_action( 'save_post_project', 'greenzeta_2026_save_client_meta' );
 
 function greenzeta_2026_render_hero_meta_box( $post ) {
-  $headline = get_post_meta( $post->ID, 'greenzeta_hero_headline', true );
   $subhead = get_post_meta( $post->ID, 'greenzeta_hero_subhead', true );
   $skills = get_post_meta( $post->ID, 'greenzeta_hero_skills', true );
   wp_nonce_field( 'greenzeta_hero_meta', 'greenzeta_hero_meta_nonce' );
   ?>
   <p><?php esc_html_e( 'Used on the front page hero section.', 'greenzeta-2026' ); ?></p>
-  <p>
-    <label for="greenzeta-hero-headline"><strong><?php esc_html_e( 'Headline', 'greenzeta-2026' ); ?></strong></label>
-    <input
-      type="text"
-      id="greenzeta-hero-headline"
-      name="greenzeta_hero_headline"
-      value="<?php echo esc_attr( $headline ); ?>"
-      class="widefat"
-    />
-  </p>
   <p>
     <label for="greenzeta-hero-subhead"><strong><?php esc_html_e( 'Subhead', 'greenzeta-2026' ); ?></strong></label>
     <textarea
@@ -1036,10 +1014,6 @@ function greenzeta_2026_save_hero_meta( $post_id ) {
 
   if ( ! current_user_can( 'edit_post', $post_id ) ) {
     return;
-  }
-
-  if ( isset( $_POST['greenzeta_hero_headline'] ) ) {
-    update_post_meta( $post_id, 'greenzeta_hero_headline', sanitize_text_field( wp_unslash( $_POST['greenzeta_hero_headline'] ) ) );
   }
 
   if ( isset( $_POST['greenzeta_hero_subhead'] ) ) {
