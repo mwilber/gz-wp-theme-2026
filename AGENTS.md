@@ -32,6 +32,7 @@ The visual target is the `design.png` mockup. Content should come from WordPress
 - Projects are now a CPT with `archive-project.php` and `single-project.php`, linked to Posts/Updates via `project_id` meta; legacy `project` taxonomy was removed.
 - Project cards use `tag_line` (fallback: "Development Project") as the card title and show the project title as the label; project content cards show tag pills from post tags.
 - Potential migrations from production (see `functions-production-reference.php`, remove before shipping): slug-based body class, ACF global options page, custom taxonomy ordering, and a `pre_get_posts` hook to include CPTs in category/tag archives if needed.
+- Seasonal palettes are driven by CSS variables in `assets/css/cityscape.css`; a date-based selector runs on load, and `window.setSeasonPalette('summer'|'autumn'|'winter'|'spring')` is available in the console for quick testing.
 
 ## QA Checklist
 - Verify layout at 360, 768, 1024, 1200, and 1440+ widths.
