@@ -48,6 +48,9 @@ body {
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.6;
   background: linear-gradient(180deg, #eef4ea 0%, #ffffff 60%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 img {
@@ -939,6 +942,7 @@ body.is-lightbox-open {
 .site-footer {
   background: #f2f4f7;
   padding: 24px 0 32px;
+  margin-top: auto;
 }
 
 .site-footer__inner {
