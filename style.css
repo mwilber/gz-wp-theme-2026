@@ -164,6 +164,34 @@ a {
 
 .site-nav {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-theme-toggle {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  padding: 0;
+  border-radius: 8px;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d2b10;
+  cursor: pointer;
+}
+
+.site-theme-toggle:focus-visible {
+  outline: 3px solid #0d2b10;
+  outline-offset: 3px;
+}
+
+.site-theme-toggle__icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 .site-nav__toggle {
