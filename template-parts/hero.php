@@ -22,7 +22,15 @@ $skills = $skills_raw ? array_filter( array_map( 'trim', explode( ',', $skills_r
     <?php if ( $skills ) : ?>
       <div class="hero__skills" aria-label="<?php esc_attr_e( 'Skills', 'greenzeta-2026' ); ?>">
         <?php foreach ( $skills as $skill ) : ?>
-          <span class="hero__skill"><?php echo esc_html( $skill ); ?></span>
+          <?php
+          $tag = get_term_by( 'name', $skill, 'post_tag' );
+          $tag_url = $tag && ! is_wp_error( $tag ) ? get_term_link( $tag ) : '';
+          ?>
+          <?php if ( $tag_url && ! is_wp_error( $tag_url ) ) : ?>
+            <a class="hero__skill" href="<?php echo esc_url( $tag_url ); ?>"><?php echo esc_html( $skill ); ?></a>
+          <?php else : ?>
+            <span class="hero__skill"><?php echo esc_html( $skill ); ?></span>
+          <?php endif; ?>
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
