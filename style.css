@@ -461,6 +461,7 @@ a {
 .card__media--overlay {
   position: relative;
   display: block;
+  width: calc(100% + 40px);
 }
 
 .home .card--hero .card__media--overlay {
@@ -499,6 +500,8 @@ a {
   bottom: 16px;
   z-index: 1;
   color: #ffffff;
+  width: calc(100% - 36px);
+  box-sizing: border-box;
 }
 
 .card__badge {
