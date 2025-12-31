@@ -469,6 +469,10 @@ a {
   width: calc(100% + 40px);
 }
 
+.home .card__media--overlay {
+  width: 100%;
+}
+
 .home .card--hero .card__media--overlay {
   aspect-ratio: 16 / 9;
   overflow: hidden;
