@@ -119,6 +119,18 @@ if ( $is_portfolio && has_post_thumbnail( $post_id ) ) {
           <?php endif; ?>
         </div>
       </a>
+    <?php else : ?>
+      <a class="card__media card__media--overlay card__media--placeholder" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+        <div class="card__overlay-content card__overlay-content--label">
+          <?php if ( 'project' === $post_type ) : ?>
+            <span class="card__label"><?php echo esc_html( $project_title ); ?></span>
+            <h2 class="card__title card__title--overlay"><?php echo esc_html( $project_tagline ); ?></h2>
+          <?php else : ?>
+            <span class="card__label"><?php echo esc_html( $label ); ?></span>
+            <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
+          <?php endif; ?>
+        </div>
+      </a>
     <?php endif; ?>
     <h2 class="card__title card__title--hidden">
       <a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
