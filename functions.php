@@ -190,7 +190,7 @@ function greenzeta_2026_register_custom_post_types() {
 
   $project_args = array(
     'label' => __( 'Project', 'greenzeta-2026' ),
-    'description' => __( 'Project entries', 'greenzeta-2026' ),
+    'description' => __( 'Personal projects and software experiments.', 'greenzeta-2026' ),
     'labels' => $project_labels,
     'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'excerpt' ),
     'taxonomies' => array( 'post_tag' ),
@@ -1141,3 +1141,51 @@ function greenzeta_2026_include_cpts_in_tag_archives( $query ) {
   }
 }
 add_action( 'pre_get_posts', 'greenzeta_2026_include_cpts_in_tag_archives' );
+
+function greenzeta_2026_social_meta_tags() {
+  if ( is_admin() ) {
+    return;
+  }
+
+  $title = wp_get_document_title();
+  $description = get_bloginfo( 'description' );
+  $url = home_url( add_query_arg( array(), $GLOBALS['wp']->request ) );
+  $image = '';
+
+  if ( is_singular() ) {
+    $post_id = get_queried_object_id();
+    $title = get_the_title( $post_id );
+    $excerpt = get_the_excerpt( $post_id );
+    if ( ! $excerpt ) {
+      $excerpt = wp_trim_words( wp_strip_all_tags( get_post_field( 'post_content', $post_id ) ), 30 );
+    }
+    if ( $excerpt ) {
+      $description = $excerpt;
+    }
+    $thumb_id = get_post_thumbnail_id( $post_id );
+    if ( $thumb_id ) {
+      $image = wp_get_attachment_image_url( $thumb_id, 'full' );
+    }
+    $url = get_permalink( $post_id );
+  }
+
+  $site_name = get_bloginfo( 'name' );
+  $description = $description ? $description : $site_name;
+  ?>
+  <meta property="og:title" content="<?php echo esc_attr( $title ); ?>" />
+  <meta property="og:description" content="<?php echo esc_attr( $description ); ?>" />
+  <meta property="og:url" content="<?php echo esc_url( $url ); ?>" />
+  <meta property="og:site_name" content="<?php echo esc_attr( $site_name ); ?>" />
+  <meta property="og:type" content="<?php echo is_singular() ? 'article' : 'website'; ?>" />
+  <?php if ( $image ) : ?>
+    <meta property="og:image" content="<?php echo esc_url( $image ); ?>" />
+  <?php endif; ?>
+  <meta name="twitter:card" content="<?php echo $image ? 'summary_large_image' : 'summary'; ?>" />
+  <meta name="twitter:title" content="<?php echo esc_attr( $title ); ?>" />
+  <meta name="twitter:description" content="<?php echo esc_attr( $description ); ?>" />
+  <?php if ( $image ) : ?>
+    <meta name="twitter:image" content="<?php echo esc_url( $image ); ?>" />
+  <?php endif; ?>
+  <?php
+}
+add_action( 'wp_head', 'greenzeta_2026_social_meta_tags' );
