@@ -42,11 +42,11 @@
   }
 
   const themeKey = 'greenzeta-theme';
-  const body = document.body;
+  const root = document.documentElement;
 
   const applyTheme = (theme) => {
-    body.classList.toggle('theme-light', theme === 'light');
-    body.classList.toggle('theme-dark', theme === 'dark');
+    root.classList.toggle('theme-light', theme === 'light');
+    root.classList.toggle('theme-dark', theme === 'dark');
     themeToggle.setAttribute('aria-pressed', theme ? 'true' : 'false');
 
     if (!theme) {
@@ -97,12 +97,36 @@
   });
 })();
 
+const setSeasonByDate = () => {
+  const month = new Date().getMonth();
+  let season = 'autumn';
+
+  if (month <= 1 || month === 11) {
+    season = 'winter';
+  } else if (month >= 2 && month <= 4) {
+    season = 'spring';
+  } else if (month >= 5 && month <= 7) {
+    season = 'summer';
+  }
+
+  window.setSeasonPalette(season);
+};
+
 window.setSeasonPalette = (season) => {
   const trimmed = typeof season === 'string' ? season.trim() : '';
-  if (!trimmed) {
-    document.documentElement.removeAttribute('data-season');
+  const allowed = new Set([ 'summer', 'autumn', 'winter', 'spring' ]);
+  const root = document.documentElement;
+
+  if (!trimmed || !allowed.has(trimmed)) {
+    root.removeAttribute('data-season');
     return;
   }
 
-  document.documentElement.setAttribute('data-season', trimmed);
+  root.setAttribute('data-season', trimmed);
 };
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setSeasonByDate);
+} else {
+  setSeasonByDate();
+}

@@ -16,6 +16,59 @@
   --background-image-right: url("../images/honeycomb_7_white-02.png");
 }
 
+:root[data-season="summer"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #d7ffd0 0%,
+    #ffa347 20%,
+    #ff8ac4 40%,
+    #6b8fe5 80%,
+    #52a8ff 100%
+  );
+  --building-ground: rgb(111 111 124);
+}
+
+:root[data-season="autumn"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #ff8c42 0%,
+    #fff39c 10%,
+    #ecfff2 25%,
+    #8bb2ff 50%,
+    #212165 100%
+  );
+  --building-line: #554949;
+  --building-fill: #b2afb6;
+  --building-window: #f4d9be;
+  --building-ground: rgb(110 112 125);
+}
+
+:root[data-season="winter"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #f0f8ff 0%,
+    #e6e6fa 20%,
+    #b0e0e6 40%,
+    #87ceeb 80%,
+    #4682b4 100%
+  );
+  --building-fill: #b6b6ca;
+  --building-line: #6d6f86;
+  --building-window: #e7f3ff;
+  --building-ground: rgb(157 166 189);
+}
+
+:root[data-season="spring"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #e7fb98 0%,
+    #fc93a2 45%,
+    #e279e2 60%,
+    #3dbaeb 100%
+  );
+  --building-ground: rgb(129 115 132);
+}
+
 body {
   background: var(--background-vinette);
   position: relative;
@@ -182,9 +235,66 @@ body {
     --background-image-left: url("../images/honeycomb_7-01.png");
     --background-image-right: url("../images/honeycomb_7-02.png");
   }
+
+  :root[data-season="summer"] {
+    --background-vinette: linear-gradient(
+      0deg,
+      #ff7f50 0%,
+      #ff6b6b 20%,
+      #ff4785 40%,
+      #9b4f96 60%,
+      #472d87 80%,
+      #1a1b4b 100%
+    );
+    --building-ground: rgb(64 53 62);
+  }
+
+  :root[data-season="autumn"] {
+    --background-vinette: linear-gradient(
+      0deg,
+      #8b4513 0%,
+      #d14242 10%,
+      #fdea9d 25%,
+      #2f5185 45%,
+      #220c2f 80%
+    );
+    --building-fill: #51504e;
+    --building-line: #858080;
+    --building-window: #fdb464;
+    --building-ground: rgb(64 53 53);
+  }
+
+  :root[data-season="winter"] {
+    --background-vinette: linear-gradient(
+      0deg,
+      #4682b4 0%,
+      #4169e1 20%,
+      #191970 40%,
+      #000080 60%,
+      #00008b 80%,
+      #000033 100%
+    );
+    --building-fill: #4e5060;
+    --building-line: #a1a1ac;
+    --building-window: #b1e2ff;
+    --building-ground: rgb(12 11 20);
+  }
+
+  :root[data-season="spring"] {
+    --background-vinette: linear-gradient(
+      180deg,
+      #4b0082 0%,
+      #8b008b 20%,
+      #9932cc 40%,
+      #9370db 60%,
+      #6a5acd 80%,
+      #483d8b 100%
+    );
+    --building-ground: rgb(50 43 58);
+  }
 }
 
-body.theme-light {
+:root.theme-light {
   --background-vinette: linear-gradient(
     0deg,
     #ff8c42 0%,
@@ -201,7 +311,60 @@ body.theme-light {
   --background-image-right: url("../images/honeycomb_7_white-02.png");
 }
 
-body.theme-dark {
+:root.theme-light[data-season="summer"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #d7ffd0 0%,
+    #ffa347 20%,
+    #ff8ac4 40%,
+    #6b8fe5 80%,
+    #52a8ff 100%
+  );
+  --building-ground: rgb(111 111 124);
+}
+
+:root.theme-light[data-season="autumn"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #ff8c42 0%,
+    #fff39c 10%,
+    #ecfff2 25%,
+    #8bb2ff 50%,
+    #212165 100%
+  );
+  --building-line: #554949;
+  --building-fill: #b2afb6;
+  --building-window: #f4d9be;
+  --building-ground: rgb(110 112 125);
+}
+
+:root.theme-light[data-season="winter"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #f0f8ff 0%,
+    #e6e6fa 20%,
+    #b0e0e6 40%,
+    #87ceeb 80%,
+    #4682b4 100%
+  );
+  --building-fill: #b6b6ca;
+  --building-line: #6d6f86;
+  --building-window: #e7f3ff;
+  --building-ground: rgb(157 166 189);
+}
+
+:root.theme-light[data-season="spring"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #e7fb98 0%,
+    #fc93a2 45%,
+    #e279e2 60%,
+    #3dbaeb 100%
+  );
+  --building-ground: rgb(129 115 132);
+}
+
+:root.theme-dark {
   --background-vinette: linear-gradient(
     0deg,
     #8b4513 0%,
@@ -216,4 +379,61 @@ body.theme-dark {
   --building-ground: rgb(64 53 53);
   --background-image-left: url("../images/honeycomb_7-01.png");
   --background-image-right: url("../images/honeycomb_7-02.png");
+}
+
+:root.theme-dark[data-season="summer"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #ff7f50 0%,
+    #ff6b6b 20%,
+    #ff4785 40%,
+    #9b4f96 60%,
+    #472d87 80%,
+    #1a1b4b 100%
+  );
+  --building-ground: rgb(64 53 62);
+}
+
+:root.theme-dark[data-season="autumn"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #8b4513 0%,
+    #d14242 10%,
+    #fdea9d 25%,
+    #2f5185 45%,
+    #220c2f 80%
+  );
+  --building-fill: #51504e;
+  --building-line: #858080;
+  --building-window: #fdb464;
+  --building-ground: rgb(64 53 53);
+}
+
+:root.theme-dark[data-season="winter"] {
+  --background-vinette: linear-gradient(
+    0deg,
+    #4682b4 0%,
+    #4169e1 20%,
+    #191970 40%,
+    #000080 60%,
+    #00008b 80%,
+    #000033 100%
+  );
+  --building-fill: #4e5060;
+  --building-line: #a1a1ac;
+  --building-window: #b1e2ff;
+  --building-ground: rgb(12 11 20);
+}
+
+:root.theme-dark[data-season="spring"] {
+  --background-vinette: linear-gradient(
+    180deg,
+    #4b0082 0%,
+    #8b008b 20%,
+    #9932cc 40%,
+    #9370db 60%,
+    #6a5acd 80%,
+    #483d8b 100%
+  );
+  --building-ground: rgb(50 43 58);
 }
