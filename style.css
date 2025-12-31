@@ -392,6 +392,10 @@ a {
   gap: 22px;
 }
 
+.card-grid--group {
+  margin-bottom: 22px;
+}
+
 .card-grid--front > .card--hero:first-child {
   grid-column: 1 / -1;
 }
