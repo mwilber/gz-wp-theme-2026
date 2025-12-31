@@ -611,6 +611,10 @@ a {
   position: relative;
 }
 
+.entry--page.card {
+  padding: 24px;
+}
+
 .entry--single .entry__content > :first-child {
   margin-top: 0;
 }
