@@ -143,6 +143,10 @@ a {
   padding: 0;
 }
 
+.site-social__menu {
+  flex-wrap: wrap;
+}
+
 .site-nav__menu a,
 .site-social__menu a {
   display: inline-flex;
@@ -330,7 +334,7 @@ a {
   height: 34px;
   border-radius: 999px;
   background: #14171b;
-  color: var(--brand-green);
+  color: var(--paper);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -402,7 +406,7 @@ a {
 
 .card-grid--featured > .card--hero:first-child .card__media--overlay {
   width: 100%;
-  aspect-ratio: 3 / 1;
+  aspect-ratio: 5 / 2;
   overflow: hidden;
 }
 
@@ -677,6 +681,10 @@ a {
   .post-hero .card__title--overlay {
     font-size: 1.46rem;
   }
+
+  .card-grid--featured > .card--hero:first-child .card__media--overlay {
+    aspect-ratio: 2 / 3;
+  }
 }
 
 .related-posts {
@@ -939,7 +947,6 @@ body.is-lightbox-open {
     right: 0;
     width: 280px;
     border-radius: 0;
-    border: 1px solid rgba(13, 43, 16, 0.2);
   }
 }
 
