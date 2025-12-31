@@ -463,6 +463,11 @@ a {
   display: block;
 }
 
+.card:not(.card--hero) .card__media--overlay {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
 .card__media--placeholder {
   background: #0b0d10;
   min-height: 220px;
@@ -909,8 +914,12 @@ body.is-lightbox-open {
 }
 
 .archive-header h1 {
-  margin: 0 0 6px;
+  margin: 0;
   font-weight: 700;
+}
+
+.archive-header p {
+  margin-top: 0;
 }
 
 .site-footer {
