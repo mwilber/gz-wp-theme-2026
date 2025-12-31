@@ -70,8 +70,8 @@ $production_link = get_post_meta( get_the_ID(), 'production_link', true );
 $production_url = $production_link ? esc_url( $production_link ) : '';
 $repo_link = get_post_meta( get_the_ID(), 'repo_link', true );
 $repo_url = $repo_link ? esc_url( $repo_link ) : '';
-$technologies = get_post_meta( get_the_ID(), 'technologies', true );
-$tech_list = $technologies ? array_filter( array_map( 'trim', explode( ',', $technologies ) ) ) : array();
+$tag_terms = 'project' === $post_type ? wp_get_post_terms( get_the_ID(), 'post_tag' ) : array();
+$tag_list = $tag_terms && ! is_wp_error( $tag_terms ) ? $tag_terms : array();
 if ( $linked_project_id ) :
   ?>
   <section class="related-project card">
@@ -92,8 +92,8 @@ if ( $linked_project_id ) :
   $production_url = $production_link ? esc_url( $production_link ) : '';
   $repo_link = get_post_meta( get_the_ID(), 'repo_link', true );
   $repo_url = $repo_link ? esc_url( $repo_link ) : '';
-  $technologies = get_post_meta( get_the_ID(), 'technologies', true );
-  $tech_list = $technologies ? array_filter( array_map( 'trim', explode( ',', $technologies ) ) ) : array();
+  $tag_terms = 'project' === $post_type ? wp_get_post_terms( get_the_ID(), 'post_tag' ) : array();
+  $tag_list = $tag_terms && ! is_wp_error( $tag_terms ) ? $tag_terms : array();
   ?>
   <div class="entry__stack<?php echo 'project' === $post_type ? ' entry__stack--project' : ''; ?>">
     <?php if ( 'project' === $post_type && ( $production_url || $repo_url ) ) : ?>
@@ -117,10 +117,16 @@ if ( $linked_project_id ) :
     <div class="entry__content">
       <?php the_content(); ?>
     </div>
-    <?php if ( 'project' === $post_type && $tech_list ) : ?>
-      <div class="entry__tech-list" aria-label="<?php esc_attr_e( 'Technologies', 'greenzeta-2026' ); ?>">
-        <?php foreach ( $tech_list as $tech ) : ?>
-          <span class="entry__tech-pill"><?php echo esc_html( $tech ); ?></span>
+    <?php
+    $all_tags = wp_get_post_terms( get_the_ID(), 'post_tag' );
+    $all_tag_list = $all_tags && ! is_wp_error( $all_tags ) ? $all_tags : array();
+    ?>
+    <?php if ( $all_tag_list ) : ?>
+      <div class="entry__tech-list" aria-label="<?php esc_attr_e( 'Tags', 'greenzeta-2026' ); ?>">
+        <?php foreach ( $all_tag_list as $tag ) : ?>
+          <a class="entry__tech-pill" href="<?php echo esc_url( get_term_link( $tag ) ); ?>">
+            <?php echo esc_html( $tag->name ); ?>
+          </a>
         <?php endforeach; ?>
       </div>
     <?php endif; ?>

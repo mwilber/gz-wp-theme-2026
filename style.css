@@ -434,9 +434,9 @@ a {
 
 .card__label {
   display: inline-block;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0;
+  text-transform: none;
   font-weight: 700;
   color: var(--muted);
   margin-bottom: 6px;
@@ -459,7 +459,7 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.65) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 33%, rgba(0, 0, 0, 1) 100%);
 }
 
 .card__overlay-content {
@@ -498,6 +498,18 @@ a {
   margin-bottom: 6px;
 }
 
+.card__overlay-content--label {
+  bottom: 12px;
+}
+
+.card__title--hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+.card__overlay-content--label .card__title--overlay {
+  font-size: 1.5rem;
+}
 .post-hero .card__overlay-content .card__label {
   font-size: 1.46rem;
   text-transform: none;

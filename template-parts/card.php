@@ -17,13 +17,6 @@ $label = 'post' === $post_type
   ? __( 'Article', 'greenzeta-2026' )
   : ( $post_type_object ? $post_type_object->labels->singular_name : __( 'Post', 'greenzeta-2026' ) );
 
-if ( 'portfolio' === $post_type ) {
-  $client = get_post_meta( $post_id, 'client', true );
-  if ( $client ) {
-    $label = $client;
-  }
-}
-
 $banner_id = (int) get_post_meta( $post_id, 'banner', true );
 $card_image = $banner_id
   ? wp_get_attachment_image( $banner_id, 'greenzeta-card' )
@@ -69,7 +62,6 @@ if ( $is_portfolio && has_post_thumbnail( $post_id ) ) {
         </div>
       </a>
     <?php else : ?>
-      <span class="card__label"><?php echo esc_html( $label ); ?></span>
       <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
     <?php endif; ?>
     <div class="card__excerpt">
@@ -77,11 +69,15 @@ if ( $is_portfolio && has_post_thumbnail( $post_id ) ) {
     </div>
   <?php else : ?>
     <?php if ( $card_image ) : ?>
-      <a class="card__media" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+      <a class="card__media card__media--overlay" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
         <?php echo $card_image; ?>
+        <div class="card__overlay-content card__overlay-content--label">
+          <span class="card__label"><?php echo esc_html( $label ); ?></span>
+          <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
+        </div>
       </a>
     <?php endif; ?>
-    <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
+    <h2 class="card__title card__title--hidden"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
     <div class="card__excerpt">
       <?php echo wp_kses_post( get_the_excerpt( $post_id ) ); ?>
     </div>

@@ -193,6 +193,7 @@ function greenzeta_2026_register_custom_post_types() {
     'description' => __( 'Project entries', 'greenzeta-2026' ),
     'labels' => $project_labels,
     'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'excerpt' ),
+    'taxonomies' => array( 'post_tag' ),
     'hierarchical' => false,
     'public' => true,
     'show_ui' => true,
@@ -371,16 +372,6 @@ function greenzeta_2026_register_project_links_meta() {
     )
   );
 
-  register_post_meta(
-    'project',
-    'technologies',
-    array(
-      'type' => 'string',
-      'single' => true,
-      'sanitize_callback' => 'sanitize_text_field',
-      'show_in_rest' => false,
-    )
-  );
 }
 add_action( 'init', 'greenzeta_2026_register_project_links_meta' );
 
@@ -731,7 +722,6 @@ add_action( 'save_post_project', 'greenzeta_2026_save_live_site_meta' );
 function greenzeta_2026_render_project_links_meta_box( $post ) {
   $production = get_post_meta( $post->ID, 'production_link', true );
   $repo = get_post_meta( $post->ID, 'repo_link', true );
-  $technologies = get_post_meta( $post->ID, 'technologies', true );
 
   wp_nonce_field( 'greenzeta_project_links_meta', 'greenzeta_project_links_meta_nonce' );
   ?>
@@ -755,16 +745,6 @@ function greenzeta_2026_render_project_links_meta_box( $post ) {
       value="<?php echo esc_attr( $repo ); ?>"
       class="widefat"
       placeholder="https://"
-    />
-  </p>
-  <p>
-    <label for="greenzeta-technologies"><strong><?php esc_html_e( 'Technologies (comma-separated)', 'greenzeta-2026' ); ?></strong></label>
-    <input
-      type="text"
-      id="greenzeta-technologies"
-      name="greenzeta_technologies"
-      value="<?php echo esc_attr( $technologies ); ?>"
-      class="widefat"
     />
   </p>
   <?php
@@ -793,10 +773,6 @@ function greenzeta_2026_save_project_links_meta( $post_id ) {
 
   if ( isset( $_POST['greenzeta_repo_link'] ) ) {
     update_post_meta( $post_id, 'repo_link', esc_url_raw( wp_unslash( $_POST['greenzeta_repo_link'] ) ) );
-  }
-
-  if ( isset( $_POST['greenzeta_technologies'] ) ) {
-    update_post_meta( $post_id, 'technologies', sanitize_text_field( wp_unslash( $_POST['greenzeta_technologies'] ) ) );
   }
 }
 add_action( 'save_post_project', 'greenzeta_2026_save_project_links_meta' );
@@ -1059,3 +1035,14 @@ function greenzeta_2026_remove_comments_admin_bar() {
   }
 }
 add_action( 'init', 'greenzeta_2026_remove_comments_admin_bar' );
+
+function greenzeta_2026_include_cpts_in_tag_archives( $query ) {
+  if ( is_admin() || ! $query->is_main_query() ) {
+    return;
+  }
+
+  if ( $query->is_tag() ) {
+    $query->set( 'post_type', array( 'post', 'project', 'portfolio' ) );
+  }
+}
+add_action( 'pre_get_posts', 'greenzeta_2026_include_cpts_in_tag_archives' );
