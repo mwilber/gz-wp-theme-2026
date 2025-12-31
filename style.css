@@ -278,10 +278,12 @@ a {
 .hero__content {
   display: grid;
   gap: 14px;
+  height: 100%;
+  grid-template-rows: 1fr auto;
 }
 
 .hero__copy {
-  max-width: 62ch;
+  max-width: 75ch;
 }
 
 .hero__title {
