@@ -17,10 +17,22 @@ $label = 'post' === $post_type
   ? __( 'Article', 'greenzeta-2026' )
   : ( $post_type_object ? $post_type_object->labels->singular_name : __( 'Post', 'greenzeta-2026' ) );
 
+if ( 'portfolio' === $post_type ) {
+  $client = get_post_meta( $post_id, 'client', true );
+  if ( $client ) {
+    $label = $client;
+  } else {
+    $label = __( 'Portfolio', 'greenzeta-2026' );
+  }
+}
+
 $banner_id = (int) get_post_meta( $post_id, 'banner', true );
-$card_image = $banner_id
-  ? wp_get_attachment_image( $banner_id, 'greenzeta-card' )
-  : get_the_post_thumbnail( $post_id, 'greenzeta-card' );
+$card_image = '';
+if ( $banner_id ) {
+  $card_image = wp_get_attachment_image( $banner_id, 'greenzeta-card' );
+} elseif ( ! $is_portfolio ) {
+  $card_image = get_the_post_thumbnail( $post_id, 'greenzeta-card' );
+}
 
 $logo_image = '';
 if ( $is_portfolio && has_post_thumbnail( $post_id ) ) {
@@ -62,7 +74,15 @@ if ( $is_portfolio && has_post_thumbnail( $post_id ) ) {
         </div>
       </a>
     <?php else : ?>
-      <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
+      <a class="card__media card__media--overlay card__media--placeholder" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+        <?php if ( $logo_image ) : ?>
+          <span class="card__badge"><?php echo $logo_image; ?></span>
+        <?php endif; ?>
+        <div class="card__overlay-content">
+          <span class="card__label"><?php echo esc_html( $label ); ?></span>
+          <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
+        </div>
+      </a>
     <?php endif; ?>
     <div class="card__excerpt">
       <?php echo wp_kses_post( get_the_excerpt( $post_id ) ); ?>

@@ -455,6 +455,18 @@ a {
   display: block;
 }
 
+.card__media--placeholder {
+  background: #0b0d10;
+  min-height: 220px;
+}
+
+.card__media--placeholder .card__overlay-content {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+}
+
 .card__media--overlay::after {
   content: "";
   position: absolute;
