@@ -92,6 +92,7 @@ if ( $linked_project_id ) :
   $production_url = $production_link ? esc_url( $production_link ) : '';
   $repo_link = get_post_meta( get_the_ID(), 'repo_link', true );
   $repo_url = $repo_link ? esc_url( $repo_link ) : '';
+  $tag_line = get_post_meta( get_the_ID(), 'tag_line', true );
   $tag_terms = 'project' === $post_type ? wp_get_post_terms( get_the_ID(), 'post_tag' ) : array();
   $tag_list = $tag_terms && ! is_wp_error( $tag_terms ) ? $tag_terms : array();
   ?>
@@ -115,6 +116,9 @@ if ( $linked_project_id ) :
       </a>
     <?php endif; ?>
     <div class="entry__content">
+      <?php if ( 'project' === $post_type && $tag_line ) : ?>
+        <p class="entry__tagline"><?php echo esc_html( $tag_line ); ?></p>
+      <?php endif; ?>
       <?php the_content(); ?>
     </div>
     <?php

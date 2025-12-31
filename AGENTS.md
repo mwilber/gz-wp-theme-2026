@@ -30,6 +30,7 @@ The visual target is the `design.png` mockup. Content should come from WordPress
 - Theme settings live in `theme.json` (content size is 1200px).
 - The README includes current admin setup steps for content population.
 - Projects are now a CPT with `archive-project.php` and `single-project.php`, linked to Posts/Updates via `project_id` meta; legacy `project` taxonomy was removed.
+- Project cards use `tag_line` (fallback: "Development Project") as the card title and show the project title as the label; project content cards show tag pills from post tags.
 - Potential migrations from production (see `functions-production-reference.php`, remove before shipping): slug-based body class, ACF global options page, custom taxonomy ordering, and a `pre_get_posts` hook to include CPTs in category/tag archives if needed.
 
 ## QA Checklist

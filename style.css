@@ -600,6 +600,13 @@ a {
   margin-top: 0;
 }
 
+.entry__tagline {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
 .entry__live-site {
   position: absolute;
   top: 20px;
@@ -694,6 +701,11 @@ a {
 .related-project {
   margin-bottom: 24px;
   padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .project-meta {
@@ -701,7 +713,7 @@ a {
 }
 
 .related-project__label {
-  margin: 0 0 6px;
+  margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.72rem;
@@ -711,6 +723,19 @@ a {
 .related-project__title {
   margin: 0;
   font-size: 1.2rem;
+}
+
+.related-project__title a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d2b10;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 12px 24px rgba(13, 43, 16, 0.24);
 }
 
 .related-project__title a:focus-visible {
