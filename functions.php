@@ -372,6 +372,17 @@ function greenzeta_2026_register_project_links_meta() {
     )
   );
 
+  register_post_meta(
+    'project',
+    'featured_project',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'sanitize_callback' => 'rest_sanitize_boolean',
+      'show_in_rest' => false,
+    )
+  );
+
 }
 add_action( 'init', 'greenzeta_2026_register_project_links_meta' );
 
@@ -494,6 +505,22 @@ function greenzeta_2026_add_project_links_meta_box( $post_type, $post ) {
   );
 }
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_project_links_meta_box', 10, 2 );
+
+function greenzeta_2026_add_featured_project_meta_box( $post_type, $post ) {
+  if ( 'project' !== $post_type ) {
+    return;
+  }
+
+  add_meta_box(
+    'greenzeta-featured-project',
+    __( 'Featured Project', 'greenzeta-2026' ),
+    'greenzeta_2026_render_featured_project_meta_box',
+    'project',
+    'side',
+    'default'
+  );
+}
+add_action( 'add_meta_boxes', 'greenzeta_2026_add_featured_project_meta_box', 10, 2 );
 
 function greenzeta_2026_add_project_link_meta_box( $post_type, $post ) {
   if ( ! in_array( $post_type, array( 'post', 'update' ), true ) ) {
@@ -750,6 +777,26 @@ function greenzeta_2026_render_project_links_meta_box( $post ) {
   <?php
 }
 
+function greenzeta_2026_render_featured_project_meta_box( $post ) {
+  $is_featured = (bool) get_post_meta( $post->ID, 'featured_project', true );
+
+  wp_nonce_field( 'greenzeta_featured_project_meta', 'greenzeta_featured_project_meta_nonce' );
+  ?>
+  <p>
+    <label for="greenzeta-featured-project">
+      <input
+        type="checkbox"
+        id="greenzeta-featured-project"
+        name="greenzeta_featured_project"
+        value="1"
+        <?php checked( $is_featured ); ?>
+      />
+      <?php esc_html_e( 'Show on home page as featured', 'greenzeta-2026' ); ?>
+    </label>
+  </p>
+  <?php
+}
+
 function greenzeta_2026_save_project_links_meta( $post_id ) {
   if ( ! isset( $_POST['greenzeta_project_links_meta_nonce'] ) ) {
     return;
@@ -776,6 +823,28 @@ function greenzeta_2026_save_project_links_meta( $post_id ) {
   }
 }
 add_action( 'save_post_project', 'greenzeta_2026_save_project_links_meta' );
+
+function greenzeta_2026_save_featured_project_meta( $post_id ) {
+  if ( ! isset( $_POST['greenzeta_featured_project_meta_nonce'] ) ) {
+    return;
+  }
+
+  if ( ! wp_verify_nonce( $_POST['greenzeta_featured_project_meta_nonce'], 'greenzeta_featured_project_meta' ) ) {
+    return;
+  }
+
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_post', $post_id ) ) {
+    return;
+  }
+
+  $value = isset( $_POST['greenzeta_featured_project'] ) ? 1 : 0;
+  update_post_meta( $post_id, 'featured_project', $value );
+}
+add_action( 'save_post_project', 'greenzeta_2026_save_featured_project_meta' );
 
 function greenzeta_2026_render_project_link_meta_box( $post ) {
   $selected_id = (int) get_post_meta( $post->ID, 'project_id', true );

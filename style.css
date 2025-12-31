@@ -396,11 +396,11 @@ a {
   margin-bottom: 22px;
 }
 
-.card-grid--front > .card--hero:first-child {
+.card-grid--featured > .card--hero:first-child {
   grid-column: 1 / -1;
 }
 
-.card-grid--front > .card--hero:first-child .card__media--overlay {
+.card-grid--featured > .card--hero:first-child .card__media--overlay {
   width: 100%;
   aspect-ratio: 3 / 1;
   overflow: hidden;
