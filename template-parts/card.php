@@ -26,6 +26,14 @@ if ( 'portfolio' === $post_type ) {
   }
 }
 
+$project_title = '';
+$project_tagline = '';
+if ( 'project' === $post_type ) {
+  $project_title = get_the_title( $post_id );
+  $tag_line = get_post_meta( $post_id, 'tag_line', true );
+  $project_tagline = $tag_line ? $tag_line : __( 'Development Project', 'greenzeta-2026' );
+}
+
 $banner_id = (int) get_post_meta( $post_id, 'banner', true );
 $card_image = '';
 if ( $banner_id ) {
@@ -53,13 +61,23 @@ if ( $is_portfolio && has_post_thumbnail( $post_id ) ) {
       <a class="card__media card__media--overlay" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
         <?php echo $card_image; ?>
         <div class="card__overlay-content">
-          <span class="card__label"><?php echo esc_html( $label ); ?></span>
-          <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
+          <?php if ( 'project' === $post_type ) : ?>
+            <span class="card__label"><?php echo esc_html( $project_title ); ?></span>
+            <h2 class="card__title card__title--overlay"><?php echo esc_html( $project_tagline ); ?></h2>
+          <?php else : ?>
+            <span class="card__label"><?php echo esc_html( $label ); ?></span>
+            <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
+          <?php endif; ?>
         </div>
       </a>
     <?php else : ?>
-      <span class="card__label"><?php echo esc_html( $label ); ?></span>
-      <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
+      <?php if ( 'project' === $post_type ) : ?>
+        <span class="card__label"><?php echo esc_html( $project_title ); ?></span>
+        <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( $project_tagline ); ?></a></h2>
+      <?php else : ?>
+        <span class="card__label"><?php echo esc_html( $label ); ?></span>
+        <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
+      <?php endif; ?>
     <?php endif; ?>
   <?php elseif ( $is_portfolio ) : ?>
     <?php if ( $card_image ) : ?>
@@ -92,12 +110,21 @@ if ( $is_portfolio && has_post_thumbnail( $post_id ) ) {
       <a class="card__media card__media--overlay" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
         <?php echo $card_image; ?>
         <div class="card__overlay-content card__overlay-content--label">
-          <span class="card__label"><?php echo esc_html( $label ); ?></span>
-          <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
+          <?php if ( 'project' === $post_type ) : ?>
+            <span class="card__label"><?php echo esc_html( $project_title ); ?></span>
+            <h2 class="card__title card__title--overlay"><?php echo esc_html( $project_tagline ); ?></h2>
+          <?php else : ?>
+            <span class="card__label"><?php echo esc_html( $label ); ?></span>
+            <h2 class="card__title card__title--overlay"><?php echo esc_html( get_the_title( $post_id ) ); ?></h2>
+          <?php endif; ?>
         </div>
       </a>
     <?php endif; ?>
-    <h2 class="card__title card__title--hidden"><a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h2>
+    <h2 class="card__title card__title--hidden">
+      <a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+        <?php echo esc_html( 'project' === $post_type ? $project_tagline : get_the_title( $post_id ) ); ?>
+      </a>
+    </h2>
     <div class="card__excerpt">
       <?php echo wp_kses_post( get_the_excerpt( $post_id ) ); ?>
     </div>

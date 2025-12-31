@@ -383,6 +383,17 @@ function greenzeta_2026_register_project_links_meta() {
     )
   );
 
+  register_post_meta(
+    'project',
+    'tag_line',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'sanitize_callback' => 'sanitize_text_field',
+      'show_in_rest' => false,
+    )
+  );
+
 }
 add_action( 'init', 'greenzeta_2026_register_project_links_meta' );
 
@@ -749,6 +760,7 @@ add_action( 'save_post_project', 'greenzeta_2026_save_live_site_meta' );
 function greenzeta_2026_render_project_links_meta_box( $post ) {
   $production = get_post_meta( $post->ID, 'production_link', true );
   $repo = get_post_meta( $post->ID, 'repo_link', true );
+  $tag_line = get_post_meta( $post->ID, 'tag_line', true );
 
   wp_nonce_field( 'greenzeta_project_links_meta', 'greenzeta_project_links_meta_nonce' );
   ?>
@@ -772,6 +784,16 @@ function greenzeta_2026_render_project_links_meta_box( $post ) {
       value="<?php echo esc_attr( $repo ); ?>"
       class="widefat"
       placeholder="https://"
+    />
+  </p>
+  <p>
+    <label for="greenzeta-tag-line"><strong><?php esc_html_e( 'Tag line', 'greenzeta-2026' ); ?></strong></label>
+    <input
+      type="text"
+      id="greenzeta-tag-line"
+      name="greenzeta_tag_line"
+      value="<?php echo esc_attr( $tag_line ); ?>"
+      class="widefat"
     />
   </p>
   <?php
@@ -820,6 +842,10 @@ function greenzeta_2026_save_project_links_meta( $post_id ) {
 
   if ( isset( $_POST['greenzeta_repo_link'] ) ) {
     update_post_meta( $post_id, 'repo_link', esc_url_raw( wp_unslash( $_POST['greenzeta_repo_link'] ) ) );
+  }
+
+  if ( isset( $_POST['greenzeta_tag_line'] ) ) {
+    update_post_meta( $post_id, 'tag_line', sanitize_text_field( wp_unslash( $_POST['greenzeta_tag_line'] ) ) );
   }
 }
 add_action( 'save_post_project', 'greenzeta_2026_save_project_links_meta' );
