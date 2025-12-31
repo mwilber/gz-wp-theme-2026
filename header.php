@@ -11,6 +11,7 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<?php get_template_part( 'template-parts/background' ); ?>
 <a class="skip-link" href="#site-content">Skip to content</a>
 <header id="site-header" class="site-header">
   <div class="site-header__inner">

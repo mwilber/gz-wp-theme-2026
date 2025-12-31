@@ -3,6 +3,7 @@
  * Footer template.
  */
 ?>
+<?php get_template_part( 'template-parts/cityscape' ); ?>
 <footer id="site-footer" class="site-footer">
   <div class="site-footer__inner">
     <nav class="site-social" aria-label="<?php esc_attr_e( 'Social', 'greenzeta-2026' ); ?>">
