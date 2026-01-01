@@ -5,7 +5,8 @@
   }
 
   const toggle = nav.querySelector('.site-nav__toggle');
-  const panel = nav.querySelector('.site-nav__panel');
+  const panelId = toggle ? toggle.getAttribute('aria-controls') : null;
+  const panel = panelId ? document.getElementById(panelId) : null;
   const themeToggle = nav.querySelector('.site-theme-toggle');
 
   if (!toggle || !panel) {

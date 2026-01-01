@@ -105,6 +105,8 @@ a {
   background: var(--brand-green);
   color: #0d2b10;
   height: 40px;
+  position: relative;
+  z-index: 300;
 }
 
 .site-header__inner,
@@ -269,7 +271,7 @@ a {
 }
 
 .site-nav__panel {
-  position: fixed;
+  position: absolute;
   top: 40px;
   left: 0;
   right: 0;
@@ -281,10 +283,10 @@ a {
   transform: translateY(-10px);
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
-  z-index: 10;
+  z-index: 400;
 }
 
-.site-nav--open .site-nav__panel {
+.site-nav__panel[aria-hidden="false"] {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
@@ -1087,7 +1089,7 @@ body.is-lightbox-open {
 @media (min-width: 768px) {
   .site-nav__panel {
     position: absolute;
-    top: 100%;
+    top: 40px;
     left: auto;
     right: 0;
     width: 280px;
