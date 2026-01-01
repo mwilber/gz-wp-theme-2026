@@ -307,7 +307,7 @@ a {
 }
 
 .site-content {
-  padding: 32px 0 15vw;
+  padding: 32px 0 10vw;
 }
 
 .hero {
@@ -513,7 +513,8 @@ a {
   width: calc(100% + 40px);
 }
 
-.home .card__media--overlay {
+.home .card__media--overlay,
+.post-hero .card__media--overlay {
   width: 100%;
 }
 
@@ -1005,8 +1006,8 @@ body.is-lightbox-open {
     --pill-bg: #222833;
     --pill-text: #e6e9ef;
     --footer-bg: rgba(20, 24, 31, 0.88);
-    --hero-social-bg: #0f1319;
-    --hero-social-color: #7bb951;
+    --hero-social-bg: #ffffff;
+    --hero-social-color: var(--paper);
     --social-pill-bg: rgba(255, 255, 255, 0.08);
     --social-pill-text: #e6e9ef;
     --action-bg: #7bb951;
@@ -1026,8 +1027,8 @@ body.is-lightbox-open {
   --pill-bg: #222833;
   --pill-text: #e6e9ef;
   --footer-bg: rgba(20, 24, 31, 0.88);
-  --hero-social-bg: #0f1319;
-  --hero-social-color: #7bb951;
+  --hero-social-bg: #ffffff;
+  --hero-social-color: var(--paper);
   --social-pill-bg: rgba(255, 255, 255, 0.08);
   --social-pill-text: #e6e9ef;
   --action-bg: #7bb951;
@@ -1062,7 +1063,7 @@ body.is-lightbox-open {
 
 @media (min-width: 720px) {
   .site-content {
-    padding: 48px 0 25vw;
+    padding: 48px 0 225px;
   }
 
   .hero {

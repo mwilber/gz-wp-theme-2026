@@ -276,16 +276,13 @@ body {
 
   :root[data-season="winter"] {
     --background-vinette: linear-gradient(
-      0deg,
-      #4682b4 0%,
-      #4169e1 20%,
-      #191970 40%,
-      #000080 60%,
-      #00008b 80%,
+      0deg, 
+      #064579 0%, 
+      #333360 30%, 
       #000033 100%
     );
-    --building-fill: #4e5060;
-    --building-line: #a1a1ac;
+    --building-fill: #393b46;
+    --building-line: #787887;
     --building-window: #b1e2ff;
     --building-ground: rgb(12 11 20);
   }
@@ -360,7 +357,7 @@ body {
   --building-fill: #b6b6ca;
   --building-line: #6d6f86;
   --building-window: #e7f3ff;
-  --building-ground: rgb(157 166 189);
+  --building-ground: #bfc6d9;
 }
 
 :root.theme-light[data-season="spring"] {
@@ -423,10 +420,7 @@ body {
   --background-vinette: linear-gradient(
     0deg,
     #4682b4 0%,
-    #4169e1 20%,
-    #191970 40%,
     #000080 60%,
-    #00008b 80%,
     #000033 100%
   );
   --building-fill: #4e5060;
