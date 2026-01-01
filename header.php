@@ -35,17 +35,17 @@
         <span class="screen-reader-text"><?php esc_html_e( 'Open menu', 'greenzeta-2026' ); ?></span>
       </button>
     </nav>
+    <div class="site-nav__panel" id="primary-menu-panel" aria-hidden="true">
+      <?php
+      wp_nav_menu(
+        array(
+          'theme_location' => 'primary',
+          'menu_class' => 'site-nav__menu',
+          'container' => false,
+          'fallback_cb' => false,
+        )
+      );
+      ?>
+    </div>
   </div>
 </header>
-<div class="site-nav__panel" id="primary-menu-panel" aria-hidden="true">
-  <?php
-  wp_nav_menu(
-    array(
-      'theme_location' => 'primary',
-      'menu_class' => 'site-nav__menu',
-      'container' => false,
-      'fallback_cb' => false,
-    )
-  );
-  ?>
-</div>
