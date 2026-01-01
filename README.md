@@ -1,56 +1,47 @@
-# GreenZeta 2026 WordPress Theme
+# GreenZeta 2026 Theme Overview
 
-Custom WordPress theme for GreenZeta 2026. The design target is the `design.png` mockup with a full-width header/background and a 1200px max-width content area. Content is managed via the WordPress admin (no hardcoded card copy).
+This project is an experiment in AI-driven development. It was written entirely by OpenAI Codex as a production-ready WordPress theme and its supporting UI behaviors.
 
-## Project Structure
+## Snapshot
+![GreenZeta 2026 screenshot](https://greenzeta.com/wp-content/uploads/2026/01/greenzeta-2026.local_-687x1024.png)
+
+Direct link: https://greenzeta.com/wp-content/uploads/2026/01/greenzeta-2026.local_-687x1024.png
+
+## Overview
+This theme showcases a card-based WordPress layout with a full-width visual environment, a centered content column, responsive grids, and a polished header/footer experience. The goal is to explain how an AI-assisted workflow can deliver a cohesive, production-grade theme with custom content types, flexible cards, and integrated visual systems.
+
+## Highlights
+- Responsive card grid system with featured media and overlay titles.
+- Hero panel with editable content and skill pills.
+- Custom post types (Projects, Portfolio, Updates) with linked content relationships.
+- Theme-driven visual background (cityscape + layered textures).
+- Light/dark mode toggle with system-aware defaults.
+- Seasonal palette system controlled by JavaScript (auto by month).
+
+## Theme Structure
 - Theme root: `wp-content/themes/greenzetatwentysix`
 - Templates: `front-page.php`, `home.php`, `index.php`, `page.php`, `single.php`, `archive.php`, `search.php`, `404.php`
 - Template parts: `template-parts/` (`hero.php`, `card.php`, `content-page.php`, `content-single.php`, `content-none.php`)
 - Assets: `assets/css/`, `assets/js/`, `assets/images/`
-- Stylesheet: `style.css` (includes theme header + styles)
+- Stylesheet: `style.css`
 - Theme settings: `theme.json`
 
-## Theme Features
-- Custom logo support (falls back to site title)
-- Primary and social menus
-- Featured images with a `greenzeta-card` size
-- Responsive card grid layout
-- Accessibility basics: skip link + focus-visible styles
+## WordPress Setup (Quick)
+1) Activate the theme
+- `Appearance → Themes` → “GreenZeta 2026”
 
-## Design & Layout Notes
-- Official GreenZeta green: `#7bb951` (top nav)
-- Main content max width: 1200px
-- Header/footer and background are full-width
-- Mobile-first layout with breakpoints at ~720px and ~1024px
+2) Configure home page
+- `Settings → Reading`
+- Use “Your latest posts” for the post grid, or choose a static front page
 
-## Populating Content via WordPress Admin
-1) Assign the theme
-- Go to `Appearance → Themes` and activate “GreenZeta 2026.”
+3) Menus
+- `Appearance → Menus`
+- Assign the “Primary” menu to the header
+- Assign the “Social” menu for icon links in the hero/footer
 
-2) Set the site title and tagline (hero content)
-- Go to `Settings → General` and update “Site Title” and “Tagline.”
-- These appear in the hero section and post index header.
-
-3) Configure the homepage
-- Go to `Settings → Reading`.
-- Choose:
-  - “Your latest posts” to use the posts grid on the front page, or
-  - “A static page” to set a custom front page (still using the theme layout).
-
-4) Add menu links
-- Go to `Appearance → Menus`.
-- Create a menu and assign it to “Primary.”
-- Create a second menu and assign it to “Social” for the footer icons/links.
-
-5) Add posts and featured images (cards)
-- Go to `Posts → Add New`.
-- Add a title and excerpt; the excerpt appears on the card.
-- Set a Featured Image to display the card image.
-
-6) Pages and single posts
-- Pages use `page.php` with `template-parts/content-page.php`.
-- Single posts use `single.php` with `template-parts/content-single.php`.
+4) Posts and media
+- Add posts with Featured Images to populate cards
 
 ## Development Notes
-- No build or test commands are configured yet.
-- If you add tooling, document commands in `AGENTS.md` and update this README.
+- No build or test commands are configured.
+- If tooling is added, document commands in `AGENTS.md` and update this README.
