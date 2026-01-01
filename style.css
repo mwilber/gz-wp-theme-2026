@@ -20,6 +20,19 @@ No styles yet. This file exists to register the theme.
   --paper: #ffffff;
   --muted: #6f7480;
   --card-shadow: 0 16px 32px rgba(16, 19, 24, 0.12);
+  --page-bg: linear-gradient(180deg, #eef4ea 0%, #ffffff 60%);
+  --card-border: #e5e7eb;
+  --subtle: #5b616d;
+  --pill-bg: #eff2f5;
+  --pill-text: #2d3138;
+  --footer-bg: #f2f4f7;
+  --hero-social-bg: #14171b;
+  --hero-social-color: var(--paper);
+  --social-pill-bg: rgba(255, 255, 255, 0.75);
+  --social-pill-text: #0d2b10;
+  --action-bg: #0d2b10;
+  --action-text: #ffffff;
+  --action-shadow: 0 12px 24px rgba(13, 43, 16, 0.24);
   --radius-lg: 24px;
   --radius-md: 16px;
   --max-width: 1200px;
@@ -47,7 +60,7 @@ body {
   color: var(--ink);
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.6;
-  background: linear-gradient(180deg, #eef4ea 0%, #ffffff 60%);
+  background: var(--page-bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -155,9 +168,10 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 14px;
+  padding: 5px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--social-pill-bg);
+  color: var(--social-pill-text);
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -291,14 +305,14 @@ a {
 }
 
 .site-content {
-  padding: 32px 0 56px;
+  padding: 32px 0 15vw;
 }
 
 .hero {
   background: var(--paper);
   border-radius: var(--radius-lg);
   padding: 28px 26px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--card-border);
   box-shadow: 0 20px 40px rgba(16, 19, 24, 0.12);
   margin-bottom: 28px;
   display: grid;
@@ -326,7 +340,7 @@ a {
 
 .hero__subtitle {
   margin: 0;
-  color: #5b616d;
+  color: var(--subtle);
   font-size: 1.02rem;
   max-width: 58ch;
 }
@@ -339,8 +353,8 @@ a {
 }
 
 .hero__skill {
-  background: #eff2f5;
-  color: #2d3138;
+  background: var(--pill-bg);
+  color: var(--pill-text);
   padding: 6px 12px;
   border-radius: 999px;
   font-size: 0.82rem;
@@ -366,8 +380,8 @@ a {
   width: 34px;
   height: 34px;
   border-radius: 999px;
-  background: #14171b;
-  color: var(--paper);
+  background: var(--hero-social-bg);
+  color: var(--hero-social-color);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -665,13 +679,13 @@ a {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: #0d2b10;
-  color: #ffffff;
+  background: var(--action-bg);
+  color: var(--action-text);
   padding: 10px 16px;
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.9rem;
-  box-shadow: 0 12px 24px rgba(13, 43, 16, 0.24);
+  box-shadow: var(--action-shadow);
 }
 
 .entry__live-site + .entry__content {
@@ -707,8 +721,8 @@ a {
 }
 
 .entry__tech-pill {
-  background: #eff2f5;
-  color: #2d3138;
+  background: var(--pill-bg);
+  color: var(--pill-text);
   padding: 6px 12px;
   border-radius: 999px;
   font-size: 0.85rem;
@@ -783,13 +797,13 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #0d2b10;
-  color: #ffffff;
+  background: var(--action-bg);
+  color: var(--action-text);
   padding: 10px 16px;
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.9rem;
-  box-shadow: 0 12px 24px rgba(13, 43, 16, 0.24);
+  box-shadow: var(--action-shadow);
 }
 
 .related-project__title a:focus-visible {
@@ -972,15 +986,61 @@ body.is-lightbox-open {
 }
 
 .site-footer {
-  background: #f2f4f7;
-  padding: 24px 0 32px;
+  background: var(--footer-bg);
+  padding: 10px 0 15px;
   margin-top: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light) {
+    --ink: #e6e9ef;
+    --paper: #161a21;
+    --muted: #a3aab7;
+    --card-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
+    --page-bg: linear-gradient(180deg, #0d1117 0%, #10141b 60%);
+    --card-border: #2a2f3a;
+    --subtle: #b5bcc8;
+    --pill-bg: #222833;
+    --pill-text: #e6e9ef;
+    --footer-bg: rgba(20, 24, 31, 0.88);
+    --hero-social-bg: #0f1319;
+    --hero-social-color: #7bb951;
+    --social-pill-bg: rgba(255, 255, 255, 0.08);
+    --social-pill-text: #e6e9ef;
+    --action-bg: #7bb951;
+    --action-text: #0d2b10;
+    --action-shadow: 0 14px 26px rgba(0, 0, 0, 0.4);
+  }
+}
+
+:root.theme-dark {
+  --ink: #e6e9ef;
+  --paper: #161a21;
+  --muted: #a3aab7;
+  --card-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
+  --page-bg: linear-gradient(180deg, #0d1117 0%, #10141b 60%);
+  --card-border: #2a2f3a;
+  --subtle: #b5bcc8;
+  --pill-bg: #222833;
+  --pill-text: #e6e9ef;
+  --footer-bg: rgba(20, 24, 31, 0.88);
+  --hero-social-bg: #0f1319;
+  --hero-social-color: #7bb951;
+  --social-pill-bg: rgba(255, 255, 255, 0.08);
+  --social-pill-text: #e6e9ef;
+  --action-bg: #7bb951;
+  --action-text: #0d2b10;
+  --action-shadow: 0 14px 26px rgba(0, 0, 0, 0.4);
 }
 
 .site-footer__inner {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 5px;
+}
+
+.site-footer p {
+  margin: 0;
 }
 
 .entry__title {
@@ -1000,7 +1060,7 @@ body.is-lightbox-open {
 
 @media (min-width: 720px) {
   .site-content {
-    padding: 48px 0 72px;
+    padding: 48px 0 25vw;
   }
 
   .hero {
@@ -1020,6 +1080,7 @@ body.is-lightbox-open {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
   }
 }
 

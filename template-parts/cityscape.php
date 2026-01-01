@@ -5,6 +5,7 @@
 ?>
 <div class="cityscape-background" aria-hidden="true">
   <div class="cityscape">
+    <div class="cityscape-ground"></div>
     <svg id="building_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 260.7 454.4">
       <path class="st0" d="M7,383.3l149.6,65,98.1-34.4v-37.7c.1,0-61.5-14.7-61.5-14.7,0,0-7.3-1.8-10.4-6.6C177.9,347.5,16.3,9.4,16.3,9.4l-5.1,356.4-4.3-1.6v19.1Z"/>
       <g>
