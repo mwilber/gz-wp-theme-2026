@@ -45,20 +45,28 @@
   const themeKey = 'greenzeta-theme';
   const root = document.documentElement;
 
+  const getSystemTheme = () =>
+    window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+
   const applyTheme = (theme) => {
+    const systemTheme = getSystemTheme();
+
     root.classList.toggle('theme-light', theme === 'light');
     root.classList.toggle('theme-dark', theme === 'dark');
     themeToggle.setAttribute('aria-pressed', theme ? 'true' : 'false');
 
     if (!theme) {
-      themeToggle.setAttribute('aria-label', 'Use dark theme');
+      themeToggle.setAttribute(
+        'aria-label',
+        systemTheme === 'dark' ? 'Use light theme' : 'Use dark theme'
+      );
       return;
     }
 
-    themeToggle.setAttribute(
-      'aria-label',
-      theme === 'dark' ? 'Use light theme' : 'Use system theme'
-    );
+    themeToggle.setAttribute('aria-label', 'Use system theme');
   };
 
   const getStoredTheme = () => {
@@ -85,17 +93,27 @@
   applyTheme(currentTheme);
 
   themeToggle.addEventListener('click', () => {
-    if (!currentTheme) {
-      currentTheme = 'dark';
-    } else if (currentTheme === 'dark') {
-      currentTheme = 'light';
-    } else {
+    const systemTheme = getSystemTheme();
+    const overrideTheme = systemTheme === 'dark' ? 'light' : 'dark';
+
+    if (currentTheme === overrideTheme) {
       currentTheme = null;
+    } else {
+      currentTheme = overrideTheme;
     }
 
     setStoredTheme(currentTheme);
     applyTheme(currentTheme);
   });
+
+  if (window.matchMedia) {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener?.('change', () => {
+      if (!currentTheme) {
+        applyTheme(currentTheme);
+      }
+    });
+  }
 })();
 
 const setSeasonByDate = () => {
