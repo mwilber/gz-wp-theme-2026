@@ -21,7 +21,7 @@ No styles yet. This file exists to register the theme.
   --muted: #6f7480;
   --card-shadow: 0 16px 32px rgba(16, 19, 24, 0.12);
   --page-bg: linear-gradient(180deg, #eef4ea 0%, #ffffff 60%);
-  --card-border: #e5e7eb;
+  --card-border: rgba(255, 255, 255, 0.3);
   --subtle: #5b616d;
   --pill-bg: #eff2f5;
   --pill-text: #2d3138;
@@ -472,6 +472,7 @@ a {
   box-shadow: var(--card-shadow);
   overflow: hidden;
   padding: 18px 20px 22px;
+  border: solid 1px var(--card-border);
 }
 
 .card__media {
@@ -1001,7 +1002,7 @@ body.is-lightbox-open {
     --muted: #a3aab7;
     --card-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
     --page-bg: linear-gradient(180deg, #0d1117 0%, #10141b 60%);
-    --card-border: #2a2f3a;
+    --card-border: rgba(255, 255, 255, 0.3);
     --subtle: #b5bcc8;
     --pill-bg: #222833;
     --pill-text: #e6e9ef;
@@ -1022,7 +1023,7 @@ body.is-lightbox-open {
   --muted: #a3aab7;
   --card-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
   --page-bg: linear-gradient(180deg, #0d1117 0%, #10141b 60%);
-  --card-border: #2a2f3a;
+  --card-border: rgba(255, 255, 255, 0.3);
   --subtle: #b5bcc8;
   --pill-bg: #222833;
   --pill-text: #e6e9ef;
