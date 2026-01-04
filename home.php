@@ -8,6 +8,7 @@ get_header();
 
 <main id="site-content" class="site-content">
   <div class="site-content__inner">
+    <?php greenzeta_2026_render_breadcrumbs(); ?>
     <header class="archive-header card">
       <h1><?php bloginfo( 'name' ); ?></h1>
       <?php if ( get_bloginfo( 'description' ) ) : ?>
