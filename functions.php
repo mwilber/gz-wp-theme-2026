@@ -221,11 +221,22 @@ add_action( 'init', 'greenzeta_2026_register_custom_post_types', 0 );
 function greenzeta_2026_register_hero_meta() {
   register_post_meta(
     'page',
-    'greenzeta_hero_subhead',
+    'greenzeta_hero_body',
     array(
       'type' => 'string',
       'single' => true,
       'sanitize_callback' => 'sanitize_textarea_field',
+      'show_in_rest' => false,
+    )
+  );
+
+  register_post_meta(
+    'page',
+    'greenzeta_hero_sub_kicker',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'sanitize_callback' => 'sanitize_text_field',
       'show_in_rest' => false,
     )
   );
@@ -978,19 +989,30 @@ add_action( 'save_post_portfolio', 'greenzeta_2026_save_client_meta' );
 add_action( 'save_post_project', 'greenzeta_2026_save_client_meta' );
 
 function greenzeta_2026_render_hero_meta_box( $post ) {
-  $subhead = get_post_meta( $post->ID, 'greenzeta_hero_subhead', true );
+  $hero_body = get_post_meta( $post->ID, 'greenzeta_hero_body', true );
+  $hero_sub_kicker = get_post_meta( $post->ID, 'greenzeta_hero_sub_kicker', true );
   $skills = get_post_meta( $post->ID, 'greenzeta_hero_skills', true );
   wp_nonce_field( 'greenzeta_hero_meta', 'greenzeta_hero_meta_nonce' );
   ?>
   <p><?php esc_html_e( 'Used on the front page hero section.', 'greenzeta-2026' ); ?></p>
   <p>
-    <label for="greenzeta-hero-subhead"><strong><?php esc_html_e( 'Subhead', 'greenzeta-2026' ); ?></strong></label>
+    <label for="greenzeta-hero-body"><strong><?php esc_html_e( 'Hero Body', 'greenzeta-2026' ); ?></strong></label>
     <textarea
-      id="greenzeta-hero-subhead"
-      name="greenzeta_hero_subhead"
+      id="greenzeta-hero-body"
+      name="greenzeta_hero_body"
       class="widefat"
       rows="4"
-    ><?php echo esc_textarea( $subhead ); ?></textarea>
+    ><?php echo esc_textarea( $hero_body ); ?></textarea>
+  </p>
+  <p>
+    <label for="greenzeta-hero-sub-kicker"><strong><?php esc_html_e( 'Hero Sub Kicker', 'greenzeta-2026' ); ?></strong></label>
+    <input
+      type="text"
+      id="greenzeta-hero-sub-kicker"
+      name="greenzeta_hero_sub_kicker"
+      value="<?php echo esc_attr( $hero_sub_kicker ); ?>"
+      class="widefat"
+    />
   </p>
   <p>
     <label for="greenzeta-hero-skills"><strong><?php esc_html_e( 'Skills (comma-separated)', 'greenzeta-2026' ); ?></strong></label>
@@ -1022,8 +1044,12 @@ function greenzeta_2026_save_hero_meta( $post_id ) {
     return;
   }
 
-  if ( isset( $_POST['greenzeta_hero_subhead'] ) ) {
-    update_post_meta( $post_id, 'greenzeta_hero_subhead', sanitize_textarea_field( wp_unslash( $_POST['greenzeta_hero_subhead'] ) ) );
+  if ( isset( $_POST['greenzeta_hero_body'] ) ) {
+    update_post_meta( $post_id, 'greenzeta_hero_body', sanitize_textarea_field( wp_unslash( $_POST['greenzeta_hero_body'] ) ) );
+  }
+
+  if ( isset( $_POST['greenzeta_hero_sub_kicker'] ) ) {
+    update_post_meta( $post_id, 'greenzeta_hero_sub_kicker', sanitize_text_field( wp_unslash( $_POST['greenzeta_hero_sub_kicker'] ) ) );
   }
 
   if ( isset( $_POST['greenzeta_hero_skills'] ) ) {

@@ -4,7 +4,9 @@
  */
 $hero_id = is_front_page() ? get_queried_object_id() : 0;
 $headline = get_bloginfo( 'description' );
-$subhead = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_subhead', true ) : '';
+$hero_body = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_body', true ) : '';
+$hero_body = $hero_body ? $hero_body : ( $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_subhead', true ) : '' );
+$hero_sub_kicker = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_sub_kicker', true ) : '';
 $skills_raw = $hero_id ? get_post_meta( $hero_id, 'greenzeta_hero_skills', true ) : '';
 $skills = $skills_raw ? array_filter( array_map( 'trim', explode( ',', $skills_raw ) ) ) : array();
 ?>
@@ -14,8 +16,11 @@ $skills = $skills_raw ? array_filter( array_map( 'trim', explode( ',', $skills_r
       <?php if ( $headline ) : ?>
         <h1 class="hero__title"><?php echo esc_html( $headline ); ?></h1>
       <?php endif; ?>
-      <?php if ( $subhead ) : ?>
-        <p class="hero__subtitle"><?php echo esc_html( $subhead ); ?></p>
+      <?php if ( $hero_body ) : ?>
+        <p class="hero__subtitle"><?php echo esc_html( $hero_body ); ?></p>
+      <?php endif; ?>
+      <?php if ( $hero_sub_kicker ) : ?>
+        <p class="hero__sub-kicker"><?php echo esc_html( $hero_sub_kicker ); ?></p>
       <?php endif; ?>
     </div>
 
