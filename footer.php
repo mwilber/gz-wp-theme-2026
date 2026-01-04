@@ -18,7 +18,7 @@
       );
       ?>
     </nav>
-    <p>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> GreenZeta 2026</p>
+    <p>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> GreenZeta</p>
   </div>
 </footer>
 <?php wp_footer(); ?>
