@@ -29,6 +29,7 @@ if ( 'portfolio' === $post_type ) {
   }
 }
 ?>
+<?php greenzeta_2026_render_breadcrumbs(); ?>
 <?php if ( $banner_image ) : ?>
   <section class="post-hero card card--hero">
     <div class="card__media card__media--overlay">

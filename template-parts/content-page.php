@@ -3,6 +3,7 @@
  * Template part for displaying page content.
  */
 ?>
+<?php greenzeta_2026_render_breadcrumbs(); ?>
 <?php if ( is_page( 'about' ) ) : ?>
   <?php
   $tagline = get_bloginfo( 'description' );

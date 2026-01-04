@@ -1058,6 +1058,119 @@ function greenzeta_2026_save_hero_meta( $post_id ) {
 }
 add_action( 'save_post_page', 'greenzeta_2026_save_hero_meta' );
 
+function greenzeta_2026_get_breadcrumb_items() {
+  if ( is_front_page() ) {
+    return array();
+  }
+
+  $items = array(
+    array(
+      'label' => __( 'Home', 'greenzeta-2026' ),
+      'url' => home_url( '/' ),
+    ),
+  );
+
+  if ( is_home() ) {
+    $posts_page_id = (int) get_option( 'page_for_posts' );
+    if ( $posts_page_id ) {
+      $items[] = array(
+        'label' => get_the_title( $posts_page_id ),
+        'url' => get_permalink( $posts_page_id ),
+      );
+    } else {
+      $items[] = array( 'label' => __( 'Articles', 'greenzeta-2026' ) );
+    }
+    return $items;
+  }
+
+  if ( is_singular() ) {
+    $post_type = get_post_type();
+
+    if ( 'page' === $post_type ) {
+      $ancestors = array_reverse( get_post_ancestors( get_the_ID() ) );
+      foreach ( $ancestors as $ancestor_id ) {
+        $items[] = array(
+          'label' => get_the_title( $ancestor_id ),
+          'url' => get_permalink( $ancestor_id ),
+        );
+      }
+    } elseif ( 'post' === $post_type ) {
+      $posts_page_id = (int) get_option( 'page_for_posts' );
+      if ( $posts_page_id ) {
+        $items[] = array(
+          'label' => get_the_title( $posts_page_id ),
+          'url' => get_permalink( $posts_page_id ),
+        );
+      } else {
+        $items[] = array( 'label' => __( 'Articles', 'greenzeta-2026' ) );
+      }
+    } else {
+      $post_type_object = get_post_type_object( $post_type );
+      if ( $post_type_object ) {
+        $items[] = array(
+          'label' => $post_type_object->labels->name,
+          'url' => $post_type_object->has_archive ? get_post_type_archive_link( $post_type ) : '',
+        );
+      }
+    }
+
+    $items[] = array( 'label' => get_the_title() );
+    return $items;
+  }
+
+  if ( is_post_type_archive() ) {
+    $post_type_object = get_queried_object();
+    if ( $post_type_object && ! empty( $post_type_object->label ) ) {
+      $items[] = array( 'label' => $post_type_object->label );
+    }
+    return $items;
+  }
+
+  if ( is_category() ) {
+    $items[] = array( 'label' => single_cat_title( '', false ) );
+    return $items;
+  }
+
+  if ( is_tag() ) {
+    $items[] = array( 'label' => single_tag_title( '', false ) );
+    return $items;
+  }
+
+  if ( is_search() ) {
+    $items[] = array( 'label' => __( 'Search Results', 'greenzeta-2026' ) );
+    return $items;
+  }
+
+  if ( is_404() ) {
+    $items[] = array( 'label' => __( 'Not Found', 'greenzeta-2026' ) );
+  }
+
+  return $items;
+}
+
+function greenzeta_2026_render_breadcrumbs() {
+  $items = greenzeta_2026_get_breadcrumb_items();
+
+  if ( empty( $items ) ) {
+    return;
+  }
+  ?>
+  <nav class="breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'greenzeta-2026' ); ?>">
+    <ol class="breadcrumbs__list">
+      <?php foreach ( $items as $item ) : ?>
+        <li class="breadcrumbs__item">
+          <?php if ( ! empty( $item['url'] ) ) : ?>
+            <a href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+          <?php else : ?>
+            <span><?php echo esc_html( $item['label'] ); ?></span>
+          <?php endif; ?>
+        </li>
+      <?php endforeach; ?>
+    </ol>
+  </nav>
+  <?php
+}
+
 function greenzeta_2026_social_menu_link_attributes( $atts, $item, $args ) {
   if ( empty( $args->theme_location ) || 'social' !== $args->theme_location ) {
     return $atts;
