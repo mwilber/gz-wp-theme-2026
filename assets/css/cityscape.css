@@ -10,7 +10,7 @@
   --building-line: #554949;
   --building-fill: #b2afb6;
   --building-window: #f4d9be;
-  --building-green: #3a473f;
+  --building-green: #171c19;
   --building-ground: rgb(110 112 125);
   --background-image-left: url("../images/honeycomb_7_white-01.png");
   --background-image-right: url("../images/honeycomb_7_white-02.png");
@@ -53,7 +53,7 @@
     #4682b4 100%
   );
   --building-fill: #b6b6ca;
-  --building-line: #6d6f86;
+  --building-line: #9d9eaf;
   --building-window: #e7f3ff;
   --building-ground: rgb(157 166 189);
 }
@@ -122,12 +122,11 @@ body {
 }
 
 .cityscape .cityscape-ground {
-  opacity: 0.85;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 17vw;
+  height: 19vw;
   background-color: var(--building-ground);
   z-index: 0;
 }
@@ -155,59 +154,123 @@ body {
   fill: var(--building-green);
 }
 
+.cityscape svg .suspect {
+  fill: red;
+}
+
+.cityscape svg#city_backdrop {
+  left: 50%;
+  bottom: 10vw;
+  height: 15vw;
+  z-index: -1;
+  transform: translateX(-50%);
+}
+
+.cityscape svg#city_backdrop .st3 {
+  fill: var(--building-ground)
+}
+
 .cityscape svg#building_1 {
-  left: 2%;
-  bottom: 20px;
+  left: 3%;
+  bottom: 3vw;
   height: 26vw;
   z-index: 4;
 }
 
 .cityscape svg#building_2 {
   left: 10%;
-  bottom: -10px;
+  bottom: 2vw;
   height: 26vw;
   z-index: 3;
 }
 
 .cityscape svg#building_3 {
   left: 45%;
-  bottom: 11vw;
-  height: 12vw;
+  bottom: 15vw;
+  height: 10vw;
   z-index: 0;
 }
 
 .cityscape svg#building_4 {
   left: 30%;
-  bottom: 10vw;
+  bottom: 13vw;
   height: 16vw;
   z-index: 2;
 }
 
 .cityscape svg#building_5 {
   right: -2%;
-  bottom: 0vw;
-  z-index: 1;
+  bottom: 3vw;
+  z-index: 2;
   height: 23vw;
 }
 
 .cityscape svg#building_6 {
-  right: 35%;
-  bottom: 12vw;
+  right: 42%;
+  bottom: 17vw;
   height: 13vw;
 }
 
 .cityscape svg#building_7 {
-  right: 20%;
-  bottom: 12vw;
-  z-index: 0;
+  right: 17%;
+  bottom: 15vw;
+  z-index: 1;
   height: 20vw;
 }
 
 .cityscape svg#building_8 {
   right: -10vw;
-  bottom: -6vw;
-  z-index: 0;
+  bottom: -3vw;
+  z-index: 1;
   height: 28vw;
+}
+
+.cityscape svg#building_9 {
+  left: 26%;
+  bottom: 14vw;
+  height: 12vw;
+  z-index: 0;
+}
+
+.cityscape svg#building_10 {
+  left: 82%;
+  bottom: 16vw;
+  height: 14vw;
+  z-index: 0;
+}
+
+.cityscape svg#building_11 {
+  left: 65%;
+  bottom: 14vw;
+  height: 13vw;
+  z-index: 0;
+}
+
+.cityscape svg#building_12 {
+    left: -6%;
+    bottom: 0vw;
+    height: 29vw;
+    z-index: 4;
+}
+
+.cityscape svg#city_block_1,
+.cityscape svg#city_block_2 {
+  left: 25%;
+  bottom: -2vw;
+  height: 18vw;
+  z-index: 5;
+}
+
+.cityscape svg#city_block_2 {
+  z-index: 10;
+}
+
+.cityscape svg#city_decoration {
+  left: 66%;
+  bottom: 7vw;
+  height: 13vw;
+  z-index: 7;
+  display: none;
 }
 
 .site-content,
@@ -281,7 +344,7 @@ body {
       #000033 100%
     );
     --building-fill: #393b46;
-    --building-line: #787887;
+    --building-line: #54545f;
     --building-window: #b1e2ff;
     --building-ground: rgb(12 11 20);
   }
@@ -314,6 +377,7 @@ body {
   --building-line: #554949;
   --building-fill: #b2afb6;
   --building-window: #f4d9be;
+  --building-green: #c9cfcb;
   --building-ground: rgb(110 112 125);
   --background-image-left: url("../images/honeycomb_7_white-01.png");
   --background-image-right: url("../images/honeycomb_7_white-02.png");
@@ -356,7 +420,7 @@ body {
     #4682b4 100%
   );
   --building-fill: #b6b6ca;
-  --building-line: #6d6f86;
+  --building-line: #9d9eaf;
   --building-window: #e7f3ff;
   --building-ground: #bfc6d9;
 }
