@@ -27,7 +27,16 @@ get_header();
       <section class="card-grid card-grid--featured card-grid--group">
         <?php while ( $featured_query->have_posts() ) : $featured_query->the_post(); ?>
           <?php $featured_ids[] = get_the_ID(); ?>
-          <?php get_template_part( 'template-parts/card', null, array( 'post_id' => get_the_ID() ) ); ?>
+          <?php
+          get_template_part(
+            'template-parts/card',
+            null,
+            array(
+              'post_id' => get_the_ID(),
+              'is_featured' => true,
+            )
+          );
+          ?>
         <?php endwhile; ?>
       </section>
       <?php wp_reset_postdata(); ?>

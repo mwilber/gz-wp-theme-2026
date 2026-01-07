@@ -7,8 +7,8 @@
 $post_type = get_post_type();
 $banner_id = (int) get_post_meta( get_the_ID(), 'banner', true );
 $banner_image = $banner_id
-  ? wp_get_attachment_image( $banner_id, 'greenzeta-card' )
-  : get_the_post_thumbnail( get_the_ID(), 'greenzeta-card' );
+  ? wp_get_attachment_image( $banner_id, 'full' )
+  : get_the_post_thumbnail( get_the_ID(), 'full' );
 $logo_image = '';
 if ( 'portfolio' === $post_type && has_post_thumbnail() ) {
   $logo_alt = sprintf( __( '%s logo', 'greenzeta-2026' ), get_the_title() );

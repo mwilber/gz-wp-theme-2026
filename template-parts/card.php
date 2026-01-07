@@ -4,6 +4,7 @@
  */
 
 $post_id = $args['post_id'] ?? get_the_ID();
+$is_featured = ! empty( $args['is_featured'] );
 
 if ( ! $post_id ) {
   return;
@@ -36,10 +37,11 @@ if ( 'project' === $post_type ) {
 
 $banner_id = (int) get_post_meta( $post_id, 'banner', true );
 $card_image = '';
+$featured_image_size = ( $is_front && $is_featured && 'project' === $post_type ) ? 'full' : 'greenzeta-card';
 if ( $banner_id ) {
-  $card_image = wp_get_attachment_image( $banner_id, 'greenzeta-card' );
+  $card_image = wp_get_attachment_image( $banner_id, $featured_image_size );
 } elseif ( ! $is_portfolio ) {
-  $card_image = get_the_post_thumbnail( $post_id, 'greenzeta-card' );
+  $card_image = get_the_post_thumbnail( $post_id, $featured_image_size );
 }
 
 $logo_image = '';
