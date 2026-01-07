@@ -70,12 +70,26 @@ function greenzeta_2026_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'greenzeta_2026_enqueue_assets' );
 
 function greenzeta_2026_enqueue_admin_assets( $hook ) {
+  $screen = get_current_screen();
+  if ( ! $screen ) {
+    return;
+  }
+
+  if ( 'edit.php' === $hook && 'update' === $screen->post_type ) {
+    wp_enqueue_script(
+      'greenzeta-2026-update-quick-edit',
+      get_template_directory_uri() . '/assets/js/update-quick-edit.js',
+      array( 'jquery', 'inline-edit-post' ),
+      '1.0.0',
+      true
+    );
+  }
+
   if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
     return;
   }
 
-  $screen = get_current_screen();
-  if ( ! $screen || ! in_array( $screen->post_type, array( 'post', 'portfolio', 'update', 'project' ), true ) ) {
+  if ( ! in_array( $screen->post_type, array( 'post', 'portfolio', 'update', 'project' ), true ) ) {
     return;
   }
 
@@ -458,6 +472,148 @@ function greenzeta_2026_add_banner_meta_box( $post_type, $post ) {
   );
 }
 add_action( 'add_meta_boxes', 'greenzeta_2026_add_banner_meta_box', 10, 2 );
+
+function greenzeta_2026_add_update_project_column( $columns ) {
+  $columns['project'] = __( 'Project', 'greenzeta-2026' );
+  return $columns;
+}
+add_filter( 'manage_update_posts_columns', 'greenzeta_2026_add_update_project_column' );
+
+function greenzeta_2026_render_update_project_column( $column, $post_id ) {
+  if ( 'project' !== $column ) {
+    return;
+  }
+
+  $project_id = (int) get_post_meta( $post_id, 'project_id', true );
+  $label = $project_id ? esc_html( get_the_title( $project_id ) ) : '&mdash;';
+  printf(
+    '<span class="greenzeta-project-col" data-project-id="%s">%s</span>',
+    esc_attr( $project_id ),
+    $label
+  );
+}
+add_action( 'manage_update_posts_custom_column', 'greenzeta_2026_render_update_project_column', 10, 2 );
+
+function greenzeta_2026_quick_edit_update_project_field( $column_name, $post_type ) {
+  if ( 'project' !== $column_name || 'update' !== $post_type ) {
+    return;
+  }
+
+  $projects = get_posts(
+    array(
+      'post_type' => 'project',
+      'posts_per_page' => -1,
+      'orderby' => 'title',
+      'order' => 'ASC',
+      'post_status' => 'publish',
+    )
+  );
+  ?>
+  <fieldset class="inline-edit-col-right">
+    <div class="inline-edit-col">
+      <label class="alignleft">
+        <span class="title"><?php esc_html_e( 'Project', 'greenzeta-2026' ); ?></span>
+        <select name="greenzeta_project_id_quick">
+          <option value=""><?php esc_html_e( 'None', 'greenzeta-2026' ); ?></option>
+          <?php foreach ( $projects as $project ) : ?>
+            <option value="<?php echo esc_attr( $project->ID ); ?>">
+              <?php echo esc_html( $project->post_title ); ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </label>
+    </div>
+  </fieldset>
+  <?php
+}
+add_action( 'quick_edit_custom_box', 'greenzeta_2026_quick_edit_update_project_field', 10, 2 );
+
+function greenzeta_2026_render_update_bulk_project_field( $column_name, $post_type ) {
+  if ( 'project' !== $column_name || 'update' !== $post_type ) {
+    return;
+  }
+
+  $projects = get_posts(
+    array(
+      'post_type' => 'project',
+      'posts_per_page' => -1,
+      'orderby' => 'title',
+      'order' => 'ASC',
+      'post_status' => 'publish',
+    )
+  );
+  ?>
+  <fieldset class="inline-edit-col-right">
+    <div class="inline-edit-col">
+      <label class="alignleft">
+        <span class="title"><?php esc_html_e( 'Project', 'greenzeta-2026' ); ?></span>
+        <select name="greenzeta_project_id_bulk">
+          <option value=""><?php esc_html_e( 'No change', 'greenzeta-2026' ); ?></option>
+          <option value="0"><?php esc_html_e( 'None', 'greenzeta-2026' ); ?></option>
+          <?php foreach ( $projects as $project ) : ?>
+            <option value="<?php echo esc_attr( $project->ID ); ?>">
+              <?php echo esc_html( $project->post_title ); ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </label>
+    </div>
+  </fieldset>
+  <?php
+}
+add_action( 'bulk_edit_custom_box', 'greenzeta_2026_render_update_bulk_project_field', 10, 2 );
+
+function greenzeta_2026_save_update_bulk_project_field( $post_id ) {
+  if ( ! isset( $_REQUEST['greenzeta_project_id_bulk'] ) ) {
+    return;
+  }
+
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_post', $post_id ) ) {
+    return;
+  }
+
+  $raw_value = sanitize_text_field( wp_unslash( $_REQUEST['greenzeta_project_id_bulk'] ) );
+
+  if ( '' === $raw_value ) {
+    return;
+  }
+
+  if ( '0' === $raw_value ) {
+    delete_post_meta( $post_id, 'project_id' );
+    return;
+  }
+
+  update_post_meta( $post_id, 'project_id', absint( $raw_value ) );
+}
+add_action( 'save_post_update', 'greenzeta_2026_save_update_bulk_project_field' );
+
+function greenzeta_2026_set_update_quick_edit_project( $post_id ) {
+  if ( ! isset( $_REQUEST['greenzeta_project_id_quick'] ) ) {
+    return;
+  }
+
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_post', $post_id ) ) {
+    return;
+  }
+
+  $project_id = absint( wp_unslash( $_REQUEST['greenzeta_project_id_quick'] ) );
+
+  if ( $project_id ) {
+    update_post_meta( $post_id, 'project_id', $project_id );
+    return;
+  }
+
+  delete_post_meta( $post_id, 'project_id' );
+}
+add_action( 'save_post_update', 'greenzeta_2026_set_update_quick_edit_project' );
 
 function greenzeta_2026_add_gallery_meta_box( $post_type, $post ) {
   if ( ! in_array( $post_type, array( 'portfolio', 'project' ), true ) ) {
