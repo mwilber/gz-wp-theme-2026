@@ -30,40 +30,6 @@ if ( 'portfolio' === $post_type ) {
 }
 ?>
 <?php greenzeta_2026_render_breadcrumbs(); ?>
-<?php if ( $banner_image ) : ?>
-  <section class="post-hero card card--hero">
-    <div class="card__media card__media--overlay">
-      <?php echo $banner_image; ?>
-      <?php if ( $logo_image ) : ?>
-        <span class="card__badge card__badge--hero"><?php echo $logo_image; ?></span>
-      <?php endif; ?>
-      <div class="card__overlay-content">
-        <?php if ( $client_label ) : ?>
-          <span class="card__label"><?php echo esc_html( $client_label ); ?></span>
-        <?php endif; ?>
-        <h1 class="card__title card__title--overlay"><?php the_title(); ?></h1>
-      </div>
-    </div>
-  </section>
-<?php else : ?>
-  <header class="post-hero post-hero--no-image">
-    <h1 class="entry__title"><?php the_title(); ?></h1>
-  </header>
-<?php endif; ?>
-
-<?php if ( ! in_array( $post_type, array( 'portfolio', 'project' ), true ) ) : ?>
-  <section class="post-meta-card card">
-    <p class="post-meta-card__text">
-      <?php
-      printf(
-        '%s %s',
-        esc_html__( 'Published on:', 'greenzeta-2026' ),
-        esc_html( get_the_date() )
-      );
-      ?>
-    </p>
-  </section>
-<?php endif; ?>
 
 <?php
 $linked_project_id = (int) get_post_meta( get_the_ID(), 'project_id', true );
@@ -83,6 +49,41 @@ if ( $linked_project_id ) :
       </a>
     </h2>
   </section>
+<?php endif; ?>
+
+<?php if ( ! in_array( $post_type, array( 'portfolio', 'project' ), true ) ) : ?>
+  <section class="post-meta-card card">
+    <p class="post-meta-card__text">
+      <?php
+      printf(
+        '%s %s',
+        esc_html__( 'Published on:', 'greenzeta-2026' ),
+        esc_html( get_the_date() )
+      );
+      ?>
+    </p>
+  </section>
+<?php endif; ?>
+
+<?php if ( $banner_image ) : ?>
+  <section class="post-hero card card--hero">
+    <div class="card__media card__media--overlay">
+      <?php echo $banner_image; ?>
+      <?php if ( $logo_image ) : ?>
+        <span class="card__badge card__badge--hero"><?php echo $logo_image; ?></span>
+      <?php endif; ?>
+      <div class="card__overlay-content">
+        <?php if ( $client_label ) : ?>
+          <span class="card__label"><?php echo esc_html( $client_label ); ?></span>
+        <?php endif; ?>
+        <h1 class="card__title card__title--overlay"><?php the_title(); ?></h1>
+      </div>
+    </div>
+  </section>
+<?php else : ?>
+  <header class="post-hero post-hero--no-image">
+    <h1 class="entry__title"><?php the_title(); ?></h1>
+  </header>
 <?php endif; ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'entry entry--single card' ); ?>>

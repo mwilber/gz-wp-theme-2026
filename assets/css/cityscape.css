@@ -87,11 +87,11 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 50%;
+  width: 51%;
   max-width: 768px;
   height: 100%;
   background: transparent var(--background-image-left) repeat-y;
-  opacity: 0.7;
+  opacity: 0.5;
   background-position: center right;
   background-size: contain;
 }
