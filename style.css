@@ -1142,6 +1142,7 @@ body.is-lightbox-open {
 .entry__content .aligncenter {
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .entry__content .alignwide {
