@@ -670,6 +670,10 @@ a {
   font-size: 0.95rem;
 }
 
+.entry--single a {
+  text-decoration: underline;
+}
+
 .entry--single.card {
   padding: 48px;
   position: relative;
