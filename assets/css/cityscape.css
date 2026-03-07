@@ -311,14 +311,17 @@ body {
   :root[data-season="summer"] {
     --background-vinette: linear-gradient(
       0deg,
-      #ff7f50 0%,
-      #ff6b6b 20%,
-      #ff4785 40%,
-      #9b4f96 60%,
-      #472d87 80%,
-      #1a1b4b 100%
+      #fffbcc 0%,
+      #ff5533 20%,
+      #990033 40%,
+      #653462 60%,
+      #1e1339 80%,
+      #0d0d26 100%
     );
-    --building-ground: rgb(64 53 62);
+    --building-ground: rgb(42 35 40);
+    --building-fill: #323036;
+    --building-line: #674c5b;
+    --building-window: #e9bf96;
   }
 
   :root[data-season="autumn"] {
@@ -326,14 +329,14 @@ body {
       0deg,
       #8b4513 0%,
       #d14242 10%,
-      #fdea9d 25%,
-      #2f5185 45%,
+      #604a20 25%,
+      #1b2e4b 45%,
       #220c2f 80%
     );
-    --building-fill: #51504e;
-    --building-line: #858080;
+    --building-fill: #43413d;
+    --building-line: #70645c;
     --building-window: #fdb464;
-    --building-ground: rgb(64 53 53);
+    --building-ground: #1c1717;
   }
 
   :root[data-season="winter"] {
@@ -387,27 +390,30 @@ body {
   --background-vinette: linear-gradient(
     0deg,
     #d7ffd0 0%,
-    #ffa347 20%,
-    #ff8ac4 40%,
+    #fff2b3 20%,
+    #ffc0df 40%,
     #6b8fe5 80%,
     #52a8ff 100%
   );
-  --building-ground: rgb(111 111 124);
+  --building-ground: #527a5c;
+  --building-fill: #bbb3cc;
+  --building-line: #8f8aa8;
+  --building-window: #e5eeff;
 }
 
 :root.theme-light[data-season="autumn"] {
   --background-vinette: linear-gradient(
     0deg,
-    #ff8c42 0%,
-    #fff39c 10%,
+    #fff39c 0%,
+    #ff8c42 10%,
     #ecfff2 25%,
     #8bb2ff 50%,
-    #212165 100%
+    #8c8cd9 100%
   );
-  --building-line: #554949;
-  --building-fill: #b2afb6;
-  --building-window: #f4d9be;
-  --building-ground: rgb(110 112 125);
+  --building-line: #7c7986;
+  --building-fill: #a3a1aa;
+  --building-window: #fcf2e8;
+  --building-ground: #8f5623;
 }
 
 :root.theme-light[data-season="winter"] {
@@ -433,10 +439,10 @@ body {
     #e279e2 60%,
     #3dbaeb 100%
   );
-  --building-line: #9e9494;
+  --building-line: #8b8792;
   --building-fill: #b2afb6;
-  --building-window: #ecd9c6;
-  --building-ground: #988aa0;
+  --building-window: #f9f8d2;
+  --building-ground: #6b5775;
 }
 
 :root.theme-dark {
