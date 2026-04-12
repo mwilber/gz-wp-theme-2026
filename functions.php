@@ -1426,6 +1426,9 @@ function greenzeta_2026_social_meta_tags() {
   $description = get_bloginfo( 'description' );
   $url = home_url( add_query_arg( array(), $GLOBALS['wp']->request ) );
   $image = '';
+  $image_width = '';
+  $image_height = '';
+  $image_alt = '';
 
   if ( is_singular() ) {
     $post_id = get_queried_object_id();
@@ -1439,27 +1442,55 @@ function greenzeta_2026_social_meta_tags() {
     }
     $thumb_id = get_post_thumbnail_id( $post_id );
     if ( $thumb_id ) {
-      $image = wp_get_attachment_image_url( $thumb_id, 'full' );
+      $image_data = wp_get_attachment_image_src( $thumb_id, 'full' );
+      if ( $image_data ) {
+        $image = $image_data[0];
+        $image_width = isset( $image_data[1] ) ? (string) $image_data[1] : '';
+        $image_height = isset( $image_data[2] ) ? (string) $image_data[2] : '';
+      }
+      $image_alt = trim( (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) );
+      if ( '' === $image_alt ) {
+        $image_alt = get_the_title( $post_id );
+      }
     }
     $url = get_permalink( $post_id );
   }
 
   $site_name = get_bloginfo( 'name' );
+  $locale = str_replace( '-', '_', get_locale() );
+  $twitter_handle = '@GreenZeta';
   $description = $description ? $description : $site_name;
   ?>
   <meta property="og:title" content="<?php echo esc_attr( $title ); ?>" />
   <meta property="og:description" content="<?php echo esc_attr( $description ); ?>" />
   <meta property="og:url" content="<?php echo esc_url( $url ); ?>" />
   <meta property="og:site_name" content="<?php echo esc_attr( $site_name ); ?>" />
+  <meta property="og:locale" content="<?php echo esc_attr( $locale ); ?>" />
   <meta property="og:type" content="<?php echo is_singular() ? 'article' : 'website'; ?>" />
   <?php if ( $image ) : ?>
     <meta property="og:image" content="<?php echo esc_url( $image ); ?>" />
+    <?php if ( $image_width ) : ?>
+      <meta property="og:image:width" content="<?php echo esc_attr( $image_width ); ?>" />
+    <?php endif; ?>
+    <?php if ( $image_height ) : ?>
+      <meta property="og:image:height" content="<?php echo esc_attr( $image_height ); ?>" />
+    <?php endif; ?>
+    <?php if ( $image_alt ) : ?>
+      <meta property="og:image:alt" content="<?php echo esc_attr( $image_alt ); ?>" />
+    <?php endif; ?>
   <?php endif; ?>
   <meta name="twitter:card" content="<?php echo $image ? 'summary_large_image' : 'summary'; ?>" />
+  <?php if ( $twitter_handle ) : ?>
+    <meta name="twitter:site" content="<?php echo esc_attr( $twitter_handle ); ?>" />
+    <meta name="twitter:creator" content="<?php echo esc_attr( $twitter_handle ); ?>" />
+  <?php endif; ?>
   <meta name="twitter:title" content="<?php echo esc_attr( $title ); ?>" />
   <meta name="twitter:description" content="<?php echo esc_attr( $description ); ?>" />
   <?php if ( $image ) : ?>
     <meta name="twitter:image" content="<?php echo esc_url( $image ); ?>" />
+    <?php if ( $image_alt ) : ?>
+      <meta name="twitter:image:alt" content="<?php echo esc_attr( $image_alt ); ?>" />
+    <?php endif; ?>
   <?php endif; ?>
   <?php
 }
