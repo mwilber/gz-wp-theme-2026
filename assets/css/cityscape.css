@@ -88,6 +88,8 @@ body {
   z-index: 2;
   pointer-events: none;
   background: var(--background-overlay);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
 
 .background::before,
