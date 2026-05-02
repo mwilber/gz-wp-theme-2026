@@ -14,6 +14,7 @@
   --building-ground: rgb(110 112 125);
   --background-image-left: url("../images/honeycomb_7_white-01.png");
   --background-image-right: url("../images/honeycomb_7_white-02.png");
+  --background-overlay: rgba(255, 255, 255, 0.58);
 }
 
 :root[data-season="summer"] {
@@ -79,6 +80,14 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+}
+
+.background-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--background-overlay);
 }
 
 .background::before,
@@ -276,7 +285,7 @@ body {
 .site-content,
 .site-footer {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .site-footer {
@@ -306,6 +315,7 @@ body {
     --building-ground: rgb(64 53 53);
     --background-image-left: url("../images/honeycomb_7-01.png");
     --background-image-right: url("../images/honeycomb_7-02.png");
+    --background-overlay: rgba(0, 0, 0, 0.36);
   }
 
   :root[data-season="summer"] {
@@ -384,6 +394,7 @@ body {
   --building-ground: rgb(110 112 125);
   --background-image-left: url("../images/honeycomb_7_white-01.png");
   --background-image-right: url("../images/honeycomb_7_white-02.png");
+  --background-overlay: rgba(255, 255, 255, 0.58);
 }
 
 :root.theme-light[data-season="summer"] {
@@ -460,6 +471,7 @@ body {
   --building-ground: rgb(64 53 53);
   --background-image-left: url("../images/honeycomb_7-01.png");
   --background-image-right: url("../images/honeycomb_7-02.png");
+  --background-overlay: rgba(0, 0, 0, 0.36);
 }
 
 :root.theme-dark[data-season="summer"] {
