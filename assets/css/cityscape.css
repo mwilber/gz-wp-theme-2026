@@ -416,17 +416,16 @@ body {
 
 :root.theme-light[data-season="autumn"] {
   --background-vinette: linear-gradient(
-    0deg,
-    #fff39c 0%,
-    #ff8c42 10%,
-    #ecfff2 25%,
-    #8bb2ff 50%,
-    #8c8cd9 100%
+    0deg, 
+    #ffe000 0%, 
+    #c9dbff 25%, 
+    #1d58ff 50%, 
+    #410627 100%
   );
   --building-line: #7c7986;
-  --building-fill: #a3a1aa;
-  --building-window: #fcf2e8;
-  --building-ground: #8f5623;
+  --building-fill: #392a39;
+  --building-window: #ffe09e;
+  --building-ground: #7d2626;
 }
 
 :root.theme-light[data-season="winter"] {
