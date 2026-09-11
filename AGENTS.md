@@ -4,13 +4,11 @@
 This repository is the “GreenZeta 2026” custom WordPress theme folder located under `wp-content/themes/greenzetatwentysix`. Theme files live at the repo root. Current templates include `front-page.php`, `home.php`, `index.php`, `page.php`, `single.php`, `archive.php`, `search.php`, and `404.php`, with `functions.php` for setup. Reusable pieces live in `template-parts/` (for example: `hero.php`, `card.php`, `content-page.php`, `content-single.php`, `content-none.php`), and static assets should go under `assets/` (for example: `assets/css/`, `assets/js/`, `assets/images/`). Update this guide as the structure evolves.
 
 ## Build, Test, and Development Commands
-No build, lint, or test commands are defined in this repository yet. If you add tooling, document the exact commands here. Example format:
-- `npm run build` — compile assets into `dist/`.
-- `npm test` — run unit tests.
-- `npm run lint` — run static analysis.
+- `php -l functions.php` — check theme PHP syntax using the PHP CLI.
+- No build or automated test suite is configured.
 
 ## Coding Style & Naming Conventions
-No project-specific style rules are currently documented. If you introduce PHP/JS/CSS, add a formatter or linter and note its configuration (for example, a `.editorconfig`, ESLint, or Prettier). Use WordPress-friendly naming and file patterns. Example: `template-parts/header-site.php` for template parts, and `assets/css/theme.css` for compiled styles.
+`.editorconfig` defines UTF-8, LF endings, and two-space indentation for PHP, matching the existing theme. Use `php -l` to check changed PHP files. If you introduce JS/CSS tooling, document its configuration. Use WordPress-friendly naming and file patterns. Example: `template-parts/header-site.php` for template parts, and `assets/css/theme.css` for compiled styles.
 When making front-end changes, also update the block editor experience as needed (editor styles, layout, and content widths) so the editing UX stays aligned with the front end.
 
 ## Testing Guidelines
@@ -29,7 +27,7 @@ The visual target is the `design.png` mockup. Content should come from WordPress
 - Featured images are used in cards with the `greenzeta-card` size.
 - Theme settings live in `theme.json` (content size is 1200px).
 - The README includes current admin setup steps for content population.
-- `llms.txt` is the curated AI discovery guide for the live site, prioritizing professional UI/AI work and technical writing. Deployment instructions in the README explain how to serve the theme source at the site's `/llms.txt` URL.
+- `llms.txt` is the curated AI discovery guide for the live site. `functions.php` serves `/llms.txt` through an early `template_redirect` hook and adds a `wp_head` discovery link. No rewrite-rule flush is needed; see the README for deployment/cache checks.
 - Projects are now a CPT with `archive-project.php` and `single-project.php`, linked to Posts/Updates via `project_id` meta; legacy `project` taxonomy was removed.
 - Project cards use `tag_line` (fallback: "Development Project") as the card title and show the project title as the label; project content cards show tag pills from post tags.
 - Potential migrations from production (see `functions-production-reference.php`, remove before shipping): slug-based body class, ACF global options page, custom taxonomy ordering, and a `pre_get_posts` hook to include CPTs in category/tag archives if needed.

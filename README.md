@@ -29,7 +29,11 @@ This theme showcases a card-based WordPress layout with a full-width visual envi
 
 ## Publishing llms.txt
 
-The theme-root `llms.txt` is the maintained source for the live site's AI discovery guide. Deploy a copy to the site's document root, or configure the web server to serve this file at `https://greenzeta.com/llms.txt` as UTF-8 plain text. Uploading the theme alone does not create that root URL. After deployment, verify that the URL returns HTTP 200 and the file contents rather than an HTML page.
+The theme-root `llms.txt` is the maintained source for the live site's AI discovery guide. With this theme active, `functions.php` serves it at `https://greenzeta.com/llms.txt` as UTF-8 plain text, before WordPress renders a template or redirects a missing page. GET returns the file verbatim and HEAD returns headers only. No permalink reset or separate file copy is needed. Front-end pages include a `rel="describedby"` link to help agents discover the guide.
+
+Deploy both `functions.php` and `llms.txt`, then purge any page/CDN cache for `/llms.txt` and cached HTML pages. Verify that `curl -i https://greenzeta.com/llms.txt` returns HTTP 200, `Content-Type: text/plain; charset=UTF-8`, and Markdown rather than an HTML page. If the web server returns its own 404 before WordPress runs, configure `/llms.txt` to use the WordPress front controller, or deploy a copy of the file to the document root. A physical document-root copy takes precedence over the theme endpoint and must be kept in sync.
+
+The guide must be publicly readable without a login or bot challenge. Existing robots.txt rules and hosting bot controls still apply; llms.txt provides context and links but does not grant crawler access or guarantee an AI service will use it.
 
 Keep its descriptions and links aligned with the live site when portfolio entries, articles, or projects change. Professional work belongs under `/portfolio/`; hobby work belongs under `/project/`.
 
@@ -50,5 +54,6 @@ Keep its descriptions and links aligned with the live site when portfolio entrie
 - Add posts with Featured Images to populate cards
 
 ## Development Notes
-- No build or test commands are configured.
+- `php -l functions.php` checks PHP syntax; `.editorconfig` records the existing two-space PHP formatting.
+- No build or automated test suite is configured.
 - If tooling is added, document commands in `AGENTS.md` and update this README.

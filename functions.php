@@ -33,6 +33,52 @@ function greenzeta_2026_setup() {
 }
 add_action( 'after_setup_theme', 'greenzeta_2026_setup' );
 
+/**
+ * Serve the theme's AI discovery guide at the public site's root URL.
+ */
+function greenzeta_2026_serve_llms_txt() {
+  $method = isset( $_SERVER['REQUEST_METHOD'] ) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+  $request_uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+  $request_path = wp_parse_url( $request_uri, PHP_URL_PATH );
+  $llms_path = wp_parse_url( home_url( '/llms.txt' ), PHP_URL_PATH );
+
+  if ( $request_path !== $llms_path || ! in_array( $method, array( 'GET', 'HEAD' ), true ) ) {
+    return;
+  }
+
+  $file = get_theme_file_path( 'llms.txt' );
+  if ( ! is_readable( $file ) ) {
+    return;
+  }
+
+  $contents = file_get_contents( $file );
+  if ( false === $contents ) {
+    return;
+  }
+
+  status_header( 200 );
+  nocache_headers();
+  header( 'Content-Type: text/plain; charset=UTF-8' );
+  header( 'X-Content-Type-Options: nosniff' );
+
+  if ( 'HEAD' !== $method ) {
+    // This is a plain-text response; preserve the Markdown source exactly.
+    echo $contents;
+  }
+  exit;
+}
+add_action( 'template_redirect', 'greenzeta_2026_serve_llms_txt', 0 );
+
+/**
+ * Help agents discover the guide from any front-end page.
+ */
+function greenzeta_2026_llms_discovery_link() {
+  if ( is_readable( get_theme_file_path( 'llms.txt' ) ) ) {
+    printf( '<link rel="describedby" type="text/plain" href="%s" />' . "\n", esc_url( home_url( '/llms.txt' ) ) );
+  }
+}
+add_action( 'wp_head', 'greenzeta_2026_llms_discovery_link' );
+
 function greenzeta_2026_register_image_sizes() {
   add_image_size( 'greenzeta-card', 720, 480, true );
 }
