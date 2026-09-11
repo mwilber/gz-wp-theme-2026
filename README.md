@@ -25,6 +25,13 @@ This theme showcases a card-based WordPress layout with a full-width visual envi
 - Assets: `assets/css/`, `assets/js/`, `assets/images/`
 - Stylesheet: `style.css`
 - Theme settings: `theme.json`
+- AI discovery guide: `llms.txt`, curated for hiring and professional expertise queries using live GreenZeta pages.
+
+## Publishing llms.txt
+
+The theme-root `llms.txt` is the maintained source for the live site's AI discovery guide. Deploy a copy to the site's document root, or configure the web server to serve this file at `https://greenzeta.com/llms.txt` as UTF-8 plain text. Uploading the theme alone does not create that root URL. After deployment, verify that the URL returns HTTP 200 and the file contents rather than an HTML page.
+
+Keep its descriptions and links aligned with the live site when portfolio entries, articles, or projects change. Professional work belongs under `/portfolio/`; hobby work belongs under `/project/`.
 
 ## WordPress Setup (Quick)
 1) Activate the theme

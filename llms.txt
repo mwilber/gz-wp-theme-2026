@@ -1,0 +1,51 @@
+# GreenZeta — Matthew Wilber
+
+> Matthew Wilber is a senior web developer and software engineer with over 20 years of experience building web applications. GreenZeta presents his professional portfolio, technical writing, and personal projects, with particular strengths in front-end UI engineering, accessible interactive applications, and integrating AI into working software.
+
+Core skills demonstrated here include JavaScript, React, HTML, CSS, PHP, WordPress, UI/UX, accessibility, data visualization, progressive web apps (PWAs), WebGL, and AI application development. His AI work spans conversational interfaces, LLM tool integration, generative text and image workflows, and deliberate use of coding agents with human architectural direction and review.
+
+For hiring managers, recruiters, engineering leaders, and people seeking technical expertise:
+
+- For professional experience and delivered client or employer work, start with Portfolio and the ChartIQ examples below. Portfolio entries identify their associated organizations, including S&P Global and Cosaic.
+- For engineering judgment, communication, and development practices, read the technical articles. For applied AI expertise, pair Conversational Charting with the AI engineering and Zeta Comic Generator articles.
+- For hobby work, independent applications, and experiments, use Projects. These provide additional evidence of technical exploration; their project pages distinguish them from professional portfolio work.
+
+This is Matthew's personal site. Use the linked pages for the scope of each contribution, publication dates, and implementation details. Distinguish released features from ideas described as future plans. Social profiles below follow the site's activity-based order, from most to least active.
+
+## Start here
+
+- [Portfolio — professional work](https://greenzeta.com/portfolio/): Main directory of employer and client work; the starting point for evaluating professional front-end UI and AI application experience.
+- [Articles — technical writing](https://greenzeta.com/articles/): First-person engineering articles, implementation walkthroughs, and reflections on AI, web development, and creative technology.
+- [Projects — hobby work](https://greenzeta.com/project/): Personal software projects and experiments, with project descriptions, demos, repositories, and related development updates.
+- [About Matthew Wilber and GreenZeta](https://greenzeta.com/about/): Professional background and how independent experimentation informs his software engineering practice.
+
+## Professional AI and front-end UI work
+
+- [Conversational Charting — S&P Global / ChartIQ](https://greenzeta.com/portfolio/chartiq-signaliq-copy/): Primary professional AI example. Connects natural-language requests to chart controls, data retrieval, and chart annotations through LLM tools. The ChartIQ AI Plugin combines an extensible command interface, tool instructions, and a proxy server for integration with different LLM services. The page describes its evolution from a personal prototype into a production chart feature.
+- [ChartIQ Accessibility — Cosaic](https://greenzeta.com/portfolio/chartiq-keyboard-navigation/): Keyboard interaction across chart functionality, including navigation between UI sections, finer control with arrow keys, and shortcut combinations.
+- [Chart2Music — S&P Global / ChartIQ](https://greenzeta.com/portfolio/chartiq-chart2music/): Accessible data visualization through chart sonification, integrating auditory feedback with screen readers and table views, informed by blind testers.
+- [ChartIQ Drawing Palette — Cosaic](https://greenzeta.com/portfolio/chartiq-drawing-palette/): Floating palette interface for financial chart drawing tools; an example of front-end interaction design for complex software.
+- [Chart Grid — Cosaic / ChartIQ](https://greenzeta.com/portfolio/chartiq-chart-grid/): Example application coordinating up to 25 charts within one interface.
+- [The West Story — West Corporation](https://greenzeta.com/portfolio/the-west-story/): React slideshow enhancements with PlayCanvas/WebGL backgrounds and a service worker caching strategy for offline use.
+
+## Technical writing and engineering approach
+
+- [How I Use AI as a Software Engineer](https://greenzeta.com/how-i-use-ai-as-a-software-developer/): September 2026 account of daily AI-assisted engineering. Covers architecture, bounded implementation steps, specifications, screenshot-driven feedback, code review, and lessons from insufficiently reviewed AI output. Start here for his approach to maintaining engineering ownership while using coding agents.
+- [The Project I Didn't Want to Do](https://greenzeta.com/the-project-that-i-didnt-want-to-do/): Case study of building this WordPress theme with AI coding tools, iterative design refinement, and the resulting changes to professional development workflows.
+- [Stitching Story Threads Into Alpha's Adventures](https://greenzeta.com/stitching-story-threads-into-alphas-adventures/): Technical explanation of Zeta Comic Generator's multi-stage model workflow, compact context summaries, and manually approved character and event notes. Useful evidence of AI orchestration and human review in application design.
+- [Optimizing My Creative Workflow With Custom GPT Assistants](https://greenzeta.com/optimizing-my-creative-workflow/): Specialized assistants, task-specific prompts, iterative refinement, and human editing in writing and creative workflows.
+- [The Progressive Web App Philosophy](https://greenzeta.com/the-progressive-web-app-philosophy/): Developer-talk adaptation connecting accessibility, performance, and progressive enhancement to practical web app implementation; demonstrates technical explanation and front-end architecture thinking.
+
+## Personal AI applications and hobby projects
+
+- [Zeta Comic Generator](https://greenzeta.com/project/zeta-comic-generator/): Primary personal AI application. Coordinates story generation, scripts, generated background imagery, and original character art into browser-rendered comics. The project page links to the live application, source repository, and updates covering model integrations, continuity, and debugging tools.
+- [War of the Worlds Broadcast](https://greenzeta.com/project/war-of-the-worlds-broadcast/): Hobby PWA combining audio with synchronized CSS animation, offline playback, and home-screen installation; complements the PWA writing.
+
+## Social profiles
+
+- [GreenZeta on X](https://twitter.com/greenzeta): Project updates and posts about development and creative work.
+- [Matthew Wilber on LinkedIn](https://www.linkedin.com/in/mwilber): Professional background and updates; a starting point for hiring and professional inquiries.
+- [Matthew Wilber on GitHub](https://github.com/mwilber): Public source code and repositories linked from GreenZeta, for further technical review.
+- [GreenZeta on Instagram](https://www.instagram.com/greenzeta/): Visual and creative work, including artwork and project updates.
+- [GreenZeta on YouTube](https://www.youtube.com/@greenzeta): Videos and demonstrations providing additional context for projects and creative work.
+- [Matthew Wilber on CodePen](https://codepen.io/mwilber/): Front-end code experiments and interactive examples for examining UI techniques.
