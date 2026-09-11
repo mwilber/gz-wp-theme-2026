@@ -51,7 +51,7 @@ if ( $linked_project_id ) :
   </section>
 <?php endif; ?>
 
-<?php if ( ! in_array( $post_type, array( 'portfolio', 'project', 'update' ), true ) ) : ?>
+<?php if ( ! in_array( $post_type, array( 'post', 'portfolio', 'project', 'update' ), true ) ) : ?>
   <section class="post-meta-card card">
     <p class="post-meta-card__text">
       <?php
@@ -69,6 +69,11 @@ if ( $linked_project_id ) :
   <section class="post-hero card card--hero">
     <div class="card__media card__media--overlay">
       <?php echo $banner_image; ?>
+      <?php if ( 'post' === $post_type ) : ?>
+        <p class="post-hero__date">
+          <time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+        </p>
+      <?php endif; ?>
       <?php if ( $logo_image ) : ?>
         <span class="card__badge card__badge--hero"><?php echo $logo_image; ?></span>
       <?php endif; ?>
@@ -87,7 +92,7 @@ if ( $linked_project_id ) :
   </section>
 <?php else : ?>
   <header class="post-hero post-hero--no-image">
-    <?php if ( 'update' === $post_type ) : ?>
+    <?php if ( in_array( $post_type, array( 'post', 'update' ), true ) ) : ?>
       <p class="post-hero__date">
         <time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
       </p>

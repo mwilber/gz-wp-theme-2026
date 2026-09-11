@@ -652,7 +652,8 @@ a {
   aspect-ratio: auto;
 }
 
-.single-update .post-hero .card__media--overlay::after {
+.single-update .post-hero .card__media--overlay::after,
+.single-post .post-hero .card__media--overlay::after {
   background:
     radial-gradient(
       ellipse 180px 60px at top right,
@@ -680,15 +681,26 @@ a {
   padding: 16px 18px;
 }
 
-.single-update .post-hero__date {
-  align-self: start;
-  justify-self: end;
+.single-update .post-hero__date,
+.single-post .post-hero__date {
   margin: 0;
   color: rgba(255, 255, 255, 0.78);
   font-size: 0.95rem;
   line-height: 1.2;
   text-align: right;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+}
+
+.single-update .post-hero__date {
+  align-self: start;
+  justify-self: end;
+}
+
+.single-post .post-hero__date {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 2;
 }
 
 .single-update .post-hero .card__title--overlay {
@@ -715,6 +727,17 @@ a {
 .single-update .post-hero--no-image .entry__title {
   align-self: end;
   margin: 0;
+}
+
+.single-post .post-hero--no-image {
+  position: relative;
+}
+
+.single-post .post-hero--no-image .post-hero__date {
+  top: 24px;
+  right: 24px;
+  color: var(--muted);
+  text-shadow: none;
 }
 
 .post-meta-card {
