@@ -118,12 +118,22 @@ if ( $linked_project_id ) :
       <div class="entry__project-links">
         <?php if ( $production_url ) : ?>
           <a class="entry__live-site" href="<?php echo $production_url; ?>" target="_blank" rel="noopener noreferrer">
-            <?php esc_html_e( 'Website', 'greenzeta-2026' ); ?>
+            <svg class="entry__action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
+            </svg>
+            <?php esc_html_e( 'Project Website', 'greenzeta-2026' ); ?>
           </a>
         <?php endif; ?>
         <?php if ( $repo_url ) : ?>
           <a class="entry__live-site" href="<?php echo $repo_url; ?>" target="_blank" rel="noopener noreferrer">
-            <?php esc_html_e( 'Repo', 'greenzeta-2026' ); ?>
+            <svg class="entry__action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="6" cy="4" r="2"></circle>
+              <circle cx="18" cy="6" r="2"></circle>
+              <circle cx="6" cy="20" r="2"></circle>
+              <path d="M6 6v12M18 8a9 9 0 0 1-9 9H6"></path>
+            </svg>
+            <?php esc_html_e( 'View on GitHub', 'greenzeta-2026' ); ?>
           </a>
         <?php endif; ?>
       </div>

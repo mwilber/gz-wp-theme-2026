@@ -818,6 +818,24 @@ a {
   justify-content: flex-end;
 }
 
+.entry__project-links .entry__live-site {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+}
+
+.entry__action-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .entry__tech-list {
   display: flex;
   flex-wrap: wrap;
