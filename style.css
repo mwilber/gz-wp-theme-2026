@@ -555,7 +555,7 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 33%, rgba(0, 0, 0, 1) 100%);
 }
 
 .card__overlay-content {
@@ -652,8 +652,7 @@ a {
   aspect-ratio: auto;
 }
 
-.single-update .post-hero .card__media--overlay::after,
-.single-post .post-hero .card__media--overlay::after {
+.single-update .post-hero .card__media--overlay::after {
   background:
     radial-gradient(
       ellipse 180px 60px at top right,
@@ -662,6 +661,17 @@ a {
       rgba(0, 0, 0, 0) 75%
     ),
     linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+.single-post .post-hero .card__media--overlay::after {
+  background:
+    radial-gradient(
+      ellipse 180px 60px at top right,
+      rgba(0, 0, 0, 0.68) 0%,
+      rgba(0, 0, 0, 0.42) 40%,
+      rgba(0, 0, 0, 0) 75%
+    ),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 33%, rgba(0, 0, 0, 1) 100%);
 }
 
 .single-update .post-hero .card__media--overlay > img {
