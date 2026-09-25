@@ -149,20 +149,38 @@ body {
   object-fit: cover;
 }
 
-.cityscape svg .st0 {
+/* Standalone names also match shapes inside the SVG <use> shadow tree. */
+.cityscape svg .st0,
+.cityscape-fill {
   fill: var(--building-fill);
 }
 
-.cityscape svg .st1 {
+.cityscape svg .st1,
+.cityscape-line {
   fill: var(--building-line);
 }
 
-.cityscape svg .st2 {
+.cityscape svg .st2,
+.cityscape-window {
   fill: var(--building-window);
 }
 
 .cityscape svg .st3 {
   fill: var(--building-green);
+}
+
+.cityscape svg.cityscape-definitions {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.cityscape-outline {
+  fill: none;
+  stroke: var(--building-line);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
 
 .cityscape svg .suspect {
@@ -182,8 +200,8 @@ body {
 }
 
 .cityscape svg#building_1 {
-  left: 3%;
-  bottom: 3vw;
+  left: 9%;
+  bottom: 0vw;
   height: 26vw;
   z-index: 4;
 }
@@ -264,10 +282,104 @@ body {
     z-index: 4;
 }
 
+/* Stagger the new towers behind the landmarks, with a low central valley. */
+.cityscape svg#building_13 {
+  left: 0;
+  bottom: 9vw;
+  height: 25vw;
+  z-index: 2;
+}
+
+.cityscape svg#building_14 {
+  left: 21%;
+  bottom: 14vw;
+  height: 18vw;
+  z-index: 1;
+}
+
+.cityscape svg#building_15 {
+  right: 11%;
+  bottom: 1vw;
+  height: 23vw;
+  z-index: 10;
+}
+
+.cityscape svg#building_16 {
+  left: 10%;
+  bottom: 16vw;
+  height: 18vw;
+  z-index: 1;
+}
+
+.cityscape svg#building_17 {
+  right: -7%;
+  bottom: 1vw;
+  height: 33vw;
+  z-index: 0;
+}
+
+.cityscape svg#building_18 {
+  right: 25%;
+  bottom: 15vw;
+  height: 17vw;
+  z-index: 0;
+}
+
+.cityscape svg#building_19 {
+  left: 35%;
+  bottom: 16vw;
+  height: 10vw;
+  z-index: 1;
+}
+
+.cityscape svg#building_20 {
+  left: 61%;
+  bottom: 15vw;
+  height: 10vw;
+  z-index: 1;
+}
+
+.cityscape svg#building_21 {
+  left: 82%;
+  bottom: 3vw;
+  height: 15vw;
+  z-index: 10;
+}
+
+.cityscape svg#building_22 {
+  left: 35%;
+  bottom: 13vw;
+  height: 6vw;
+  z-index: 2;
+}
+
+.cityscape svg#building_23 {
+  left: 45%;
+  bottom: 15vw;
+  height: 5vw;
+  z-index: 2;
+}
+
+.cityscape svg#building_24 {
+  left: 57%;
+  bottom: 13vw;
+  height: 6vw;
+  z-index: 2;
+}
+
+/* Reuse both original block layers as one smaller district farther away. */
+.cityscape svg#city_block_3,
+.cityscape svg#city_block_4 {
+  left: -7%;
+  bottom: 2vw;
+  height: 14vw;
+  z-index: 3;
+}
+
 .cityscape svg#city_block_1,
 .cityscape svg#city_block_2 {
   left: 25%;
-  bottom: -2vw;
+  bottom: 0vw;
   height: 18vw;
   z-index: 5;
 }

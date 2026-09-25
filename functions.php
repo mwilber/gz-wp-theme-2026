@@ -96,7 +96,7 @@ function greenzeta_2026_enqueue_assets() {
     'greenzeta-2026-cityscape',
     get_template_directory_uri() . '/assets/css/cityscape.css',
     array( 'greenzeta-2026-style' ),
-    '1.0.0'
+    '1.0.1'
   );
   wp_enqueue_script(
     'greenzeta-2026-navigation',
