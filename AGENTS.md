@@ -34,6 +34,7 @@ The visual target is the `design.png` mockup. Content should come from WordPress
 - Seasonal palettes are driven by CSS variables in `assets/css/cityscape.css`; a date-based selector runs on load, and `window.setSeasonPalette('summer'|'autumn'|'winter'|'spring')` is available in the console for quick testing.
 - Breadcrumbs are rendered via `greenzeta_2026_render_breadcrumbs()` on singles, pages, and archive listings.
 - Updates admin list supports Project column, quick edit, and bulk edit for `project_id`.
+- Custom meta for Posts, Updates, Portfolio, and Projects is exposed under REST `meta` by the existing `init` registrations in `functions.php`, with Editor write authorization (`edit_posts`). The README lists keys, types, storage formats, and verification steps. Page hero fields remain outside this scope.
 - GA4 tracking is hard-coded in `header.php` using measurement ID `G-SXNPT397RN`.
 
 ## QA Checklist

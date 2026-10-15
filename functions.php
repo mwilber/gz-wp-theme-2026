@@ -325,7 +325,10 @@ function greenzeta_2026_register_client_meta() {
         'type' => 'string',
         'single' => true,
         'sanitize_callback' => 'sanitize_text_field',
-        'show_in_rest' => false,
+        'show_in_rest' => true,
+        'auth_callback' => function() {
+          return current_user_can( 'edit_posts' );
+        },
       )
     );
   }
@@ -343,7 +346,10 @@ function greenzeta_2026_register_banner_meta() {
         'type' => 'integer',
         'single' => true,
         'sanitize_callback' => 'absint',
-        'show_in_rest' => false,
+        'show_in_rest' => true,
+        'auth_callback' => function() {
+          return current_user_can( 'edit_posts' );
+        },
       )
     );
   }
@@ -361,7 +367,15 @@ function greenzeta_2026_register_gallery_meta() {
         'type' => 'array',
         'single' => true,
         'sanitize_callback' => 'wp_parse_id_list',
-        'show_in_rest' => false,
+        'show_in_rest' => array(
+          'schema' => array(
+            'type' => 'array',
+            'items' => array( 'type' => 'integer' ),
+          ),
+        ),
+        'auth_callback' => function() {
+          return current_user_can( 'edit_posts' );
+        },
       )
     );
   }
@@ -379,7 +393,10 @@ function greenzeta_2026_register_case_media_meta() {
         'type' => 'string',
         'single' => true,
         'sanitize_callback' => 'esc_url_raw',
-        'show_in_rest' => false,
+        'show_in_rest' => true,
+        'auth_callback' => function() {
+          return current_user_can( 'edit_posts' );
+        },
       )
     );
 
@@ -390,7 +407,10 @@ function greenzeta_2026_register_case_media_meta() {
         'type' => 'string',
         'single' => true,
         'sanitize_callback' => 'esc_url_raw',
-        'show_in_rest' => false,
+        'show_in_rest' => true,
+        'auth_callback' => function() {
+          return current_user_can( 'edit_posts' );
+        },
       )
     );
   }
@@ -408,7 +428,10 @@ function greenzeta_2026_register_live_site_meta() {
         'type' => 'string',
         'single' => true,
         'sanitize_callback' => 'esc_url_raw',
-        'show_in_rest' => false,
+        'show_in_rest' => true,
+        'auth_callback' => function() {
+          return current_user_can( 'edit_posts' );
+        },
       )
     );
   }
@@ -423,7 +446,10 @@ function greenzeta_2026_register_project_links_meta() {
       'type' => 'string',
       'single' => true,
       'sanitize_callback' => 'esc_url_raw',
-      'show_in_rest' => false,
+      'show_in_rest' => true,
+      'auth_callback' => function() {
+        return current_user_can( 'edit_posts' );
+      },
     )
   );
 
@@ -434,7 +460,10 @@ function greenzeta_2026_register_project_links_meta() {
       'type' => 'string',
       'single' => true,
       'sanitize_callback' => 'esc_url_raw',
-      'show_in_rest' => false,
+      'show_in_rest' => true,
+      'auth_callback' => function() {
+        return current_user_can( 'edit_posts' );
+      },
     )
   );
 
@@ -445,7 +474,10 @@ function greenzeta_2026_register_project_links_meta() {
       'type' => 'boolean',
       'single' => true,
       'sanitize_callback' => 'rest_sanitize_boolean',
-      'show_in_rest' => false,
+      'show_in_rest' => true,
+      'auth_callback' => function() {
+        return current_user_can( 'edit_posts' );
+      },
     )
   );
 
@@ -456,7 +488,10 @@ function greenzeta_2026_register_project_links_meta() {
       'type' => 'string',
       'single' => true,
       'sanitize_callback' => 'sanitize_text_field',
-      'show_in_rest' => false,
+      'show_in_rest' => true,
+      'auth_callback' => function() {
+        return current_user_can( 'edit_posts' );
+      },
     )
   );
 
@@ -474,7 +509,10 @@ function greenzeta_2026_register_project_link_meta() {
         'type' => 'integer',
         'single' => true,
         'sanitize_callback' => 'absint',
-        'show_in_rest' => false,
+        'show_in_rest' => true,
+        'auth_callback' => function() {
+          return current_user_can( 'edit_posts' );
+        },
       )
     );
   }

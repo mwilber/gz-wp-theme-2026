@@ -57,3 +57,29 @@ Keep its descriptions and links aligned with the live site when portfolio entrie
 - `php -l functions.php` checks PHP syntax; `.editorconfig` records the existing two-space PHP formatting.
 - No build or automated test suite is configured.
 - If tooling is added, document commands in `AGENTS.md` and update this README.
+
+## Custom Meta in the REST API
+
+The theme registers the following single-value fields on `init` in `functions.php`. They appear under `meta` in `/wp-json/wp/v2/` responses and accept updates through the same property. Each registration retains its existing sanitizer and explicitly authorizes users with `edit_posts`, including Editors. WordPress also checks permission to edit the specific item. These fields are readable in public REST responses for public items, so keep their values suitable for public display.
+
+| Meta key | Post types | REST type | Meaning / value format |
+| --- | --- | --- | --- |
+| `banner` | `post`, `update`, `portfolio`, `project` | integer | Banner image attachment ID; `0` uses the featured-image fallback. |
+| `project_id` | `post`, `update` | integer | Linked Project's WordPress post ID, e.g. `1234`; a single ID, not a slug, URL, object, or list. Required when authoring Updates; optional for Posts (`0` means no link). |
+| `client` | `portfolio`, `project` | string | Client name. |
+| `screen_shots` | `portfolio`, `project` | array of integers | Ordered image attachment IDs, e.g. `[123, 456]`; one array stored in a single meta entry. |
+| `case_video` | `portfolio`, `project` | string | Case-study video URL. |
+| `case_poster` | `portfolio`, `project` | string | Poster image URL for the case-study video. |
+| `live_site` | `portfolio`, `project` | string | Live site URL. |
+| `production_link` | `project` | string | Project website URL. |
+| `repo_link` | `project` | string | Source repository URL. |
+| `featured_project` | `project` | boolean | Whether the project is featured on the front page. |
+| `tag_line` | `project` | string | Project tagline, also used as its card title. |
+
+REST clients should supply a valid `project_id` for Updates. The existing admin UI permits an unlinked Update; these registrations preserve that behavior and do not add a new validation rule or migrate data. All keys and storage formats are unchanged. Screenshot writes use the existing `wp_parse_id_list` sanitizer. The front end and admin also tolerate legacy comma-separated screenshot strings; WordPress's array REST schema can return `null` for such non-array legacy values until they are explicitly saved as an array. The boolean feature flag keeps its existing boolean sanitizer and is returned as a JSON boolean.
+
+No theme-owned protected (underscore-prefixed) meta keys were found on these four post types. The `greenzeta_hero_*` fields belong to `page` and remain outside this scope. `_wp_attachment_image_alt` belongs to attachments and is managed by WordPress's media API. Featured images, tags, and categories use the standard REST properties rather than custom meta. `functions-production-reference.php` is an inactive reference and adds no custom post meta keys.
+
+After deploying `functions.php`, authenticate as the Editor and GET `/wp-json/wp/v2/update/4402?context=edit`, then GET one item from each of `/posts/<id>`, `/portfolio/<id>`, and `/project/<id>` with `context=edit`. Confirm the applicable keys above are present under `meta`. On a draft, POST a body such as `{"meta":{"project_id":1234}}` (using a real Project ID) to `/wp-json/wp/v2/update/<draft-id>`, then GET it again to confirm persistence. Omitted meta fields remain unchanged. Use a draft's original values to restore it after verification.
+
+Verification on October 15, 2026: PHP lint and `git diff --check` passed. An isolated copy of the saved local database, with WordPress 7.1.2, the current theme, and plugins disabled, passed 166 checks using `rest_do_request()` as a temporary Editor. GETs with `context=edit` returned the expected meta for Post 111, Update 227, Portfolio 211, and Project 221. Draft POST/GET round trips passed for every applicable field on all four types, including partial updates, boolean toggling, text/URL sanitization, invalid screenshot rejection, and anonymous write rejection. This tests WordPress's REST handlers and capabilities directly; live HTTP authentication as Webmaster remains unverified. Update 4402 was absent from the saved snapshot and returned 404 there. Deploy the theme and run the authenticated live checks above to finish production verification.
