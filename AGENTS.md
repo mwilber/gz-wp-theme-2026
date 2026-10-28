@@ -54,3 +54,5 @@ For pull requests, include:
 
 ## Configuration & Environment Notes
 This theme lives under `app/public/wp-content/themes/greenzetatwentysix`. If local setup requires specific WordPress versions, plugins, or environment variables, document them here. When adding theme setup, note any required features (e.g., custom post types, theme supports) and where they are registered (typically `functions.php`). The display name “GreenZeta 2026” should be set in `style.css` under the `Theme Name` header.
+
+GitHub Actions deployment lives in `.github/workflows/deploy.yml`. It updates an existing DreamHost checkout over SSH on port 22 using the `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`, `DEPLOY_USER`, `DEPLOY_DOMAIN`, and `DEPLOY_PATH` repository secrets. Pushes to any branch containing the workflow deploy that branch to the same checkout; manual runs accept a branch name. Deployment stops for tracked server edits or target-branch commits absent from origin and uses fast-forward merges. The server must already have unattended GitHub fetch access. See the README for configuration.

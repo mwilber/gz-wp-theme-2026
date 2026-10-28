@@ -47,6 +47,24 @@ This theme showcases a card-based WordPress layout with a full-width visual envi
 - No build or automated test suite is configured.
 - If tooling is added, document commands in `AGENTS.md` and update this README.
 
+## Deployment
+
+`.github/workflows/deploy.yml` updates the existing DreamHost theme checkout over SSH on port 22. Configure these GitHub repository Actions secrets:
+
+| Secret | Value |
+| --- | --- |
+| `DEPLOY_SSH_KEY` | Complete private key for Actions to log into DreamHost. |
+| `DEPLOY_KNOWN_HOSTS` | Verified SSH known-hosts entry for the DreamHost server. |
+| `DEPLOY_USER` | DreamHost SSH username. |
+| `DEPLOY_DOMAIN` | SSH hostname only, without a URL scheme, username, port, or path. |
+| `DEPLOY_PATH` | Existing theme repository checkout on the server, preferably an absolute path. A leading `~/` is also supported. |
+
+The server checkout must already have an `origin` remote and unattended SSH access to fetch this GitHub repository, using its separate server-to-GitHub key.
+
+Pushes to any branch containing the workflow deploy that branch to the same website. Tag pushes and branch deletions do not deploy. For a manual deployment, publish the workflow on the default branch (`master`), then select **Actions → Deploy GreenZeta 2026 → Run workflow** and enter the target branch in the `branch` input. Existing branches must receive the workflow before their pushes can trigger automatic deployment. See [GitHub's workflow syntax reference](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax) for trigger details.
+
+Deployments share a concurrency group, verify SSH host keys, and update with fast-forward merges. Tracked server edits or target-branch commits absent from origin stop deployment; Git also refuses to overwrite conflicting untracked files. The deployed commit is the requested branch tip when the job fetches it. This updates files in place; no build, database migration, or service restart is configured.
+
 ## Custom Meta in the REST API
 
 The theme registers the following single-value fields on `init` in `functions.php`. They appear under `meta` in `/wp-json/wp/v2/` responses and accept updates through the same property. Each registration retains its existing sanitizer and explicitly authorizes users with `edit_posts`, including Editors. WordPress also checks permission to edit the specific item. These fields are readable in public REST responses for public items, so keep their values suitable for public display.
