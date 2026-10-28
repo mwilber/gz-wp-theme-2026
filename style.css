@@ -459,6 +459,14 @@ a {
   margin-bottom: 22px;
 }
 
+.home-section-heading {
+  margin: 40px 0 18px;
+  font-size: clamp(1.5rem, 2.2vw, 1.75rem);
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--ink);
+}
+
 .card-grid--featured > .card--hero:first-child {
   grid-column: 1 / -1;
 }

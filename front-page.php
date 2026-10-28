@@ -73,6 +73,7 @@ get_header();
     );
     ?>
     <?php if ( $projects_query->have_posts() ) : ?>
+      <h2 class="home-section-heading"><?php esc_html_e( 'Latest Projects', 'greenzeta-2026' ); ?></h2>
       <section class="card-grid card-grid--group">
         <?php while ( $projects_query->have_posts() ) : $projects_query->the_post(); ?>
           <?php get_template_part( 'template-parts/card', null, array( 'post_id' => get_the_ID() ) ); ?>
